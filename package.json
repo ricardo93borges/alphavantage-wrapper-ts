@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest test/",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
@@ -26,7 +26,10 @@
   },
   "homepage": "https://github.com/ricardo93borges/alphavantage#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-typescript": "^7.15.0",
     "@tsconfig/node14": "^1.0.1",
+    "@types/jest": "^27.0.2",
     "jest": "^27.2.4",
     "prettier": "^2.4.1",
     "standard": "^16.0.3",
