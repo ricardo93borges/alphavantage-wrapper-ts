@@ -1,18 +1,22 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
+import { StockTimeSeries } from './stock-time-series/StockTimeSeries';
 
 export type Config = {
-  apiKey: string;
+  apikey: string;
 };
 
 class AlphaVantage {
-  private api: AxiosInstance;
-  private apiKey: string;
+  private baseURL = 'https://www.alphavantage.co';
 
-  constructor({ apiKey }: Config) {
-    this.apiKey = apiKey;
-    this.api = axios.create({
-      baseURL: 'https://www.alphavantage.co',
+  stockTimeSeries: StockTimeSeries;
+
+  constructor({ apikey }: Config) {
+    const api = axios.create({
+      baseURL: this.baseURL,
+      params: { apikey },
     });
+
+    this.stockTimeSeries = new StockTimeSeries(api);
   }
 }
 

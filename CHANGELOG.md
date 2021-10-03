@@ -10,3 +10,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0]
 
 ### Added
+
+- Intraday integration
