@@ -4,7 +4,7 @@ Alpha Vantage API wrapper in TypeScript.
 
 ## Contributing
 
-This library is in development, and the goal is to publish it on library on NPM, and all contributions are welcome, read [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+This library is in development, and the goal is to publish it on NPM. All contributions are welcome, read [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
 ## License
 
