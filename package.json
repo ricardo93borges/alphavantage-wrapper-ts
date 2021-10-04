@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "test": "jest test/",
+    "test:watch": "jest test/ --watchAll",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },
