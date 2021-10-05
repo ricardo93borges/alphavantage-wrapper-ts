@@ -11,7 +11,7 @@ export class StockTimeSeries extends Category {
     super(api);
   }
 
-  protected parseIntradayData(
+  protected parseIntradayResponse(
     data: any,
     interval: Interval,
   ): IntradayResponseDTO {
@@ -50,7 +50,7 @@ export class StockTimeSeries extends Category {
         params: { ...intradayDTO, function: Function.TIME_SERIES_INTRADAY },
       });
 
-      return this.parseIntradayData(data, intradayDTO.interval);
+      return this.parseIntradayResponse(data, intradayDTO.interval);
     } catch (err) {
       throw new AlphaVantageRequestError(
         `fail to get intraday data. ${JSON.stringify(err)}`,
