@@ -1,4 +1,4 @@
-export type MetaData = {
+export type Metadata = {
   information: string;
   symbol: string;
   lastRefreshed: string;
@@ -16,6 +16,6 @@ export type TimeSeries = {
 };
 
 export type IntradayResponseDTO = {
-  metaData: MetaData;
+  metadata: Metadata;
   timeSeries: { [key: string]: TimeSeries };
 };

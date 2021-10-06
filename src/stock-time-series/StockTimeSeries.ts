@@ -15,7 +15,7 @@ export class StockTimeSeries extends Category {
     data: any,
     interval: Interval,
   ): IntradayResponseDTO {
-    const metaData = {
+    const metadata = {
       information: data['Meta Data']['1. Information'],
       symbol: data['Meta Data']['2. Symbol'],
       lastRefreshed: data['Meta Data']['3. Last Refreshed'],
@@ -39,7 +39,7 @@ export class StockTimeSeries extends Category {
       };
     }
 
-    return { metaData, timeSeries };
+    return { metadata, timeSeries };
   }
 
   async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponseDTO> {

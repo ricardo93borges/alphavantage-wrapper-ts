@@ -53,9 +53,9 @@ describe('#StockTimeSeries', () => {
 
       const result = await stockTimeSeries.intraday(intradayDTO);
 
-      expect(result.metaData.symbol).toEqual('IBM');
-      expect(result.metaData.interval).toEqual(Interval.FIVE_MIN);
-      expect(result.metaData.outputSize).toEqual('Compact');
+      expect(result.metadata.symbol).toEqual('IBM');
+      expect(result.metadata.interval).toEqual(Interval.FIVE_MIN);
+      expect(result.metadata.outputSize).toEqual('Compact');
       expect(result.timeSeries['2021-10-01 18:15:00']).toEqual({
         open: '143.5500',
         high: '143.5500',
