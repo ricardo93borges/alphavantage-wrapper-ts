@@ -24,9 +24,7 @@ export class StockTimeSeries extends Category {
       timeZone: data['Meta Data']['6. Time Zone'],
     };
 
-    const timeSeriesKeys = Object.keys(
-      data[`Time Series (${Interval.FIVE_MIN})`],
-    );
+    const timeSeriesKeys = Object.keys(data[`Time Series (${interval})`]);
 
     let timeSeries: { [key: string]: TimeSeries } = {};
     for (let i = 0; i < timeSeriesKeys.length; i++) {
