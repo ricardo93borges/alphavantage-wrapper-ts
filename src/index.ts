@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { API_URL } from './config';
 import { StockTimeSeries } from './stock-time-series/StockTimeSeries';
+import { Interval } from './enum/interval.enum';
+import { DataType } from './enum/datatype.enum';
+import { OutputSize } from './stock-time-series/enum/outputsize.enum';
+import { IntradayResponseDTO } from './stock-time-series/dto/intraday-response.dto';
 
 export type Config = {
   apikey: string;
@@ -18,5 +22,7 @@ class AlphaVantage {
     this.stockTimeSeries = new StockTimeSeries(api);
   }
 }
+
+export { Interval, DataType, OutputSize, IntradayResponseDTO };
 
 export default AlphaVantage;

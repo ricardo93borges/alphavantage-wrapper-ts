@@ -2,8 +2,12 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "lib": ["es2017", "es7", "es6", "dom"],
+    "declaration": true,
+    "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "allowUmdGlobalAccess": true
+  },
+  "exclude": ["node_modules", "dist", "test"]
 }
