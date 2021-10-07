@@ -1,5 +1,5 @@
 {
-  "name": "alphavantage",
+  "name": "alphavantage-wrapper-ts",
   "version": "1.0.0",
   "description": "Alpha Vantage API wrapper",
   "main": "dist/src/index.js",
@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ricardo93borges/alphavantage.git"
+    "url": "git+https://github.com/ricardo93borges/alphavantage-wrapper-ts.git"
   },
   "keywords": [
     "alphavantage",
@@ -37,9 +37,9 @@
   "author": "Ricardo Borges <ricardo93borges@gmail.com> (https://github.com/ricardo93borges/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ricardo93borges/alphavantage/issues"
+    "url": "https://github.com/ricardo93borges/alphavantage-wrapper-ts/issues"
   },
-  "homepage": "https://github.com/ricardo93borges/alphavantage#readme",
+  "homepage": "https://github.com/ricardo93borges/alphavantage-wrapper-ts#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-typescript": "^7.15.0",
