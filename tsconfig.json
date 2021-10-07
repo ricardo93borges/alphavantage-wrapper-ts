@@ -7,7 +7,9 @@
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
-    "allowUmdGlobalAccess": true
+    "allowUmdGlobalAccess": true,
+    "rootDir": "src",
+    "sourceMap": true
   },
   "exclude": ["node_modules", "dist", "test"]
 }
