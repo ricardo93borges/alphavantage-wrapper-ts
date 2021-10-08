@@ -1,9 +1,9 @@
 {
   "name": "alphavantage-wrapper-ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Alpha Vantage API wrapper",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest test/",
     "test:watch": "jest test/ --watchAll",
