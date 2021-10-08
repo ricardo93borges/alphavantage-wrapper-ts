@@ -4,8 +4,96 @@ Alpha Vantage API wrapper in TypeScript.
 
 ## Contributing
 
-This library is in development, and the goal is to publish it on NPM. All contributions are welcome, read [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+This library is in development, and all contributions are welcome, refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
 ## License
 
 This is an open source project under the MIT license, see LICENSE.md for additional information.
+
+## Getting started
+
+```js
+import AlphaVantage, { Interval } from 'alphavantage-wrapper-ts';
+
+const av = new AlphaVantage({ apikey: 'your API key' });
+
+av.stockTimeSeries
+  .intraday({ symbol: 'IBM', interval: Interval.SIXTY_MIN })
+  .then((data) => console.log(data));
+```
+
+## Stock Time Series
+
+### Intraday
+
+```js
+av.stockTimeSeries
+  .intraday({ symbol: 'IBM', interval: Interval.SIXTY_MIN })
+  .then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **interval**: Time interval between two consecutive data points in the time series. The following values are supported: 1min, 5min, 15min, 30min, 60min.
+3. **adjusted**: (optional) By default, adjusted=true and the output time series is adjusted by historical split and dividend events. Set adjusted=false to query raw (as-traded) intraday values.
+4. **outputsize**: (optional) By default, outputsize=compact. Strings compact and full are accepted with the following specifications: compact returns only the latest 100 data points in the intraday time series; full returns the full-length intraday time series. The "compact" option is recommended if you would like to reduce the data size of each API call.
+5. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```json
+{
+  metadata: {
+    information: string;
+    symbol: string;
+    lastRefreshed: string;
+    interval: string;
+    outputSize: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<datetime>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      '<datetime>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      ...
+    }
+}
+```
+
+## Enums
+
+```ts
+enum DataType {
+  JSON = 'json',
+  CSV = 'csv',
+}
+```
+
+```ts
+enum Interval {
+  ONE_MIN = '1min',
+  FIVE_MIN = '5min',
+  FIFTEEN_MIN = '15min',
+  THIRTY_MIN = '30min',
+  SIXTY_MIN = '60min',
+}
+```
+
+```ts
+enum OutputSize {
+  COMPACT = 'compact',
+  FULL = 'full',
+}
+```
