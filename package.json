@@ -1,36 +1,55 @@
 {
-  "name": "alphavantage",
+  "name": "alphavantage-wrapper-ts",
   "version": "1.0.0",
   "description": "Alpha Vantage API wrapper",
-  "main": "index.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest test/",
+    "test:watch": "jest test/ --watchAll",
+    "test:coverage": "jest test/ --coverage",
     "lint": "standard",
-    "lint:fix": "standard --fix"
+    "lint:fix": "standard --fix",
+    "clear": "rimraf dist",
+    "build": "npm run clear && tsc",
+    "prepare": "npm run build"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ricardo93borges/alphavantage.git"
+    "url": "git+https://github.com/ricardo93borges/alphavantage-wrapper-ts.git"
   },
   "keywords": [
     "alphavantage",
+    "alpha vantage",
+    "vantage",
+    "alpha",
     "api",
+    "stock market",
+    "wrapper",
     "stocks",
-    "typescript"
+    "typescript",
+    "Crypto Currencies",
+    "Crypto"
   ],
   "author": "Ricardo Borges <ricardo93borges@gmail.com> (https://github.com/ricardo93borges/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ricardo93borges/alphavantage/issues"
+    "url": "https://github.com/ricardo93borges/alphavantage-wrapper-ts/issues"
   },
-  "homepage": "https://github.com/ricardo93borges/alphavantage#readme",
+  "homepage": "https://github.com/ricardo93borges/alphavantage-wrapper-ts#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-typescript": "^7.15.0",
     "@tsconfig/node14": "^1.0.1",
+    "@types/estree": "^0.0.50",
+    "@types/jest": "^27.0.2",
     "jest": "^27.2.4",
     "prettier": "^2.4.1",
+    "rimraf": "^2.6.3",
     "standard": "^16.0.3",
-    "supertest": "^6.1.6",
     "typescript": "^4.4.3"
   },
   "dependencies": {
