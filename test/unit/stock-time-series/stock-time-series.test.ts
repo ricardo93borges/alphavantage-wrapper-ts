@@ -1,12 +1,15 @@
 import axios, { AxiosInstance } from 'axios';
-import { DataType } from '../../src/enum/datatype.enum';
-import { Function } from '../../src/enum/function.enum';
-import { Interval } from '../../src/enum/interval.enum';
-import { AlphaVantageRequestError, ParseResponseError } from '../../src/errors';
-import { OutputSize } from '../../src/stock-time-series/enum/outputsize.enum';
-import { StockTimeSeries } from '../../src/stock-time-series/StockTimeSeries';
+import { DataType } from '../../../src/enum/datatype.enum';
+import { Function } from '../../../src/enum/function.enum';
+import { Interval } from '../../../src/enum/interval.enum';
+import {
+  AlphaVantageRequestError,
+  ParseResponseError,
+} from '../../../src/errors';
+import { OutputSize } from '../../../src/stock-time-series/enum/outputsize.enum';
+import { StockTimeSeries } from '../../../src/stock-time-series/StockTimeSeries';
 
-describe('#StockTimeSeries', () => {
+describe('StockTimeSeries', () => {
   let stockTimeSeries: StockTimeSeries;
   let api: AxiosInstance;
   let intradayData = {};
