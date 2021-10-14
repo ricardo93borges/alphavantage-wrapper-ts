@@ -134,6 +134,29 @@ describe('StockTimeSeries', () => {
         expect(err).toBeInstanceOf(AlphaVantageRequestError);
       }
     });
+
+    it('should return csv data', async () => {
+      const interval = Interval.FIVE_MIN;
+
+      const csvData =
+        'timestamp,open,high,low,close,volume\
+      2021-10-13 18:25:00,140.8000,140.8000,140.8000,140.8000,107\
+      2021-10-13 17:35:00,140.8000,140.8000,140.8000,140.8000,200';
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData });
+
+      const intradayDTO = {
+        interval,
+        symbol: 'IBM',
+        adjusted: true,
+        outputsize: OutputSize.COMPACT,
+        datatype: DataType.CSV,
+      };
+
+      const result = await stockTimeSeries.intraday(intradayDTO);
+
+      expect(result).toEqual(csvData);
+    });
   });
 
   describe('#search', () => {
@@ -197,6 +220,24 @@ describe('StockTimeSeries', () => {
       } catch (err) {
         expect(err).toBeInstanceOf(AlphaVantageRequestError);
       }
+    });
+
+    it('should return csv data', async () => {
+      const csvData =
+        'symbol,name,type,region,marketOpen,marketClose,timezone,currency,matchScore\
+      BA,Boeing Company,Equity,United States,09:30,16:00,UTC-04,USD,1.0000\
+      BAB,Invesco Taxable Municipal Bond ETF,ETF,United States,09:30,16:00,UTC-04,USD,0.8000';
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData });
+
+      const searchDTO = {
+        keywords: 'TSCO',
+        datatype: DataType.CSV,
+      };
+
+      const result = await stockTimeSeries.search(searchDTO);
+
+      expect(result).toEqual(csvData);
     });
   });
 });

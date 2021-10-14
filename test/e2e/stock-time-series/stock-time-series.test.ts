@@ -47,6 +47,3 @@ describe('StockTimeSeries', () => {
     });
   });
 });
-
-// TODO doc search
-// TODO doc integration test

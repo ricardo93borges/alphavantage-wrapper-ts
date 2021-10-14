@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+import { DataType } from '..';
 import { Category } from '../Category';
 import { Function } from '../enum/function.enum';
 import { Interval } from '../enum/interval.enum';
@@ -84,6 +85,10 @@ export class StockTimeSeries extends Category {
         params: { ...intradayDTO, function: Function.TIME_SERIES_INTRADAY },
       });
 
+      if (intradayDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
       return this.parseIntradayResponse(data, intradayDTO.interval);
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
@@ -97,6 +102,10 @@ export class StockTimeSeries extends Category {
       const { data } = await this.api.get('/query', {
         params: { ...searchDTO, function: Function.SYMBOL_SEARCH },
       });
+
+      if (searchDTO.datatype === DataType.CSV) {
+        return data;
+      }
 
       return this.parseSearchResponse(data);
     } catch (err) {
