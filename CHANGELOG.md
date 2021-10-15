@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+## [1.1.1]
+
+### Added
+
 - Search integration
 
 ## [1.0.0]
