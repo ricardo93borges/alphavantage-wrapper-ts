@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
+### Added
+
+## [1.1.1]
+
+### Added
+
+- Search integration
+
 ## [1.0.0]
 
 ### Added

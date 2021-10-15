@@ -13,7 +13,7 @@ This is an open source project under the MIT license, see LICENSE.md for additio
 ## Getting started
 
 ```js
-import AlphaVantage, { Interval } from 'alphavantage-wrapper-ts';
+import AlphaVantage, { Interval, DataType } from 'alphavantage-wrapper-ts';
 
 const av = new AlphaVantage({ apikey: 'your API key' });
 
@@ -42,7 +42,7 @@ av.stockTimeSeries
 
 **Response**
 
-```json
+```js
 {
   metadata: {
     information: string;
@@ -70,6 +70,55 @@ av.stockTimeSeries
       ...
     }
 }
+```
+
+---
+
+### Search
+
+```js
+av.stockTimeSeries
+  .search({
+    keywords: 'microsoft',
+    datatype: DataType.JSON,
+  })
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
+```
+
+**Parameters**
+
+1. **keywords**: A text string of your choice. For example: `microsoft`
+2. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+[
+  {
+    symbol: 'MSFT',
+    name: 'Microsoft Corporation',
+    type: 'Equity',
+    region: 'United States',
+    marketOpen: '09:30',
+    marketClose: '16:00',
+    timezone: 'UTC-04',
+    currency: 'USD',
+    matchScore: '0.6154',
+  },
+  {
+    symbol: 'MSF.DEX',
+    name: 'Microsoft Corporation',
+    type: 'Equity',
+    region: 'XETRA',
+    marketOpen: '08:00',
+    marketClose: '20:00',
+    timezone: 'UTC+02',
+    currency: 'EUR',
+    matchScore: '0.6000',
+  },
+  ...
+];
 ```
 
 ## Enums

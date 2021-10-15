@@ -1,13 +1,14 @@
 {
   "name": "alphavantage-wrapper-ts",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Alpha Vantage API wrapper",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest test/",
-    "test:watch": "jest test/ --watchAll",
-    "test:coverage": "jest test/ --coverage",
+    "test": "jest test/unit",
+    "test:watch": "jest test/unit --watchAll",
+    "test:coverage": "jest test/unit --coverage",
+    "test:e2e": "jest test/e2e",
     "lint": "standard",
     "lint:fix": "standard --fix",
     "clear": "rimraf dist",
