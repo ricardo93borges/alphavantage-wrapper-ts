@@ -5,11 +5,19 @@ import { Function } from '../enum/function.enum';
 import { Interval } from '../enum/interval.enum';
 import { AlphaVantageRequestError, ParseResponseError } from '../errors';
 import {
+  DailyAdjustedResponseDTO,
+  DailyAdjustedTimeSeries,
+} from './dto/daily-adjusted-response.dto';
+import { DailyAdjustedDTO } from './dto/daily-adjusted.dto';
+import {
   APIResponseMetadata,
   APIResponseTimeSeriesItem,
-  IntradayAPIResponse,
-} from './dto/intraday-api-response.dto';
-import { IntradayResponseDTO, TimeSeries } from './dto/intraday-response.dto';
+  TimeSeriesAPIResponse,
+} from './dto/time-series-api-response.dto';
+import {
+  IntradayResponseDTO,
+  IntradayTimeSeries,
+} from './dto/intraday-response.dto';
 import { IntradayDTO } from './dto/intraday.dto';
 import { SearchAPIResponseDTO } from './dto/search-api-response.dto';
 import { SearchResponseDTO } from './dto/search-response.dto';
@@ -21,7 +29,7 @@ export class StockTimeSeries extends Category {
   }
 
   protected parseIntradayResponse(
-    data: IntradayAPIResponse,
+    data: TimeSeriesAPIResponse,
     interval: Interval,
   ): IntradayResponseDTO {
     try {
@@ -36,7 +44,7 @@ export class StockTimeSeries extends Category {
       };
 
       const timeSeriesKeys = Object.keys(data[`Time Series (${interval})`]);
-      let timeSeries: { [key: string]: TimeSeries } = {};
+      let timeSeries: { [key: string]: IntradayTimeSeries } = {};
 
       for (let i = 0; i < timeSeriesKeys.length; i++) {
         let key = timeSeriesKeys[i];
@@ -50,6 +58,46 @@ export class StockTimeSeries extends Category {
           low: timeSeriesItem['3. low'],
           close: timeSeriesItem['4. close'],
           volume: timeSeriesItem['5. volume'],
+        };
+      }
+
+      return { metadata, timeSeries };
+    } catch (err) {
+      throw new ParseResponseError('fail to parse intraday response', err);
+    }
+  }
+
+  protected parseDailyAdjustedResponse(
+    data: TimeSeriesAPIResponse,
+  ): DailyAdjustedResponseDTO {
+    try {
+      const apiResponseMetadata = data['Meta Data'] as APIResponseMetadata;
+      const metadata = {
+        information: apiResponseMetadata['1. Information'],
+        symbol: apiResponseMetadata['2. Symbol'],
+        lastRefreshed: apiResponseMetadata['3. Last Refreshed'],
+        outputSize: apiResponseMetadata['4. Output Size'],
+        timeZone: apiResponseMetadata['5. Time Zone'],
+      };
+
+      const timeSeriesKeys = Object.keys(data['Time Series (Daily)']);
+      let timeSeries: { [key: string]: DailyAdjustedTimeSeries } = {};
+
+      for (let i = 0; i < timeSeriesKeys.length; i++) {
+        let key = timeSeriesKeys[i];
+        let timeSeriesItem = data['Time Series (Daily)'][
+          key
+        ] as APIResponseTimeSeriesItem;
+
+        timeSeries[key] = {
+          open: timeSeriesItem['1. open'],
+          high: timeSeriesItem['2. high'],
+          low: timeSeriesItem['3. low'],
+          close: timeSeriesItem['4. close'],
+          adjustedClose: timeSeriesItem['5. adjusted close'],
+          volume: timeSeriesItem['6. volume'],
+          dividendAmount: timeSeriesItem['7. dividend amount'],
+          splitCoefficient: timeSeriesItem['8. split coefficient'],
         };
       }
 
@@ -112,6 +160,32 @@ export class StockTimeSeries extends Category {
       if (err instanceof ParseResponseError) throw err;
 
       throw new AlphaVantageRequestError('fail to get search data', err);
+    }
+  }
+
+  async dailyAdjusted(
+    dailyAdjustedDTO: DailyAdjustedDTO,
+  ): Promise<DailyAdjustedResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...dailyAdjustedDTO,
+          function: Function.TIME_SERIES_DAILY_ADJUSTED,
+        },
+      });
+
+      if (dailyAdjustedDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return this.parseDailyAdjustedResponse(data);
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get daily adjusted data',
+        err,
+      );
     }
   }
 }

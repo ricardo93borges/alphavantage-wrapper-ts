@@ -10,6 +10,6 @@ export type APIResponseTimeSeriesItem = {
   [key: string]: string;
 };
 
-export type IntradayAPIResponse = {
+export type TimeSeriesAPIResponse = {
   [key: string]: APIResponseMetadata | APIResponseTimeSeries;
 };

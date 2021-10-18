@@ -121,6 +121,59 @@ av.stockTimeSeries
 ];
 ```
 
+---
+
+### Daily Adjusted
+
+```js
+av.stockTimeSeries
+  .intraday({ symbol: 'IBM' })
+  .then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **outputsize**: (optional) By default, outputsize=compact. Strings compact and full are accepted with the following specifications: compact returns only the latest 100 data points in the intraday time series; full returns the full-length intraday time series. The "compact" option is recommended if you would like to reduce the data size of each API call.
+3. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  metadata: {
+    information: string;
+    symbol: string;
+    lastRefreshed: string;
+    outputSize: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<datetime>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+        adjustedClose: string;
+        dividendAmount: string;
+        splitCoefficient: string;
+      },
+      '<datetime>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+        adjustedClose: string;
+        dividendAmount: string;
+        splitCoefficient: string;
+      },
+      ...
+    }
+}
+```
+
 ## Enums
 
 ```ts
