@@ -127,7 +127,7 @@ av.stockTimeSeries
 
 ```js
 av.stockTimeSeries
-  .intraday({ symbol: 'IBM' })
+  .dailyAdjusted({ symbol: 'IBM' })
   .then((data) => console.log(data));
 ```
 
@@ -168,6 +168,55 @@ av.stockTimeSeries
         adjustedClose: string;
         dividendAmount: string;
         splitCoefficient: string;
+      },
+      ...
+    }
+}
+```
+
+---
+
+### Weekly Adjusted
+
+```js
+av.stockTimeSeries
+  .weeklyAdjusted({ symbol: 'IBM' })
+  .then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  metadata: {
+    information: string;
+    symbol: string;
+    lastRefreshed: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<datetime>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        adjustedClose: string;
+        volume: string;
+        dividendAmount: string;
+      },
+      '<datetime>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        adjustedClose: string;
+        volume: string;
+        dividendAmount: string;
       },
       ...
     }

@@ -22,6 +22,11 @@ import { IntradayDTO } from './dto/intraday.dto';
 import { SearchAPIResponseDTO } from './dto/search-api-response.dto';
 import { SearchResponseDTO } from './dto/search-response.dto';
 import { SearchDTO } from './dto/search.dto';
+import { WeeklyAdjustedDTO } from './dto/weekly-adjusted.dto';
+import {
+  WeeklyAdjustedResponseDTO,
+  WeeklyAdjustedTimeSeries,
+} from './dto/weekly-adjusted-response.dto';
 
 export class StockTimeSeries extends Category {
   constructor(api: AxiosInstance) {
@@ -103,7 +108,51 @@ export class StockTimeSeries extends Category {
 
       return { metadata, timeSeries };
     } catch (err) {
-      throw new ParseResponseError('fail to parse intraday response', err);
+      throw new ParseResponseError(
+        'fail to parse daily adjusted response',
+        err,
+      );
+    }
+  }
+
+  protected parseWeeklyAdjustedResponse(
+    data: TimeSeriesAPIResponse,
+  ): WeeklyAdjustedResponseDTO {
+    try {
+      const apiResponseMetadata = data['Meta Data'] as APIResponseMetadata;
+      const metadata = {
+        information: apiResponseMetadata['1. Information'],
+        symbol: apiResponseMetadata['2. Symbol'],
+        lastRefreshed: apiResponseMetadata['3. Last Refreshed'],
+        timeZone: apiResponseMetadata['5. Time Zone'],
+      };
+
+      const timeSeriesKeys = Object.keys(data['Weekly Adjusted Time Series']);
+      let timeSeries: { [key: string]: WeeklyAdjustedTimeSeries } = {};
+
+      for (let i = 0; i < timeSeriesKeys.length; i++) {
+        let key = timeSeriesKeys[i];
+        let timeSeriesItem = data['Weekly Adjusted Time Series'][
+          key
+        ] as APIResponseTimeSeriesItem;
+
+        timeSeries[key] = {
+          open: timeSeriesItem['1. open'],
+          high: timeSeriesItem['2. high'],
+          low: timeSeriesItem['3. low'],
+          close: timeSeriesItem['4. close'],
+          adjustedClose: timeSeriesItem['5. adjusted close'],
+          volume: timeSeriesItem['6. volume'],
+          dividendAmount: timeSeriesItem['7. dividend amount'],
+        };
+      }
+
+      return { metadata, timeSeries };
+    } catch (err) {
+      throw new ParseResponseError(
+        'fail to parse weekly adjusted response',
+        err,
+      );
     }
   }
 
@@ -184,6 +233,32 @@ export class StockTimeSeries extends Category {
 
       throw new AlphaVantageRequestError(
         'fail to get daily adjusted data',
+        err,
+      );
+    }
+  }
+
+  async weeklyAdjusted(
+    weeklyAdjustedDTO: WeeklyAdjustedDTO,
+  ): Promise<WeeklyAdjustedResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...weeklyAdjustedDTO,
+          function: Function.TIME_SERIES_WEEKLY_ADJUSTED,
+        },
+      });
+
+      if (weeklyAdjustedDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return this.parseWeeklyAdjustedResponse(data);
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get weekly adjusted data',
         err,
       );
     }
