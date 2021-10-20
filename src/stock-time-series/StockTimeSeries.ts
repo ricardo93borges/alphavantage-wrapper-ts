@@ -24,9 +24,11 @@ import { SearchResponseDTO } from './dto/search-response.dto';
 import { SearchDTO } from './dto/search.dto';
 import { WeeklyAdjustedDTO } from './dto/weekly-adjusted.dto';
 import {
-  WeeklyAdjustedResponseDTO,
+  WeeklyAdjustedResponseDTO as MonthlyAdjustedResponseDTO,
   WeeklyAdjustedTimeSeries,
 } from './dto/weekly-adjusted-response.dto';
+import { MonthlyAdjustedTimeSeries } from './dto/monthly-adjusted-response.dto';
+import { MonthlyAdjustedDTO } from './dto/monthly-adjusted.dto';
 
 export class StockTimeSeries extends Category {
   constructor(api: AxiosInstance) {
@@ -117,14 +119,14 @@ export class StockTimeSeries extends Category {
 
   protected parseWeeklyAdjustedResponse(
     data: TimeSeriesAPIResponse,
-  ): WeeklyAdjustedResponseDTO {
+  ): MonthlyAdjustedResponseDTO {
     try {
       const apiResponseMetadata = data['Meta Data'] as APIResponseMetadata;
       const metadata = {
         information: apiResponseMetadata['1. Information'],
         symbol: apiResponseMetadata['2. Symbol'],
         lastRefreshed: apiResponseMetadata['3. Last Refreshed'],
-        timeZone: apiResponseMetadata['5. Time Zone'],
+        timeZone: apiResponseMetadata['4. Time Zone'],
       };
 
       const timeSeriesKeys = Object.keys(data['Weekly Adjusted Time Series']);
@@ -151,6 +153,47 @@ export class StockTimeSeries extends Category {
     } catch (err) {
       throw new ParseResponseError(
         'fail to parse weekly adjusted response',
+        err,
+      );
+    }
+  }
+
+  protected parseMonthlyAdjustedResponse(
+    data: TimeSeriesAPIResponse,
+  ): MonthlyAdjustedResponseDTO {
+    try {
+      const apiResponseMetadata = data['Meta Data'] as APIResponseMetadata;
+      const metadata = {
+        information: apiResponseMetadata['1. Information'],
+        symbol: apiResponseMetadata['2. Symbol'],
+        lastRefreshed: apiResponseMetadata['3. Last Refreshed'],
+        timeZone: apiResponseMetadata['4. Time Zone'],
+      };
+
+      const timeSeriesKeys = Object.keys(data['Monthly Adjusted Time Series']);
+      let timeSeries: { [key: string]: MonthlyAdjustedTimeSeries } = {};
+
+      for (let i = 0; i < timeSeriesKeys.length; i++) {
+        let key = timeSeriesKeys[i];
+        let timeSeriesItem = data['Monthly Adjusted Time Series'][
+          key
+        ] as APIResponseTimeSeriesItem;
+
+        timeSeries[key] = {
+          open: timeSeriesItem['1. open'],
+          high: timeSeriesItem['2. high'],
+          low: timeSeriesItem['3. low'],
+          close: timeSeriesItem['4. close'],
+          adjustedClose: timeSeriesItem['5. adjusted close'],
+          volume: timeSeriesItem['6. volume'],
+          dividendAmount: timeSeriesItem['7. dividend amount'],
+        };
+      }
+
+      return { metadata, timeSeries };
+    } catch (err) {
+      throw new ParseResponseError(
+        'fail to parse monthly adjusted response',
         err,
       );
     }
@@ -240,7 +283,7 @@ export class StockTimeSeries extends Category {
 
   async weeklyAdjusted(
     weeklyAdjustedDTO: WeeklyAdjustedDTO,
-  ): Promise<WeeklyAdjustedResponseDTO> {
+  ): Promise<MonthlyAdjustedResponseDTO> {
     try {
       const { data } = await this.api.get('/query', {
         params: {
@@ -259,6 +302,32 @@ export class StockTimeSeries extends Category {
 
       throw new AlphaVantageRequestError(
         'fail to get weekly adjusted data',
+        err,
+      );
+    }
+  }
+
+  async monthlyAdjusted(
+    monthlyAdjustedDTO: MonthlyAdjustedDTO,
+  ): Promise<MonthlyAdjustedResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...monthlyAdjustedDTO,
+          function: Function.TIME_SERIES_MONTHLY_ADJUSTED,
+        },
+      });
+
+      if (monthlyAdjustedDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return this.parseMonthlyAdjustedResponse(data);
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get monthly adjusted data',
         err,
       );
     }
