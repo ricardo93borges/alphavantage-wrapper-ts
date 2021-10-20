@@ -149,7 +149,7 @@ av.stockTimeSeries
     timeZone: string;
   }
   timeSeries: {
-      '<datetime>': {
+      '<date>': {
         open: string;
         high: string;
         low: string;
@@ -159,7 +159,7 @@ av.stockTimeSeries
         dividendAmount: string;
         splitCoefficient: string;
       },
-      '<datetime>': {
+      '<date>': {
         open: string;
         high: string;
         low: string;
@@ -200,7 +200,7 @@ av.stockTimeSeries
     timeZone: string;
   }
   timeSeries: {
-      '<datetime>': {
+      '<date>': {
         open: string;
         high: string;
         low: string;
@@ -209,7 +209,56 @@ av.stockTimeSeries
         volume: string;
         dividendAmount: string;
       },
-      '<datetime>': {
+      '<date>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        adjustedClose: string;
+        volume: string;
+        dividendAmount: string;
+      },
+      ...
+    }
+}
+```
+
+---
+
+### Monthly Adjusted
+
+```js
+av.stockTimeSeries
+  .monthlyAdjusted({ symbol: 'IBM' })
+  .then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  metadata: {
+    information: string;
+    symbol: string;
+    lastRefreshed: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<date>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        adjustedClose: string;
+        volume: string;
+        dividendAmount: string;
+      },
+      '<date>': {
         open: string;
         high: string;
         low: string;

@@ -16,6 +16,7 @@ describe('StockTimeSeries', () => {
   let searchData = {};
   let dailyAdjustedData = {};
   let weeklyAdjustedData = {};
+  let monthlyAdjustedData = {};
 
   beforeEach(() => {
     api = axios.create({
@@ -99,6 +100,26 @@ describe('StockTimeSeries', () => {
           '4. close': '142.3200',
           '5. adjusted close': '142.3200',
           '6. volume': '6077861',
+          '7. dividend amount': '0.0000',
+        },
+      },
+    };
+
+    monthlyAdjustedData = {
+      'Meta Data': {
+        '1. Information': 'Monthly Adjusted Prices and Volumes',
+        '2. Symbol': 'IBM',
+        '3. Last Refreshed': '2021-10-19',
+        '4. Time Zone': 'US/Eastern',
+      },
+      'Monthly Adjusted Time Series': {
+        '2021-10-19': {
+          '1. open': '141.0000',
+          '2. high': '146.0000',
+          '3. low': '139.6600',
+          '4. close': '141.9800',
+          '5. adjusted close': '141.9800',
+          '6. volume': '60532033',
           '7. dividend amount': '0.0000',
         },
       },
@@ -445,9 +466,8 @@ describe('StockTimeSeries', () => {
 
     it('should return csv data', async () => {
       const csvData =
-        'timestamp,open,high,low,close,adjusted_close,volume,dividend_amount,split_coefficient\
-        2021-10-15,143.39,144.85,142.79,144.61,144.61,3170857,0.0000,1.0\
-        2021-10-14,141.04,143.92,141.01,143.39,143.39,4217305,0.0000,1.0';
+        'timestamp,open,high,low,close,adjusted close,volume,dividend amount\
+        2021-10-19,144.0000,144.9400,140.5201,141.9800,141.9800,10453991,0.0000';
 
       api.get = jest.fn().mockResolvedValue({ data: csvData });
 
@@ -457,6 +477,91 @@ describe('StockTimeSeries', () => {
       };
 
       const result = await stockTimeSeries.weeklyAdjusted(dailyAdjustedDTO);
+
+      expect(result).toEqual(csvData);
+    });
+  });
+
+  describe('#monthlyAdjusted', () => {
+    it('should make a request to monthly adjusted endpoint', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: monthlyAdjustedData });
+
+      const monthlyAdjustedDTO = {
+        symbol: 'IBM',
+        datatype: DataType.JSON,
+      };
+
+      await stockTimeSeries.monthlyAdjusted(monthlyAdjustedDTO);
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: {
+          ...monthlyAdjustedDTO,
+          function: Function.TIME_SERIES_MONTHLY_ADJUSTED,
+        },
+      });
+    });
+
+    it('should return parsed monthly adjusted data', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: monthlyAdjustedData });
+
+      const monthlyAdjustedDTO = {
+        symbol: 'IBM',
+        datatype: DataType.JSON,
+      };
+
+      const result = await stockTimeSeries.monthlyAdjusted(monthlyAdjustedDTO);
+
+      expect(result.metadata.symbol).toEqual('IBM');
+      expect(result.timeSeries['2021-10-19']).toEqual({
+        open: '141.0000',
+        high: '146.0000',
+        low: '139.6600',
+        close: '141.9800',
+        adjustedClose: '141.9800',
+        volume: '60532033',
+        dividendAmount: '0.0000',
+      });
+    });
+
+    it('should fail to parse monthly adjusted data', async () => {
+      api.get = jest.fn().mockResolvedValue({});
+
+      try {
+        await stockTimeSeries.monthlyAdjusted({
+          symbol: 'IBM',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(ParseResponseError);
+      }
+    });
+
+    it('should throw AlphaVantageRequestError because it fail to request monthly adjusted data', async () => {
+      api.get = jest.fn().mockRejectedValue(new Error('some error'));
+
+      try {
+        await stockTimeSeries.monthlyAdjusted({
+          symbol: 'IBM',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(AlphaVantageRequestError);
+      }
+    });
+
+    it('should return csv data', async () => {
+      const csvData =
+        'timestamp,open,high,low,close,adjusted close,volume,dividend amount\
+        2021-10-19,141.0000,146.0000,139.6600,141.9800,141.9800,60532033,0.0000';
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData });
+
+      const monthlyAdjustedDTO = {
+        symbol: 'IBM',
+        datatype: DataType.CSV,
+      };
+
+      const result = await stockTimeSeries.weeklyAdjusted(monthlyAdjustedDTO);
 
       expect(result).toEqual(csvData);
     });

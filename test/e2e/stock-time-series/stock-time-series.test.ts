@@ -82,4 +82,22 @@ describe('StockTimeSeries', () => {
       expect(hasError).toBe(false);
     });
   });
+
+  describe('#monthlyAdjusted', () => {
+    it('should make a request to monthly adjusted endpoint', async () => {
+      let stockTimeSeries = new StockTimeSeries(api);
+
+      let hasError = false;
+      try {
+        await stockTimeSeries.monthlyAdjusted({
+          symbol: 'IBM',
+        });
+      } catch (err) {
+        console.error(err);
+        hasError = true;
+      }
+
+      expect(hasError).toBe(false);
+    });
+  });
 });
