@@ -2,81 +2,29 @@ import { AxiosInstance } from 'axios';
 import { DataType } from '..';
 import { Category } from '../Category';
 import { Function } from '../enum/function.enum';
-import { Interval } from '../enum/interval.enum';
 import { AlphaVantageRequestError, ParseResponseError } from '../errors';
-import {
-  APIResponseMetadata,
-  APIResponseTimeSeriesItem,
-  IntradayAPIResponse,
-} from './dto/intraday-api-response.dto';
-import { IntradayResponseDTO, TimeSeries } from './dto/intraday-response.dto';
+import { DailyAdjustedResponseDTO } from './dto/daily-adjusted-response.dto';
+import { DailyAdjustedDTO } from './dto/daily-adjusted.dto';
+import { IntradayResponseDTO } from './dto/intraday-response.dto';
 import { IntradayDTO } from './dto/intraday.dto';
-import { SearchAPIResponseDTO } from './dto/search-api-response.dto';
 import { SearchResponseDTO } from './dto/search-response.dto';
 import { SearchDTO } from './dto/search.dto';
+import { WeeklyAdjustedDTO } from './dto/weekly-adjusted.dto';
+import { MonthlyAdjustedDTO } from './dto/monthly-adjusted.dto';
+import { MonthlyAdjustedResponseDTO } from './dto/monthly-adjusted-response.dto';
+import {
+  getParseDailyAdjustedResponseMap,
+  getParseIntradayResponseMap,
+  getParseMonthlyAdjustedResponseMap,
+  getParseWeeklyAdjustedResponseMap,
+} from './utils/parse-response-maps';
+import parseResponse from './utils/parse-response';
+import parseSearchResponse from './utils/parse-search-response';
+import { WeeklyAdjustedResponseDTO } from './dto/weekly-adjusted-response.dto';
 
 export class StockTimeSeries extends Category {
   constructor(api: AxiosInstance) {
     super(api);
-  }
-
-  protected parseIntradayResponse(
-    data: IntradayAPIResponse,
-    interval: Interval,
-  ): IntradayResponseDTO {
-    try {
-      const apiResponseMetadata = data['Meta Data'] as APIResponseMetadata;
-      const metadata = {
-        information: apiResponseMetadata['1. Information'],
-        symbol: apiResponseMetadata['2. Symbol'],
-        lastRefreshed: apiResponseMetadata['3. Last Refreshed'],
-        interval: apiResponseMetadata['4. Interval'],
-        outputSize: apiResponseMetadata['5. Output Size'],
-        timeZone: apiResponseMetadata['6. Time Zone'],
-      };
-
-      const timeSeriesKeys = Object.keys(data[`Time Series (${interval})`]);
-      let timeSeries: { [key: string]: TimeSeries } = {};
-
-      for (let i = 0; i < timeSeriesKeys.length; i++) {
-        let key = timeSeriesKeys[i];
-        let timeSeriesItem = data[`Time Series (${interval})`][
-          key
-        ] as APIResponseTimeSeriesItem;
-
-        timeSeries[key] = {
-          open: timeSeriesItem['1. open'],
-          high: timeSeriesItem['2. high'],
-          low: timeSeriesItem['3. low'],
-          close: timeSeriesItem['4. close'],
-          volume: timeSeriesItem['5. volume'],
-        };
-      }
-
-      return { metadata, timeSeries };
-    } catch (err) {
-      throw new ParseResponseError('fail to parse intraday response', err);
-    }
-  }
-
-  protected parseSearchResponse(
-    data: SearchAPIResponseDTO,
-  ): SearchResponseDTO[] {
-    try {
-      return data['bestMatches'].map((match) => ({
-        symbol: match['1. symbol'],
-        name: match['2. name'],
-        type: match['3. type'],
-        region: match['4. region'],
-        marketOpen: match['5. marketOpen'],
-        marketClose: match['6. marketClose'],
-        timezone: match['7. timezone'],
-        currency: match['8. currency'],
-        matchScore: match['9. matchScore'],
-      }));
-    } catch (err) {
-      throw new ParseResponseError('fail to parse search response', err);
-    }
   }
 
   async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponseDTO> {
@@ -89,7 +37,10 @@ export class StockTimeSeries extends Category {
         return data;
       }
 
-      return this.parseIntradayResponse(data, intradayDTO.interval);
+      return parseResponse(
+        getParseIntradayResponseMap(intradayDTO.interval),
+        data,
+      ) as IntradayResponseDTO;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
@@ -107,11 +58,97 @@ export class StockTimeSeries extends Category {
         return data;
       }
 
-      return this.parseSearchResponse(data);
+      return parseSearchResponse(data);
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
       throw new AlphaVantageRequestError('fail to get search data', err);
+    }
+  }
+
+  async dailyAdjusted(
+    dailyAdjustedDTO: DailyAdjustedDTO,
+  ): Promise<DailyAdjustedResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...dailyAdjustedDTO,
+          function: Function.TIME_SERIES_DAILY_ADJUSTED,
+        },
+      });
+
+      if (dailyAdjustedDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return parseResponse(
+        getParseDailyAdjustedResponseMap(),
+        data,
+      ) as DailyAdjustedResponseDTO;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get daily adjusted data',
+        err,
+      );
+    }
+  }
+
+  async weeklyAdjusted(
+    weeklyAdjustedDTO: WeeklyAdjustedDTO,
+  ): Promise<WeeklyAdjustedResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...weeklyAdjustedDTO,
+          function: Function.TIME_SERIES_WEEKLY_ADJUSTED,
+        },
+      });
+
+      if (weeklyAdjustedDTO.datatype === DataType.CSV) {
+        return data;
+      }
+      return parseResponse(
+        getParseWeeklyAdjustedResponseMap(),
+        data,
+      ) as MonthlyAdjustedResponseDTO;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get weekly adjusted data',
+        err,
+      );
+    }
+  }
+
+  async monthlyAdjusted(
+    monthlyAdjustedDTO: MonthlyAdjustedDTO,
+  ): Promise<MonthlyAdjustedResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...monthlyAdjustedDTO,
+          function: Function.TIME_SERIES_MONTHLY_ADJUSTED,
+        },
+      });
+
+      if (monthlyAdjustedDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return parseResponse(
+        getParseMonthlyAdjustedResponseMap(),
+        data,
+      ) as MonthlyAdjustedResponseDTO;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get monthly adjusted data',
+        err,
+      );
     }
   }
 }

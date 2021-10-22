@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Daily adjusted time series integration
+- Weekly adjusted time series integration
+- Monthly adjusted time series integration
+
 ## [1.1.1]
 
 ### Added

@@ -1,4 +1,4 @@
-export type Metadata = {
+export type IntradayMetadata = {
   information: string;
   symbol: string;
   lastRefreshed: string;
@@ -7,7 +7,7 @@ export type Metadata = {
   timeZone: string;
 };
 
-export type TimeSeries = {
+export type IntradayTimeSeries = {
   open: string;
   high: string;
   low: string;
@@ -16,6 +16,6 @@ export type TimeSeries = {
 };
 
 export type IntradayResponseDTO = {
-  metadata: Metadata;
-  timeSeries: { [key: string]: TimeSeries };
+  metadata: IntradayMetadata;
+  timeSeries: { [key: string]: IntradayTimeSeries };
 };
