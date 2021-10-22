@@ -15,7 +15,7 @@ export type MonthlyAdjustedTimeSeries = {
   dividendAmount: string;
 };
 
-export type WeeklyAdjustedResponseDTO = {
+export type MonthlyAdjustedResponseDTO = {
   metadata: MonthlyAdjustedMetadata;
   timeSeries: { [key: string]: MonthlyAdjustedTimeSeries };
 };
