@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+## [1.3.1]
+
+### Added
+
 - Company overview integration
 
 ## [1.2.1]
