@@ -1,6 +1,26 @@
-# Alphavantage Wrapper TS ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) [![Coverage Status](https://coveralls.io/repos/github/ricardo93borges/alphavantage/badge.svg?branch=develop)](https://coveralls.io/github/ricardo93borges/alphavantage?branch=develop) [![CI](https://github.com/ricardo93borges/alphavantage/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/ricardo93borges/alphavantage/actions/workflows/main.yml)
+# Alphavantage Wrapper TS
+
+[![Coverage Status](https://coveralls.io/repos/github/ricardo93borges/alphavantage/badge.svg?branch=develop)](https://coveralls.io/github/ricardo93borges/alphavantage?branch=develop) [![CI](https://github.com/ricardo93borges/alphavantage/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/ricardo93borges/alphavantage/actions/workflows/main.yml) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) ![issues](https://img.shields.io/github/issues/ricardo93borges/alphavantage-wrapper-ts) ![forks](https://img.shields.io/github/forks/ricardo93borges/alphavantage-wrapper-ts) ![stars](https://img.shields.io/github/stars/ricardo93borges/alphavantage-wrapper-ts)
+![npm](https://img.shields.io/npm/v/alphavantage-wrapper-ts) ![npm downloads](https://img.shields.io/npm/dw/alphavantage-wrapper-ts)
 
 Alpha Vantage API wrapper in TypeScript.
+
+## Table of Contents
+
+- [Contributing](#contributing)
+- [License](#license)
+- [Getting started](#getting-started)
+- [Stock Time Series](#stock-time-series)
+  - [Intraday](#intraday)
+  - [Search](#search)
+  - [Daily Adjusted](#daily-adjusted)
+  - [Weekly Adjusted](#weekly-adjusted)
+  - [Monthly Adjusted](#monthly-adjusted)
+- [Fundamental data](#fundamental-data)
+  - [Company Overview](#company-overview)
+- [Cryptocurrencies](#cryptocurrencies)
+  - [Intraday](#intraday-1)
+- [Enums](#enums)
 
 ## Contributing
 
@@ -46,7 +66,10 @@ av.stockTimeSeries
 {
   metadata: {
     information: string;
-    symbol: string;
+    digitalCurrencyCode: string;
+    digitalCurrencyName: string;
+    marketCode: string;
+    marketName: string;
     lastRefreshed: string;
     interval: string;
     outputSize: string;
@@ -351,6 +374,58 @@ av.fundamentalData
   exDividendDate: string;
   lastSplitFactor: string;
   lastSplitDate: string;
+}
+```
+
+---
+
+## Cryptocurrencies
+
+### Intraday
+
+```js
+av.cryptocurrency
+  .intraday({ symbol: 'ETH', market: 'USD', interval: Interval.SIXTY_MIN })
+  .then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **interval**: Time interval between two consecutive data points in the time series. The following values are supported: 1min, 5min, 15min, 30min, 60min.
+3. **market**: The exchange market of your choice. It can be any of the market in the market list. For example: market=USD.
+4. **outputsize**: (optional) By default, outputsize=compact. Strings compact and full are accepted with the following specifications: compact returns only the latest 100 data points in the intraday time series; full returns the full-length intraday time series. The "compact" option is recommended if you would like to reduce the data size of each API call.
+5. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  metadata: {
+    information: string;
+    symbol: string;
+    lastRefreshed: string;
+    interval: string;
+    outputSize: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<datetime>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      '<datetime>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      ...
+    }
 }
 ```
 
