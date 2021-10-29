@@ -23,3 +23,30 @@ export function getParseIntradayResponseMap(interval: Interval) {
     },
   };
 }
+
+export function getParseMonthlyResponseMap(market: string) {
+  return {
+    metadata: {
+      information: '1. Information',
+      digitalCurrencyCode: '2. Digital Currency Code',
+      digitalCurrencyName: '3. Digital Currency Name',
+      marketCode: '4. Market Code',
+      marketName: '5. Market Name',
+      lastRefreshed: '6. Last Refreshed',
+      timeZone: '7. Time Zone',
+    },
+    timeSeriesKey: 'Time Series (Digital Currency Monthly)',
+    timeSeries: {
+      openMarket: `1a. open (${market})`,
+      openUSD: '1b. open (USD)',
+      highMarket: `2a. high (${market})`,
+      highUSD: '2b. high (USD)',
+      lowMarket: `3a. low (${market})`,
+      lowUSD: '3b. low (USD)',
+      closeMarket: `4a. close (${market})`,
+      closeUSD: '4b. close (USD)',
+      volume: '5. volume',
+      marketCap: '6. market cap (USD)',
+    },
+  };
+}

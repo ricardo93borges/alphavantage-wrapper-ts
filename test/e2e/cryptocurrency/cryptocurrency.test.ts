@@ -29,4 +29,23 @@ describe('Cryptocurrency', () => {
       expect(hasError).toBe(false);
     });
   });
+
+  describe('#monthly', () => {
+    it('should make a request to monthly endpoint', async () => {
+      let cryptocurrency = new Cryptocurrency(api);
+
+      let hasError = false;
+      try {
+        await cryptocurrency.monthly({
+          symbol: 'ETH',
+          market: 'USD',
+        });
+      } catch (err) {
+        console.error(err);
+        hasError = true;
+      }
+
+      expect(hasError).toBe(false);
+    });
+  });
 });
