@@ -6,6 +6,7 @@ import { DataType } from './enum/datatype.enum';
 import { OutputSize } from './stock-time-series/enum/outputsize.enum';
 import { IntradayResponseDTO } from './stock-time-series/dto/intraday-response.dto';
 import { FundamentalData } from './fundamental-data/FundamentalData';
+import { Cryptocurrency } from './cryptocurrency/Cryptocurrency';
 
 export type Config = {
   apikey: string;
@@ -14,6 +15,7 @@ export type Config = {
 class AlphaVantage {
   stockTimeSeries: StockTimeSeries;
   fundamentalData: FundamentalData;
+  cryptocurrency: Cryptocurrency;
 
   constructor({ apikey }: Config) {
     const api = axios.create({
@@ -23,6 +25,7 @@ class AlphaVantage {
 
     this.stockTimeSeries = new StockTimeSeries(api);
     this.fundamentalData = new FundamentalData(api);
+    this.cryptocurrency = new Cryptocurrency(api);
   }
 }
 

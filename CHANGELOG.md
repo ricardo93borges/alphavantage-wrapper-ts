@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Cryptocurrencies intraday integration
+
 ## [1.3.1]
 
 ### Added
