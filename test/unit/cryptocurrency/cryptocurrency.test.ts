@@ -8,7 +8,10 @@ import {
   ParseResponseError,
 } from '../../../src/errors';
 import { OutputSize } from '../../../src/stock-time-series/enum/outputsize.enum';
-import { givenIntradayResponse } from '../helpers/data-builders/cryptocurrency.builder';
+import {
+  givenIntradayResponse,
+  givenMonthlyResponse,
+} from '../helpers/data-builders/cryptocurrency.builder';
 
 describe('Cryptocurrency', () => {
   let cryptocurrency: Cryptocurrency;
@@ -117,6 +120,98 @@ describe('Cryptocurrency', () => {
       };
 
       const result = await cryptocurrency.intraday(intradayDTO);
+
+      expect(result).toEqual(csvData);
+    });
+  });
+
+  describe('#monthly', () => {
+    it('should make a request to monthly endpoint', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenMonthlyResponse() });
+
+      const monthlyDTO = {
+        symbol: 'ETH',
+        market: 'CNY',
+        datatype: DataType.JSON,
+      };
+
+      await cryptocurrency.monthly(monthlyDTO);
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: { ...monthlyDTO, function: Function.DIGITAL_CURRENCY_MONTHLY },
+      });
+    });
+
+    it('should return parsed monthly data', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenMonthlyResponse() });
+
+      const monthlyDTO = {
+        symbol: 'ETH',
+        market: 'CNY',
+        datatype: DataType.JSON,
+      };
+
+      const result = await cryptocurrency.monthly(monthlyDTO);
+
+      expect(result.metadata.digitalCurrencyCode).toEqual('ETH');
+      expect(result.metadata.digitalCurrencyName).toEqual('Ethereum');
+      expect(result.timeSeries['2021-10-29']).toEqual({
+        openMarket: '19180.86322600',
+        openUSD: '3000.62000000',
+        highMarket: '28161.27765000',
+        highUSD: '4405.50000000',
+        lowMarket: '18979.18616100',
+        lowUSD: '2969.07000000',
+        closeMarket: '27845.56195300',
+        closeUSD: '4356.11000000',
+        volume: '13202580.62690000',
+        marketCap: '13202580.62690000',
+      });
+    });
+
+    it('should fail to parse monthly data', async () => {
+      api.get = jest.fn().mockResolvedValue({});
+
+      try {
+        await cryptocurrency.monthly({
+          symbol: 'ETH',
+          market: 'USD',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(ParseResponseError);
+      }
+    });
+
+    it('should throw AlphaVantageRequestError because it fail to request monthly data', async () => {
+      api.get = jest.fn().mockRejectedValue(new Error('some error'));
+
+      try {
+        await cryptocurrency.monthly({
+          symbol: 'ETH',
+          market: 'USD',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(AlphaVantageRequestError);
+      }
+    });
+
+    it('should return csv data', async () => {
+      const csvData =
+        'timestamp,open,high,low,close,volume\
+        2021-10-29 00:10:00,4286.90000,4289.64000,4285.61000,4287.79000,428\
+        2021-10-29 00:05:00,4282.25000,4300.00000,4282.25000,4286.55000,3238';
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData });
+
+      const monthlyDTO = {
+        symbol: 'ETH',
+        market: 'USD',
+        datatype: DataType.CSV,
+      };
+
+      const result = await cryptocurrency.monthly(monthlyDTO);
 
       expect(result).toEqual(csvData);
     });

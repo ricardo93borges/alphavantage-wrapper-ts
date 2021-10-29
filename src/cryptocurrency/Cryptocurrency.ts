@@ -5,8 +5,13 @@ import { Function } from '../enum/function.enum';
 import { AlphaVantageRequestError, ParseResponseError } from '../errors';
 import { IntradayResponseDTO } from './dto/intraday-response.dto';
 import { IntradayDTO } from './dto/intraday.dto';
+import { MonthlyResponseDTO } from './dto/monthly-response.dto';
+import { MonthlyDTO } from './dto/monthly.dto';
 import parseResponse from './utils/parse-response';
-import { getParseIntradayResponseMap } from './utils/parse-response-maps';
+import {
+  getParseIntradayResponseMap,
+  getParseMonthlyResponseMap,
+} from './utils/parse-response-maps';
 
 export class Cryptocurrency extends Category {
   constructor(api: AxiosInstance) {
@@ -31,7 +36,31 @@ export class Cryptocurrency extends Category {
       if (err instanceof ParseResponseError) throw err;
 
       throw new AlphaVantageRequestError(
-        'fail to get cryptocurrency intraday',
+        'fail to get cryptocurrency intraday data',
+        err,
+      );
+    }
+  }
+
+  async monthly(monthlyDTO: MonthlyDTO): Promise<MonthlyResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: { ...monthlyDTO, function: Function.DIGITAL_CURRENCY_MONTHLY },
+      });
+
+      if (monthlyDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return parseResponse(
+        getParseMonthlyResponseMap(monthlyDTO.market),
+        data,
+      ) as unknown as MonthlyResponseDTO;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get cryptocurrency monthly data',
         err,
       );
     }
