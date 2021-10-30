@@ -22,6 +22,7 @@ Alpha Vantage API wrapper in TypeScript.
   - [Intraday](#intraday-1)
   - [Monthly](#monthly)
   - [Weekly](#weekly)
+  - [Daily](#daily)
 - [Enums](#enums)
 
 ## Contributing
@@ -493,6 +494,63 @@ av.cryptocurrency
 ```js
 av.cryptocurrency
   .weekly({ symbol: 'ETH', market: 'CNY' })
+  .then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **market**: The exchange market of your choice. It can be any of the market in the market list. For example: market=USD.
+3. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  metadata: {
+    information: string;
+    digitalCurrencyCode: string;
+    digitalCurrencyName: string;
+    marketCode: string;
+    marketName: string;
+    lastRefreshed: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<datetime>': {
+          openMarket: string;
+          openUSD: string;
+          highMarket: string;
+          highUSD: string;
+          lowMarket: string;
+          lowUSD: string;
+          closeMarket: string;
+          closeUSD: string;
+          volume: string;
+          marketCap: string;
+      },
+      '<datetime>': {
+          openMarket: string;
+          openUSD: string;
+          highMarket: string;
+          highUSD: string;
+          lowMarket: string;
+          lowUSD: string;
+          closeMarket: string;
+          closeUSD: string;
+          volume: string;
+          marketCap: string;
+      },
+      ...
+    }
+}
+```
+
+### Daily
+
+```js
+av.cryptocurrency
+  .daily({ symbol: 'ETH', market: 'CNY' })
   .then((data) => console.log(data));
 ```
 

@@ -9,6 +9,7 @@ import {
 } from '../../../src/errors';
 import { OutputSize } from '../../../src/stock-time-series/enum/outputsize.enum';
 import {
+  givenDailyResponse,
   givenIntradayResponse,
   givenMonthlyResponse,
   givenWeeklyResponse,
@@ -305,6 +306,98 @@ describe('Cryptocurrency', () => {
       };
 
       const result = await cryptocurrency.weekly(weeklyDTO);
+
+      expect(result).toEqual(csvData);
+    });
+  });
+
+  describe('#daily', () => {
+    it('should make a request to daily endpoint', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenDailyResponse() });
+
+      const dailyDTO = {
+        symbol: 'ETH',
+        market: 'CNY',
+        datatype: DataType.JSON,
+      };
+
+      await cryptocurrency.daily(dailyDTO);
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: { ...dailyDTO, function: Function.DIGITAL_CURRENCY_DAILY },
+      });
+    });
+
+    it('should return parsed daily data', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenDailyResponse() });
+
+      const dailyDTO = {
+        symbol: 'ETH',
+        market: 'CNY',
+        datatype: DataType.JSON,
+      };
+
+      const result = await cryptocurrency.daily(dailyDTO);
+
+      expect(result.metadata.digitalCurrencyCode).toEqual('BTC');
+      expect(result.metadata.digitalCurrencyName).toEqual('Bitcoin');
+      expect(result.timeSeries['2021-10-29']).toEqual({
+        openMarket: '387219.32557000',
+        openUSD: '60575.90000000',
+        highMarket: '396961.83000000',
+        highUSD: '62100.00000000',
+        lowMarket: '384655.43796300',
+        lowUSD: '60174.81000000',
+        closeMarket: '392416.00977800',
+        closeUSD: '61388.86000000',
+        volume: '5049.96165000',
+        marketCap: '5049.96165000',
+      });
+    });
+
+    it('should fail to parse daily data', async () => {
+      api.get = jest.fn().mockResolvedValue({});
+
+      try {
+        await cryptocurrency.daily({
+          symbol: 'ETH',
+          market: 'USD',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(ParseResponseError);
+      }
+    });
+
+    it('should throw AlphaVantageRequestError because it fail to request daily data', async () => {
+      api.get = jest.fn().mockRejectedValue(new Error('some error'));
+
+      try {
+        await cryptocurrency.daily({
+          symbol: 'ETH',
+          market: 'USD',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(AlphaVantageRequestError);
+      }
+    });
+
+    it('should return csv data', async () => {
+      const csvData =
+        'timestamp,open,high,low,close,volume\
+        2021-10-29 00:10:00,4286.90000,4289.64000,4285.61000,4287.79000,428\
+        2021-10-29 00:05:00,4282.25000,4300.00000,4282.25000,4286.55000,3238';
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData });
+
+      const dailyDTO = {
+        symbol: 'ETH',
+        market: 'USD',
+        datatype: DataType.CSV,
+      };
+
+      const result = await cryptocurrency.daily(dailyDTO);
 
       expect(result).toEqual(csvData);
     });

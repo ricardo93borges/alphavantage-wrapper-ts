@@ -101,3 +101,36 @@ export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
 
   return obj;
 }
+
+export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
+  const obj = Object.assign(
+    {
+      'Meta Data': {
+        '1. Information': 'Daily Prices and Volumes for Digital Currency',
+        '2. Digital Currency Code': 'BTC',
+        '3. Digital Currency Name': 'Bitcoin',
+        '4. Market Code': 'CNY',
+        '5. Market Name': 'Chinese Yuan',
+        '6. Last Refreshed': '2021-10-29 00:00:00',
+        '7. Time Zone': 'UTC',
+      },
+      'Time Series (Digital Currency Daily)': {
+        '2021-10-29': {
+          '1a. open (CNY)': '387219.32557000',
+          '1b. open (USD)': '60575.90000000',
+          '2a. high (CNY)': '396961.83000000',
+          '2b. high (USD)': '62100.00000000',
+          '3a. low (CNY)': '384655.43796300',
+          '3b. low (USD)': '60174.81000000',
+          '4a. close (CNY)': '392416.00977800',
+          '4b. close (USD)': '61388.86000000',
+          '5. volume': '5049.96165000',
+          '6. market cap (USD)': '5049.96165000',
+        },
+      },
+    },
+    data,
+  );
+
+  return obj;
+}
