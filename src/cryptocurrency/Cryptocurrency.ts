@@ -7,10 +7,13 @@ import { IntradayResponseDTO } from './dto/intraday-response.dto';
 import { IntradayDTO } from './dto/intraday.dto';
 import { MonthlyResponseDTO } from './dto/monthly-response.dto';
 import { MonthlyDTO } from './dto/monthly.dto';
+import { WeeklyResponseDTO } from './dto/weekly-response.dto';
+import { WeeklyDTO } from './dto/weekly.dto';
 import parseResponse from './utils/parse-response';
 import {
   getParseIntradayResponseMap,
   getParseMonthlyResponseMap,
+  getParseWeeklyResponseMap,
 } from './utils/parse-response-maps';
 
 export class Cryptocurrency extends Category {
@@ -61,6 +64,30 @@ export class Cryptocurrency extends Category {
 
       throw new AlphaVantageRequestError(
         'fail to get cryptocurrency monthly data',
+        err,
+      );
+    }
+  }
+
+  async weekly(weeklyDTO: WeeklyDTO): Promise<WeeklyResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: { ...weeklyDTO, function: Function.DIGITAL_CURRENCY_WEEKLY },
+      });
+
+      if (weeklyDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return parseResponse(
+        getParseWeeklyResponseMap(weeklyDTO.market),
+        data,
+      ) as unknown as WeeklyResponseDTO;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get cryptocurrency weekly data',
         err,
       );
     }
