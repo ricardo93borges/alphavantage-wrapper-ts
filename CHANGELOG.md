@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Cryptocurrencies intraday integration
+- Cryptocurrencies monthly integration
+- Cryptocurrencies weekly integration
+- Cryptocurrencies daily integration
+
 ## [1.3.1]
 
 ### Added
