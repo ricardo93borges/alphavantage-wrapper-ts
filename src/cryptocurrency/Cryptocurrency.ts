@@ -3,6 +3,8 @@ import { DataType } from '..';
 import { Category } from '../Category';
 import { Function } from '../enum/function.enum';
 import { AlphaVantageRequestError, ParseResponseError } from '../errors';
+import { DailyResponseDTO } from './dto/daily-response.dto';
+import { DailyDTO } from './dto/daily.dto';
 import { IntradayResponseDTO } from './dto/intraday-response.dto';
 import { IntradayDTO } from './dto/intraday.dto';
 import { MonthlyResponseDTO } from './dto/monthly-response.dto';
@@ -11,6 +13,7 @@ import { WeeklyResponseDTO } from './dto/weekly-response.dto';
 import { WeeklyDTO } from './dto/weekly.dto';
 import parseResponse from './utils/parse-response';
 import {
+  getParseDailyResponseMap,
   getParseIntradayResponseMap,
   getParseMonthlyResponseMap,
   getParseWeeklyResponseMap,
@@ -88,6 +91,30 @@ export class Cryptocurrency extends Category {
 
       throw new AlphaVantageRequestError(
         'fail to get cryptocurrency weekly data',
+        err,
+      );
+    }
+  }
+
+  async daily(dailyDTO: DailyDTO): Promise<DailyResponseDTO> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: { ...dailyDTO, function: Function.DIGITAL_CURRENCY_DAILY },
+      });
+
+      if (dailyDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return parseResponse(
+        getParseDailyResponseMap(dailyDTO.market),
+        data,
+      ) as unknown as DailyResponseDTO;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError(
+        'fail to get cryptocurrency daily data',
         err,
       );
     }

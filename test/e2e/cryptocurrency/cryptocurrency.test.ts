@@ -67,4 +67,23 @@ describe('Cryptocurrency', () => {
       expect(hasError).toBe(false);
     });
   });
+
+  describe('#daily', () => {
+    it('should make a request to daily endpoint', async () => {
+      let cryptocurrency = new Cryptocurrency(api);
+
+      let hasError = false;
+      try {
+        await cryptocurrency.daily({
+          symbol: 'ETH',
+          market: 'USD',
+        });
+      } catch (err) {
+        console.error(err);
+        hasError = true;
+      }
+
+      expect(hasError).toBe(false);
+    });
+  });
 });
