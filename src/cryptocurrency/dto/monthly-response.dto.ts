@@ -21,7 +21,7 @@ export type MonthlyTimeSeries = {
   marketCap: string;
 };
 
-export type MonthlyResponseDTO = {
+export type MonthlyResponse = {
   metadata: MonthlyMetadata;
   timeSeries: { [key: string]: MonthlyTimeSeries };
 };

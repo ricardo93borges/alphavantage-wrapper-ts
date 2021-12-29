@@ -7,23 +7,25 @@ Alpha Vantage API wrapper in TypeScript.
 
 ## Table of Contents
 
-- [Contributing](#contributing)
-- [License](#license)
-- [Getting started](#getting-started)
-- [Stock Time Series](#stock-time-series)
-  - [Intraday](#intraday)
-  - [Search](#search)
-  - [Daily Adjusted](#daily-adjusted)
-  - [Weekly Adjusted](#weekly-adjusted)
-  - [Monthly Adjusted](#monthly-adjusted)
-- [Fundamental data](#fundamental-data)
-  - [Company Overview](#company-overview)
-- [Cryptocurrencies](#cryptocurrencies)
-  - [Intraday](#intraday-1)
-  - [Monthly](#monthly)
-  - [Weekly](#weekly)
-  - [Daily](#daily)
-- [Enums](#enums)
+- [Alphavantage Wrapper TS](#alphavantage-wrapper-ts)
+  - [Table of Contents](#table-of-contents)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Getting started](#getting-started)
+  - [Stock Time Series](#stock-time-series)
+    - [Intraday](#intraday)
+    - [Search](#search)
+    - [Daily Adjusted](#daily-adjusted)
+    - [Weekly Adjusted](#weekly-adjusted)
+    - [Monthly Adjusted](#monthly-adjusted)
+  - [Fundamental data](#fundamental-data)
+    - [Company Overview](#company-overview)
+  - [Cryptocurrencies](#cryptocurrencies)
+    - [Intraday](#intraday-1)
+    - [Monthly](#monthly)
+    - [Weekly](#weekly)
+    - [Daily](#daily)
+  - [Enums](#enums)
 
 ## Contributing
 
@@ -36,13 +38,27 @@ This is an open source project under the MIT license, see LICENSE.md for additio
 ## Getting started
 
 ```js
-import AlphaVantage, { Interval, DataType } from 'alphavantage-wrapper-ts';
+import AlphaVantage, {
+  Interval,
+  DataType,
+  StockTimeSeries,
+} from 'alphavantage-wrapper-ts';
 
 const av = new AlphaVantage({ apikey: 'your API key' });
 
 av.stockTimeSeries
   .intraday({ symbol: 'IBM', interval: Interval.SIXTY_MIN })
   .then((data) => console.log(data));
+
+// OR
+
+async function intraday(): Promise<StockTimeSeries.IntradayResponse> {
+  const response = await av.stockTimeSeries.intraday({
+    symbol: 'IBM',
+    interval: Interval.SIXTY_MIN,
+  });
+  return response;
+}
 ```
 
 ## Stock Time Series

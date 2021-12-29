@@ -17,7 +17,7 @@ export type DailyAdjustedTimeSeries = {
   splitCoefficient: string;
 };
 
-export type DailyAdjustedResponseDTO = {
+export type DailyAdjustedResponse = {
   metadata: DailyAdjustedMetadata;
   timeSeries: { [key: string]: DailyAdjustedTimeSeries };
 };

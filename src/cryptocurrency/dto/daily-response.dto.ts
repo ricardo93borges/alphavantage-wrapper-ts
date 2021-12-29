@@ -21,7 +21,7 @@ export type DailyTimeSeries = {
   marketCap: string;
 };
 
-export type DailyResponseDTO = {
+export type DailyResponse = {
   metadata: DailyMetadata;
   timeSeries: { [key: string]: DailyTimeSeries };
 };

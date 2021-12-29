@@ -1,5 +1,5 @@
 import { ParseResponseError } from '../../errors';
-import { CompanyOverviewResponseDTO } from '../dto/company-overview-response';
+import { CompanyOverviewResponse } from '../dto/company-overview-response';
 
 export type CompanyOverviewAPIResponseDTO = {
   [key: string]: string;
@@ -7,7 +7,7 @@ export type CompanyOverviewAPIResponseDTO = {
 
 function parseCompanyOverviewResponse(
   response: CompanyOverviewAPIResponseDTO,
-): CompanyOverviewResponseDTO {
+): CompanyOverviewResponse {
   try {
     return {
       symbol: response['Symbol'],

@@ -3,15 +3,15 @@ import { DataType } from '..';
 import { Category } from '../Category';
 import { Function } from '../enum/function.enum';
 import { AlphaVantageRequestError, ParseResponseError } from '../errors';
-import { DailyAdjustedResponseDTO } from './dto/daily-adjusted-response.dto';
+import { DailyAdjustedResponse } from './dto/daily-adjusted-response.dto';
 import { DailyAdjustedDTO } from './dto/daily-adjusted.dto';
-import { IntradayResponseDTO } from './dto/intraday-response.dto';
+import { IntradayResponse } from './dto/intraday-response.dto';
 import { IntradayDTO } from './dto/intraday.dto';
-import { SearchResponseDTO } from './dto/search-response.dto';
+import { SearchResponse } from './dto/search-response.dto';
 import { SearchDTO } from './dto/search.dto';
 import { WeeklyAdjustedDTO } from './dto/weekly-adjusted.dto';
 import { MonthlyAdjustedDTO } from './dto/monthly-adjusted.dto';
-import { MonthlyAdjustedResponseDTO } from './dto/monthly-adjusted-response.dto';
+import { MonthlyAdjustedResponse } from './dto/monthly-adjusted-response.dto';
 import {
   getParseDailyAdjustedResponseMap,
   getParseIntradayResponseMap,
@@ -20,14 +20,14 @@ import {
 } from './utils/parse-response-maps';
 import parseResponse from './utils/parse-response';
 import parseSearchResponse from './utils/parse-search-response';
-import { WeeklyAdjustedResponseDTO } from './dto/weekly-adjusted-response.dto';
+import { WeeklyAdjustedResponse } from './dto/weekly-adjusted-response.dto';
 
 export class StockTimeSeries extends Category {
   constructor(api: AxiosInstance) {
     super(api);
   }
 
-  async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponseDTO> {
+  async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...intradayDTO, function: Function.TIME_SERIES_INTRADAY },
@@ -40,7 +40,7 @@ export class StockTimeSeries extends Category {
       return parseResponse(
         getParseIntradayResponseMap(intradayDTO.interval),
         data,
-      ) as IntradayResponseDTO;
+      ) as IntradayResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
@@ -48,7 +48,7 @@ export class StockTimeSeries extends Category {
     }
   }
 
-  async search(searchDTO: SearchDTO): Promise<SearchResponseDTO[]> {
+  async search(searchDTO: SearchDTO): Promise<SearchResponse[]> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...searchDTO, function: Function.SYMBOL_SEARCH },
@@ -68,7 +68,7 @@ export class StockTimeSeries extends Category {
 
   async dailyAdjusted(
     dailyAdjustedDTO: DailyAdjustedDTO,
-  ): Promise<DailyAdjustedResponseDTO> {
+  ): Promise<DailyAdjustedResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: {
@@ -84,7 +84,7 @@ export class StockTimeSeries extends Category {
       return parseResponse(
         getParseDailyAdjustedResponseMap(),
         data,
-      ) as DailyAdjustedResponseDTO;
+      ) as DailyAdjustedResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
@@ -97,7 +97,7 @@ export class StockTimeSeries extends Category {
 
   async weeklyAdjusted(
     weeklyAdjustedDTO: WeeklyAdjustedDTO,
-  ): Promise<WeeklyAdjustedResponseDTO> {
+  ): Promise<WeeklyAdjustedResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: {
@@ -112,7 +112,7 @@ export class StockTimeSeries extends Category {
       return parseResponse(
         getParseWeeklyAdjustedResponseMap(),
         data,
-      ) as MonthlyAdjustedResponseDTO;
+      ) as MonthlyAdjustedResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
@@ -125,7 +125,7 @@ export class StockTimeSeries extends Category {
 
   async monthlyAdjusted(
     monthlyAdjustedDTO: MonthlyAdjustedDTO,
-  ): Promise<MonthlyAdjustedResponseDTO> {
+  ): Promise<MonthlyAdjustedResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: {
@@ -141,7 +141,7 @@ export class StockTimeSeries extends Category {
       return parseResponse(
         getParseMonthlyAdjustedResponseMap(),
         data,
-      ) as MonthlyAdjustedResponseDTO;
+      ) as MonthlyAdjustedResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
