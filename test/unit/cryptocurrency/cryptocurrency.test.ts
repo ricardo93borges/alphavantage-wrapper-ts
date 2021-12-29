@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { OutputSize } from '../../../src';
 import { Cryptocurrency } from '../../../src/cryptocurrency/Cryptocurrency';
 import { DataType } from '../../../src/enum/datatype.enum';
 import { Function } from '../../../src/enum/function.enum';
@@ -7,7 +8,6 @@ import {
   AlphaVantageRequestError,
   ParseResponseError,
 } from '../../../src/errors';
-import { OutputSize } from '../../../src/stock-time-series/enum/outputsize.enum';
 import {
   givenDailyResponse,
   givenIntradayResponse,

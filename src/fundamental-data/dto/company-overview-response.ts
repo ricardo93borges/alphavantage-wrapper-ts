@@ -1,4 +1,4 @@
-export type CompanyOverviewResponseDTO = {
+export type CompanyOverviewResponse = {
   symbol: string;
   assetType: string;
   name: string;

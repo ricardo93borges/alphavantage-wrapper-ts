@@ -1,4 +1,4 @@
-export type SearchResponseDTO = {
+export type SearchResponse = {
   symbol: string;
   name: string;
   type: string;

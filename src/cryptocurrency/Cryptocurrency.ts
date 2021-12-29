@@ -3,13 +3,13 @@ import { DataType } from '..';
 import { Category } from '../Category';
 import { Function } from '../enum/function.enum';
 import { AlphaVantageRequestError, ParseResponseError } from '../errors';
-import { DailyResponseDTO } from './dto/daily-response.dto';
+import { DailyResponse } from './dto/daily-response.dto';
 import { DailyDTO } from './dto/daily.dto';
-import { IntradayResponseDTO } from './dto/intraday-response.dto';
+import { IntradayResponse } from './dto/intraday-response.dto';
 import { IntradayDTO } from './dto/intraday.dto';
-import { MonthlyResponseDTO } from './dto/monthly-response.dto';
+import { MonthlyResponse } from './dto/monthly-response.dto';
 import { MonthlyDTO } from './dto/monthly.dto';
-import { WeeklyResponseDTO } from './dto/weekly-response.dto';
+import { WeeklyResponse } from './dto/weekly-response.dto';
 import { WeeklyDTO } from './dto/weekly.dto';
 import parseResponse from './utils/parse-response';
 import {
@@ -24,7 +24,7 @@ export class Cryptocurrency extends Category {
     super(api);
   }
 
-  async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponseDTO> {
+  async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...intradayDTO, function: Function.CRYPTO_INTRADAY },
@@ -37,7 +37,7 @@ export class Cryptocurrency extends Category {
       return parseResponse(
         getParseIntradayResponseMap(intradayDTO.interval),
         data,
-      ) as unknown as IntradayResponseDTO;
+      ) as unknown as IntradayResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
@@ -48,7 +48,7 @@ export class Cryptocurrency extends Category {
     }
   }
 
-  async monthly(monthlyDTO: MonthlyDTO): Promise<MonthlyResponseDTO> {
+  async monthly(monthlyDTO: MonthlyDTO): Promise<MonthlyResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...monthlyDTO, function: Function.DIGITAL_CURRENCY_MONTHLY },
@@ -61,7 +61,7 @@ export class Cryptocurrency extends Category {
       return parseResponse(
         getParseMonthlyResponseMap(monthlyDTO.market),
         data,
-      ) as unknown as MonthlyResponseDTO;
+      ) as unknown as MonthlyResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
@@ -72,7 +72,7 @@ export class Cryptocurrency extends Category {
     }
   }
 
-  async weekly(weeklyDTO: WeeklyDTO): Promise<WeeklyResponseDTO> {
+  async weekly(weeklyDTO: WeeklyDTO): Promise<WeeklyResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...weeklyDTO, function: Function.DIGITAL_CURRENCY_WEEKLY },
@@ -85,7 +85,7 @@ export class Cryptocurrency extends Category {
       return parseResponse(
         getParseWeeklyResponseMap(weeklyDTO.market),
         data,
-      ) as unknown as WeeklyResponseDTO;
+      ) as unknown as WeeklyResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
@@ -96,7 +96,7 @@ export class Cryptocurrency extends Category {
     }
   }
 
-  async daily(dailyDTO: DailyDTO): Promise<DailyResponseDTO> {
+  async daily(dailyDTO: DailyDTO): Promise<DailyResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...dailyDTO, function: Function.DIGITAL_CURRENCY_DAILY },
@@ -109,7 +109,7 @@ export class Cryptocurrency extends Category {
       return parseResponse(
         getParseDailyResponseMap(dailyDTO.market),
         data,
-      ) as unknown as DailyResponseDTO;
+      ) as unknown as DailyResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 

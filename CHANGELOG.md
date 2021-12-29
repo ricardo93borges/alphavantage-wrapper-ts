@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
-### Added
+### Changed
+
+- Exporting of modules
 
 ## [1.4.1]
 
