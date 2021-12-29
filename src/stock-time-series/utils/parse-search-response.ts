@@ -1,8 +1,8 @@
 import { ParseResponseError } from '../../errors';
-import { SearchAPIResponseDTO } from '../dto/search-api-response.dto';
-import { SearchResponseDTO } from '../dto/search-response.dto';
+import { SearchAPIResponse } from '../dto/search-api-response.dto';
+import { SearchResponse } from '../dto/search-response.dto';
 
-function parseSearchResponse(data: SearchAPIResponseDTO): SearchResponseDTO[] {
+function parseSearchResponse(data: SearchAPIResponse): SearchResponse[] {
   try {
     return data['bestMatches'].map((match) => ({
       symbol: match['1. symbol'],

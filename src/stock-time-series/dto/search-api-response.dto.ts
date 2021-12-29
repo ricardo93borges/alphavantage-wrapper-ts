@@ -2,6 +2,6 @@ export type SearchAPIResponseItemDTO = {
   [key: string]: string;
 };
 
-export type SearchAPIResponseDTO = {
+export type SearchAPIResponse = {
   bestMatches: SearchAPIResponseItemDTO[];
 };

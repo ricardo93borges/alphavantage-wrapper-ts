@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Ongoing Changes
 
-### Added
+### Changed
+
+## [2.0.0]
+
+### Changed
+
+- Exporting of modules
 
 ## [1.4.1]
 

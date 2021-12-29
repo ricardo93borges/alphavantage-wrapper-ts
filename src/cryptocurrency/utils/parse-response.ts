@@ -1,5 +1,4 @@
 import { ParseResponseError } from '../../errors';
-import { IntradayResponseDTO } from '../dto/intraday-response.dto';
 
 export type ParseResponseMap = {
   [key: string]: any;

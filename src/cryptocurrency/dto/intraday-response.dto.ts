@@ -18,7 +18,7 @@ export type IntradayTimeSeries = {
   volume: number;
 };
 
-export type IntradayResponseDTO = {
+export type IntradayResponse = {
   metadata: IntradayMetadata;
   timeSeries: { [key: string]: IntradayTimeSeries };
 };
