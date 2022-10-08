@@ -59,6 +59,32 @@ export function givenSearchResponse(
   return obj;
 }
 
+export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
+  const obj = Object.assign(
+    {
+      'Meta Data': {
+        '1. Information': 'Daily Prices (open, high, low, close) and Volumes',
+        '2. Symbol': 'IBM',
+        '3. Last Refreshed': '2022-10-07',
+        '4. Output Size': 'Compact',
+        '5. Time Zone': 'US/Eastern',
+      },
+      'Time Series (Daily)': {
+        '2022-10-07': {
+          '1. open': '121.5000',
+          '2. high': '121.8016',
+          '3. low': '118.0700',
+          '4. close': '118.8200',
+          '5. volume': '4499672',
+        },
+      },
+    },
+    data,
+  );
+
+  return obj;
+}
+
 export function givenDailyAdjustedResponse(
   data?: BuiltResponse,
 ): BuiltResponse {
