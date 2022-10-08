@@ -17,6 +17,7 @@ import {
   getParseDailyResponseMap,
   getParseIntradayResponseMap,
   getParseMonthlyAdjustedResponseMap,
+  getParseMonthlyResponseMap,
   getParseWeeklyAdjustedResponseMap,
   getParseWeeklyResponseMap,
 } from './utils/parse-response-maps';
@@ -27,6 +28,8 @@ import { DailyDTO } from './dto/daily.dto';
 import { DailyResponse } from './dto/daily-response.dto';
 import { WeeklyDTO } from './dto/weekly.dto';
 import { WeeklyResponse } from './dto/weekly-response.dto';
+import { MonthlyDTO } from './dto/monthly.dto';
+import { MonthlyResponse } from './dto/monthly-response.dto';
 
 export class StockTimeSeries extends Category {
   constructor(api: AxiosInstance) {
@@ -167,6 +170,30 @@ export class StockTimeSeries extends Category {
         'fail to get weekly adjusted data',
         err,
       );
+    }
+  }
+
+  async monthly(monthlyDTO: MonthlyDTO): Promise<MonthlyResponse> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...monthlyDTO,
+          function: Function.TIME_SERIES_MONTHLY,
+        },
+      });
+
+      if (monthlyDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return parseResponse(
+        getParseMonthlyResponseMap(),
+        data,
+      ) as MonthlyResponse;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError('fail to get monthly data', err);
     }
   }
 

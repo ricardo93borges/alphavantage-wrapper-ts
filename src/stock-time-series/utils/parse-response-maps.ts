@@ -104,6 +104,25 @@ export function getParseWeeklyResponseMap() {
   };
 }
 
+export function getParseMonthlyResponseMap() {
+  return {
+    metadata: {
+      information: '1. Information',
+      symbol: '2. Symbol',
+      lastRefreshed: '3. Last Refreshed',
+      timeZone: '4. Time Zone',
+    },
+    timeSeriesKey: 'Monthly Time Series',
+    timeSeries: {
+      open: '1. open',
+      high: '2. high',
+      low: '3. low',
+      close: '4. close',
+      volume: '5. volume',
+    },
+  };
+}
+
 export function getParseMonthlyAdjustedResponseMap() {
   return {
     metadata: {
