@@ -101,6 +101,24 @@ describe('StockTimeSeries', () => {
     });
   });
 
+  describe('#weekly', () => {
+    it('should make a request to weekly endpoint', async () => {
+      let stockTimeSeries = new StockTimeSeries(api);
+
+      let hasError = false;
+      try {
+        await stockTimeSeries.weekly({
+          symbol: 'IBM',
+        });
+      } catch (err) {
+        console.error(err);
+        hasError = true;
+      }
+
+      expect(hasError).toBe(false);
+    });
+  });
+
   describe('#monthlyAdjusted', () => {
     it('should make a request to monthly adjusted endpoint', async () => {
       let stockTimeSeries = new StockTimeSeries(api);

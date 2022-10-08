@@ -145,6 +145,31 @@ export function givenWeeklyAdjustedResponse(
   return obj;
 }
 
+export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
+  const obj = Object.assign(
+    {
+      'Meta Data': {
+        '1. Information': 'Weekly Prices (open, high, low, close) and Volumes',
+        '2. Symbol': 'IBM',
+        '3. Last Refreshed': '2022-10-07',
+        '4. Time Zone': 'US/Eastern',
+      },
+      'Weekly Time Series': {
+        '2022-10-07': {
+          '1. open': '120.1600',
+          '2. high': '126.4600',
+          '3. low': '118.0700',
+          '4. close': '118.8200',
+          '5. volume': '21614952',
+        },
+      },
+    },
+    data,
+  );
+
+  return obj;
+}
+
 export function givenMonthlyAdjustedResponse(
   data?: BuiltResponse,
 ): BuiltResponse {
