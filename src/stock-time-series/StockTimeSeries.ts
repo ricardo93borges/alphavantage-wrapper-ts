@@ -14,6 +14,7 @@ import { MonthlyAdjustedDTO } from './dto/monthly-adjusted.dto';
 import { MonthlyAdjustedResponse } from './dto/monthly-adjusted-response.dto';
 import {
   getParseDailyAdjustedResponseMap,
+  getParseDailyResponseMap,
   getParseIntradayResponseMap,
   getParseMonthlyAdjustedResponseMap,
   getParseWeeklyAdjustedResponseMap,
@@ -21,6 +22,8 @@ import {
 import parseResponse from './utils/parse-response';
 import parseSearchResponse from './utils/parse-search-response';
 import { WeeklyAdjustedResponse } from './dto/weekly-adjusted-response.dto';
+import { DailyDTO } from './dto/daily.dto';
+import { DailyResponse } from './dto/daily-response.dto';
 
 export class StockTimeSeries extends Category {
   constructor(api: AxiosInstance) {
@@ -63,6 +66,27 @@ export class StockTimeSeries extends Category {
       if (err instanceof ParseResponseError) throw err;
 
       throw new AlphaVantageRequestError('fail to get search data', err);
+    }
+  }
+
+  async daily(dailyDTO: DailyDTO): Promise<DailyResponse> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...dailyDTO,
+          function: Function.TIME_SERIES_DAILY,
+        },
+      });
+
+      if (dailyDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return parseResponse(getParseDailyResponseMap(), data) as DailyResponse;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError('fail to get daily data', err);
     }
   }
 
