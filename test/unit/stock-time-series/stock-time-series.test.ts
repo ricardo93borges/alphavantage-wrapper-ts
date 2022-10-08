@@ -15,6 +15,7 @@ import {
   givenMonthlyAdjustedResponse,
   givenSearchResponse,
   givenWeeklyAdjustedResponse,
+  givenWeeklyResponse,
 } from '../helpers/data-builders/stock-time-series.builder';
 
 describe('StockTimeSeries', () => {
@@ -471,12 +472,95 @@ describe('StockTimeSeries', () => {
 
       api.get = jest.fn().mockResolvedValue({ data: csvData });
 
-      const dailyAdjustedDTO = {
+      const weeklyAdjustedDTO = {
         symbol: 'IBM',
         datatype: DataType.CSV,
       };
 
-      const result = await stockTimeSeries.weeklyAdjusted(dailyAdjustedDTO);
+      const result = await stockTimeSeries.weeklyAdjusted(weeklyAdjustedDTO);
+
+      expect(result).toEqual(csvData);
+    });
+  });
+
+  describe('#weekly', () => {
+    it('should make a request to weekly endpoint', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenWeeklyResponse() });
+
+      const weeklyDTO = {
+        symbol: 'IBM',
+        datatype: DataType.JSON,
+      };
+
+      await stockTimeSeries.weekly(weeklyDTO);
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: {
+          ...weeklyDTO,
+          function: Function.TIME_SERIES_WEEKLY,
+        },
+      });
+    });
+
+    it('should return parsed weekly data', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenWeeklyResponse() });
+
+      const weeklyDTO = {
+        symbol: 'IBM',
+        datatype: DataType.JSON,
+      };
+
+      const result = await stockTimeSeries.weekly(weeklyDTO);
+
+      expect(result.metadata.symbol).toEqual('IBM');
+      expect(result.timeSeries['2022-10-07']).toEqual({
+        open: '120.1600',
+        high: '126.4600',
+        low: '118.0700',
+        close: '118.8200',
+        volume: '21614952',
+      });
+    });
+
+    it('should fail to parse weekly data', async () => {
+      api.get = jest.fn().mockResolvedValue({});
+
+      try {
+        await stockTimeSeries.weekly({
+          symbol: 'IBM',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(ParseResponseError);
+      }
+    });
+
+    it('should throw AlphaVantageRequestError because it fail to request weekly data', async () => {
+      api.get = jest.fn().mockRejectedValue(new Error('some error'));
+
+      try {
+        await stockTimeSeries.weekly({
+          symbol: 'IBM',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(AlphaVantageRequestError);
+      }
+    });
+
+    it('should return csv data', async () => {
+      const csvData =
+        'timestamp,open,high,low,close,adjusted close,volume,dividend amount\
+        2021-10-19,144.0000,144.9400,140.5201,141.9800,10453991';
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData });
+
+      const weeklyDTO = {
+        symbol: 'IBM',
+        datatype: DataType.CSV,
+      };
+
+      const result = await stockTimeSeries.weekly(weeklyDTO);
 
       expect(result).toEqual(csvData);
     });

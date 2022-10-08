@@ -18,12 +18,15 @@ import {
   getParseIntradayResponseMap,
   getParseMonthlyAdjustedResponseMap,
   getParseWeeklyAdjustedResponseMap,
+  getParseWeeklyResponseMap,
 } from './utils/parse-response-maps';
 import parseResponse from './utils/parse-response';
 import parseSearchResponse from './utils/parse-search-response';
 import { WeeklyAdjustedResponse } from './dto/weekly-adjusted-response.dto';
 import { DailyDTO } from './dto/daily.dto';
 import { DailyResponse } from './dto/daily-response.dto';
+import { WeeklyDTO } from './dto/weekly.dto';
+import { WeeklyResponse } from './dto/weekly-response.dto';
 
 export class StockTimeSeries extends Category {
   constructor(api: AxiosInstance) {
@@ -119,6 +122,26 @@ export class StockTimeSeries extends Category {
     }
   }
 
+  async weekly(weeklyDTO: WeeklyDTO): Promise<WeeklyResponse> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: {
+          ...weeklyDTO,
+          function: Function.TIME_SERIES_WEEKLY,
+        },
+      });
+
+      if (weeklyDTO.datatype === DataType.CSV) {
+        return data;
+      }
+      return parseResponse(getParseWeeklyResponseMap(), data) as WeeklyResponse;
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError('fail to get weekly data', err);
+    }
+  }
+
   async weeklyAdjusted(
     weeklyAdjustedDTO: WeeklyAdjustedDTO,
   ): Promise<WeeklyAdjustedResponse> {
@@ -136,7 +159,7 @@ export class StockTimeSeries extends Category {
       return parseResponse(
         getParseWeeklyAdjustedResponseMap(),
         data,
-      ) as MonthlyAdjustedResponse;
+      ) as WeeklyAdjustedResponse;
     } catch (err) {
       if (err instanceof ParseResponseError) throw err;
 
