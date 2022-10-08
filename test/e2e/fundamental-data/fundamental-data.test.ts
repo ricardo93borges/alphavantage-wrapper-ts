@@ -26,4 +26,22 @@ describe('FundamentalData', () => {
       expect(hasError).toBe(false);
     });
   });
+
+  describe('#earnings', () => {
+    it('should make a request to earnings endpoint', async () => {
+      let fundamentalData = new FundamentalData(api);
+
+      let hasError = false;
+      try {
+        await fundamentalData.earnings({
+          symbol: 'IBM',
+        });
+      } catch (err) {
+        console.error(err);
+        hasError = true;
+      }
+
+      expect(hasError).toBe(false);
+    });
+  });
 });

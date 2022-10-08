@@ -5,7 +5,10 @@ import {
   ParseResponseError,
 } from '../../../src/errors';
 import { FundamentalData } from '../../../src/fundamental-data/FundamentalData';
-import { givenCompanyOverviewResponse } from '../helpers/data-builders/fundamental-data.builder';
+import {
+  givenCompanyOverviewResponse,
+  givenEarningsResponse,
+} from '../helpers/data-builders/fundamental-data.builder';
 
 describe('StockTimeSeries', () => {
   let fundamentalData: FundamentalData;
@@ -128,6 +131,83 @@ describe('StockTimeSeries', () => {
 
       try {
         await fundamentalData.companyOverview({
+          symbol: 'IBM',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(AlphaVantageRequestError);
+      }
+    });
+  });
+
+  describe('#earnings', () => {
+    it('should make a request to earnings endpoint', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenEarningsResponse() });
+
+      const earningsDTO = {
+        symbol: 'IBM',
+      };
+
+      await fundamentalData.earnings(earningsDTO);
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: {
+          ...earningsDTO,
+          function: Function.EARNINGS,
+        },
+      });
+    });
+
+    it('should return parsed earnings data', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenEarningsResponse() });
+
+      const result = await fundamentalData.earnings({ symbol: 'IBM' });
+
+      expect(result).toEqual({
+        symbol: 'IBM',
+        annualEarnings: [
+          { fiscalDateEnding: '2022-09-30', reportedEPS: '3.71' },
+          { fiscalDateEnding: '2021-12-31', reportedEPS: '9.97' },
+        ],
+        quarterlyEarnings: [
+          {
+            fiscalDateEnding: '2022-06-30',
+            reportedDate: '2022-07-18',
+            reportedEPS: '2.31',
+            estimatedEPS: '2.27',
+            surprise: '0.04',
+            surprisePercentage: '1.7621',
+          },
+          {
+            fiscalDateEnding: '2022-03-31',
+            reportedDate: '2022-04-19',
+            reportedEPS: '1.4',
+            estimatedEPS: '1.38',
+            surprise: '0.02',
+            surprisePercentage: '1.4493',
+          },
+        ],
+      });
+    });
+
+    it('should fail to parse earnings data', async () => {
+      api.get = jest.fn().mockResolvedValue({});
+
+      try {
+        await fundamentalData.earnings({
+          symbol: 'IBM',
+        });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(ParseResponseError);
+      }
+    });
+
+    it('should throw AlphaVantageRequestError because it fail to request earnings data', async () => {
+      api.get = jest.fn().mockRejectedValue(new Error('some error'));
+
+      try {
+        await fundamentalData.earnings({
           symbol: 'IBM',
         });
         fail('should have thrown an error');
