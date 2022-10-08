@@ -72,3 +72,42 @@ export function givenCompanyOverviewResponse(
 
   return obj;
 }
+
+export function givenEarningsResponse(data?: BuiltResponse): BuiltResponse {
+  const obj = Object.assign(
+    {
+      symbol: 'IBM',
+      annualEarnings: [
+        {
+          fiscalDateEnding: '2022-09-30',
+          reportedEPS: '3.71',
+        },
+        {
+          fiscalDateEnding: '2021-12-31',
+          reportedEPS: '9.97',
+        },
+      ],
+      quarterlyEarnings: [
+        {
+          fiscalDateEnding: '2022-06-30',
+          reportedDate: '2022-07-18',
+          reportedEPS: '2.31',
+          estimatedEPS: '2.27',
+          surprise: '0.04',
+          surprisePercentage: '1.7621',
+        },
+        {
+          fiscalDateEnding: '2022-03-31',
+          reportedDate: '2022-04-19',
+          reportedEPS: '1.4',
+          estimatedEPS: '1.38',
+          surprise: '0.02',
+          surprisePercentage: '1.4493',
+        },
+      ],
+    },
+    data,
+  );
+
+  return obj;
+}
