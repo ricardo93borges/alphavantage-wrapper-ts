@@ -15,16 +15,20 @@ Alpha Vantage API wrapper in TypeScript.
   - [Stock Time Series](#stock-time-series)
     - [Intraday](#intraday)
     - [Search](#search)
+    - [Daily](#daily)
     - [Daily Adjusted](#daily-adjusted)
+    - [Weekly](#weekly)
     - [Weekly Adjusted](#weekly-adjusted)
+    - [Monthly](#monthly)
     - [Monthly Adjusted](#monthly-adjusted)
   - [Fundamental data](#fundamental-data)
     - [Company Overview](#company-overview)
+    - [Earnings](#earnings)
   - [Cryptocurrencies](#cryptocurrencies)
     - [Intraday](#intraday-1)
-    - [Monthly](#monthly)
-    - [Weekly](#weekly)
-    - [Daily](#daily)
+    - [Monthly](#monthly-1)
+    - [Weekly](#weekly-1)
+    - [Daily](#daily-1)
   - [Enums](#enums)
 
 ## Contributing
@@ -165,6 +169,51 @@ av.stockTimeSeries
 
 ---
 
+### Daily
+
+```js
+av.stockTimeSeries.daily({ symbol: 'IBM' }).then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **outputsize**: (optional) By default, outputsize=compact. Strings compact and full are accepted with the following specifications: compact returns only the latest 100 data points in the intraday time series; full returns the full-length intraday time series. The "compact" option is recommended if you would like to reduce the data size of each API call.
+3. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  metadata: {
+    information: string;
+    symbol: string;
+    lastRefreshed: string;
+    outputSize: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<date>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      '<date>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      ...
+    }
+}
+```
+
+---
+
 ### Daily Adjusted
 
 ```js
@@ -218,6 +267,49 @@ av.stockTimeSeries
 
 ---
 
+### Weekly
+
+```js
+av.stockTimeSeries.weekly({ symbol: 'IBM' }).then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  metadata: {
+    information: string;
+    symbol: string;
+    lastRefreshed: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<date>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      '<date>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      ...
+    }
+}
+```
+
+---
+
 ### Weekly Adjusted
 
 ```js
@@ -259,6 +351,49 @@ av.stockTimeSeries
         adjustedClose: string;
         volume: string;
         dividendAmount: string;
+      },
+      ...
+    }
+}
+```
+
+---
+
+### Monthly
+
+```js
+av.stockTimeSeries.monthly({ symbol: 'IBM' }).then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  metadata: {
+    information: string;
+    symbol: string;
+    lastRefreshed: string;
+    timeZone: string;
+  }
+  timeSeries: {
+      '<date>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
+      },
+      '<date>': {
+        open: string;
+        high: string;
+        low: string;
+        close: string;
+        volume: string;
       },
       ...
     }
@@ -393,6 +528,56 @@ av.fundamentalData
   exDividendDate: string;
   lastSplitFactor: string;
   lastSplitDate: string;
+}
+```
+
+---
+
+### Earnings
+
+```js
+av.fundamentalData
+  .earnings({ symbol: 'IBM' })
+  .then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+
+**Response**
+
+```js
+{
+  symbol: string;
+  annualEarnings: [
+    {
+      fiscalDateEnding:string;
+      reportedEPS:string;
+    },
+    {
+      fiscalDateEnding:string;
+      reportedEPS:string;
+    }
+  ],
+  quarterlyEarnings: [
+    {
+      fiscalDateEnding:string;
+      reportedDate:string;
+      reportedEPS:string;
+      estimatedEPS:string;
+      surprise:string;
+      surprisePercentage:string;
+    },
+    {
+      fiscalDateEnding:string;
+      reportedDate:string;
+      reportedEPS:string;
+      estimatedEPS:string;
+      surprise:string;
+      surprisePercentage:string;
+    }
+  ]
 }
 ```
 
