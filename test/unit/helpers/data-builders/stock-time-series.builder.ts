@@ -59,6 +59,32 @@ export function givenSearchResponse(
   return obj;
 }
 
+export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
+  const obj = Object.assign(
+    {
+      'Meta Data': {
+        '1. Information': 'Daily Prices (open, high, low, close) and Volumes',
+        '2. Symbol': 'IBM',
+        '3. Last Refreshed': '2022-10-07',
+        '4. Output Size': 'Compact',
+        '5. Time Zone': 'US/Eastern',
+      },
+      'Time Series (Daily)': {
+        '2022-10-07': {
+          '1. open': '121.5000',
+          '2. high': '121.8016',
+          '3. low': '118.0700',
+          '4. close': '118.8200',
+          '5. volume': '4499672',
+        },
+      },
+    },
+    data,
+  );
+
+  return obj;
+}
+
 export function givenDailyAdjustedResponse(
   data?: BuiltResponse,
 ): BuiltResponse {
@@ -119,6 +145,31 @@ export function givenWeeklyAdjustedResponse(
   return obj;
 }
 
+export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
+  const obj = Object.assign(
+    {
+      'Meta Data': {
+        '1. Information': 'Weekly Prices (open, high, low, close) and Volumes',
+        '2. Symbol': 'IBM',
+        '3. Last Refreshed': '2022-10-07',
+        '4. Time Zone': 'US/Eastern',
+      },
+      'Weekly Time Series': {
+        '2022-10-07': {
+          '1. open': '120.1600',
+          '2. high': '126.4600',
+          '3. low': '118.0700',
+          '4. close': '118.8200',
+          '5. volume': '21614952',
+        },
+      },
+    },
+    data,
+  );
+
+  return obj;
+}
+
 export function givenMonthlyAdjustedResponse(
   data?: BuiltResponse,
 ): BuiltResponse {
@@ -139,6 +190,31 @@ export function givenMonthlyAdjustedResponse(
           '5. adjusted close': '141.9800',
           '6. volume': '60532033',
           '7. dividend amount': '0.0000',
+        },
+      },
+    },
+    data,
+  );
+
+  return obj;
+}
+
+export function givenMonthlyResponse(data?: BuiltResponse): BuiltResponse {
+  const obj = Object.assign(
+    {
+      'Meta Data': {
+        '1. Information': 'Monthly Prices (open, high, low, close) and Volumes',
+        '2. Symbol': 'IBM',
+        '3. Last Refreshed': '2022-10-07',
+        '4. Time Zone': 'US/Eastern',
+      },
+      'Monthly Time Series': {
+        '2022-10-07': {
+          '1. open': '120.1600',
+          '2. high': '126.4600',
+          '3. low': '118.0700',
+          '4. close': '118.8200',
+          '5. volume': '21614952',
         },
       },
     },

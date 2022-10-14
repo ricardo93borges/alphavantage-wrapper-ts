@@ -1,6 +1,6 @@
 # Contributing
 
-The goal of this library is to provide a [Alpha Vantage API](https://www.alphavantage.co/) wrapper in TypeScript.
+The goal of this library is to provide a TypeScript wrapper for the [Alpha Vantage API](https://www.alphavantage.co/) .
 
 You are welcome to submit your contribution to this project, here's everything you need to know before sending any pull requests:
 

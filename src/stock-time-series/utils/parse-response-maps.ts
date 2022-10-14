@@ -21,6 +21,26 @@ export function getParseIntradayResponseMap(interval: Interval) {
   };
 }
 
+export function getParseDailyResponseMap() {
+  return {
+    metadata: {
+      information: '1. Information',
+      symbol: '2. Symbol',
+      lastRefreshed: '3. Last Refreshed',
+      outputSize: '4. Output Size',
+      timeZone: '5. Time Zone',
+    },
+    timeSeriesKey: 'Time Series (Daily)',
+    timeSeries: {
+      open: '1. open',
+      high: '2. high',
+      low: '3. low',
+      close: '4. close',
+      volume: '5. volume',
+    },
+  };
+}
+
 export function getParseDailyAdjustedResponseMap() {
   return {
     metadata: {
@@ -61,6 +81,44 @@ export function getParseWeeklyAdjustedResponseMap() {
       adjustedClose: '5. adjusted close',
       volume: '6. volume',
       dividendAmount: '7. dividend amount',
+    },
+  };
+}
+
+export function getParseWeeklyResponseMap() {
+  return {
+    metadata: {
+      information: '1. Information',
+      symbol: '2. Symbol',
+      lastRefreshed: '3. Last Refreshed',
+      timeZone: '4. Time Zone',
+    },
+    timeSeriesKey: 'Weekly Time Series',
+    timeSeries: {
+      open: '1. open',
+      high: '2. high',
+      low: '3. low',
+      close: '4. close',
+      volume: '5. volume',
+    },
+  };
+}
+
+export function getParseMonthlyResponseMap() {
+  return {
+    metadata: {
+      information: '1. Information',
+      symbol: '2. Symbol',
+      lastRefreshed: '3. Last Refreshed',
+      timeZone: '4. Time Zone',
+    },
+    timeSeriesKey: 'Monthly Time Series',
+    timeSeries: {
+      open: '1. open',
+      high: '2. high',
+      low: '3. low',
+      close: '4. close',
+      volume: '5. volume',
     },
   };
 }
