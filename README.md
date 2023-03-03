@@ -455,8 +455,8 @@ av.stockTimeSeries
 ### Quote Endpoint
 
 ```js
-av.quote
-  .monthlyAdjusted({ symbol: 'IBM' })
+av.stockTimeSeries
+  .quote({ symbol: 'IBM' })
   .then((data) => console.log(data));
 ```
 
