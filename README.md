@@ -21,7 +21,7 @@
     - [Weekly Adjusted](#weekly-adjusted)
     - [Monthly](#monthly)
     - [Monthly Adjusted](#monthly-adjusted)
-    - [Quote Endpoint](#quote)
+    - [Quote Endpoint](#quote-endpoint)
   - [Fundamental data](#fundamental-data)
     - [Company Overview](#company-overview)
     - [Earnings](#earnings)
