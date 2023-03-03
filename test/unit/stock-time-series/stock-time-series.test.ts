@@ -766,7 +766,7 @@ describe('StockTimeSeries', () => {
 
       const result = await stockTimeSeries.quote(quoteDTO);
 
-      expect(result).toEqual([
+      expect(result).toEqual(
         {
           symbol: 'IBM',
           open: '128.3900',
@@ -779,7 +779,7 @@ describe('StockTimeSeries', () => {
           change: '0.7400',
           changePercent: '0.5773%'
         },
-      ]);
+      );
     });
 
     it('should fail to parse quote data', async () => {
