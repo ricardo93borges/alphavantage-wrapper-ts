@@ -14,6 +14,7 @@ import {
   givenIntradayResponse,
   givenMonthlyAdjustedResponse,
   givenMonthlyResponse,
+  givenQuoteResponse,
   givenSearchResponse,
   givenWeeklyAdjustedResponse,
   givenWeeklyResponse,
@@ -734,6 +735,88 @@ describe('StockTimeSeries', () => {
       };
 
       const result = await stockTimeSeries.monthlyAdjusted(monthlyAdjustedDTO);
+
+      expect(result).toEqual(csvData);
+    });
+  });
+
+  describe('#quote', () => {
+    it('should make a request to quote endpoint', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenQuoteResponse() });
+
+      const quoteDTO = {
+        symbol: '300135.SHZ',
+        datatype: DataType.JSON,
+      };
+
+      await stockTimeSeries.quote(quoteDTO);
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: { ...quoteDTO, function: Function.GLOBAL_QUOTE },
+      });
+    });
+
+    it('should return parsed quote data', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: givenQuoteResponse() });
+
+      const quoteDTO = {
+        symbol: 'IBM',
+        datatype: DataType.JSON,
+      };
+
+      const result = await stockTimeSeries.quote(quoteDTO);
+
+      expect(result).toEqual([
+        {
+          symbol: 'IBM',
+          open: '128.3900',
+          high: '129.2200',
+          low: '127.7100',
+          price: '128.9300',
+          volume: '3282432',
+          latestTradingDay: '2023-03-02',
+          previousClose: '128.1900',
+          change: '0.7400',
+          changePercent: '0.5773%'
+        },
+      ]);
+    });
+
+    it('should fail to parse quote data', async () => {
+      api.get = jest.fn().mockResolvedValue({});
+
+      try {
+        await stockTimeSeries.quote({ symbol: 'IBM' });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(ParseResponseError);
+      }
+    });
+
+    it('should fail to request to quote endpoint', async () => {
+      api.get = jest.fn().mockRejectedValue(new Error());
+
+      try {
+        await stockTimeSeries.quote({ symbol: 'IBM' });
+        fail('should have thrown an error');
+      } catch (err) {
+        expect(err).toBeInstanceOf(AlphaVantageRequestError);
+      }
+    });
+
+    it('should return csv data', async () => {
+      const csvData =
+        'symbol,open,high,low,price,volume,latestDay,previousClose,change,changePercent\
+        IBM,128.3900,129.2200,127.7100,128.9300,3282432,2023-03-02,128.1900,0.7400,0.5773%';
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData });
+
+      const quoteDTO = {
+        symbol: 'IBM',
+        datatype: DataType.CSV,
+      };
+
+      const result = await stockTimeSeries.quote(quoteDTO);
 
       expect(result).toEqual(csvData);
     });

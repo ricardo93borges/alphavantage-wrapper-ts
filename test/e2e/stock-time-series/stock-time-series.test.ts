@@ -154,22 +154,22 @@ describe('StockTimeSeries', () => {
       expect(hasError).toBe(false);
     });
   });
-});
 
-describe('#quote', () => {
-  it('should make a request to quote endpoint', async () => {
-    let stockTimeSeries = new StockTimeSeries(api);
+  describe('#quote', () => {
+    it('should make a request to quote endpoint', async () => {
+      let stockTimeSeries = new StockTimeSeries(api);
 
-    let hasError = false;
-    try {
-      await stockTimeSeries.quote({
-        symbol: 'IBM',
-      });
-    } catch (err) {
-      console.error(err);
-      hasError = true;
-    }
+      let hasError = false;
+      try {
+        await stockTimeSeries.quote({
+          symbol: 'IBM',
+        });
+      } catch (err) {
+        console.error(err);
+        hasError = true;
+      }
 
-    expect(hasError).toBe(false);
+      expect(hasError).toBe(false);
+    });
   });
 });
