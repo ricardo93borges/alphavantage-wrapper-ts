@@ -223,3 +223,27 @@ export function givenMonthlyResponse(data?: BuiltResponse): BuiltResponse {
 
   return obj;
 }
+
+export function givenQuoteResponse(
+  data?: BuiltResponse,
+): BuiltResponse {
+  const obj = Object.assign(
+    {
+      "Global Quote": {
+        "01. symbol": "IBM",
+        "02. open": "128.3900",
+        "03. high": "129.2200",
+        "04. low": "127.7100",
+        "05. price": "128.9300",
+        "06. volume": "3282432",
+        "07. latest trading day": "2023-03-02",
+        "08. previous close": "128.1900",
+        "09. change": "0.7400",
+        "10. change percent": "0.5773%"
+      },
+    },
+    data,
+  );
+
+  return obj;
+}

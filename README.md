@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/ricardo93borges/alphavantage/badge.svg?branch=develop)](https://coveralls.io/github/ricardo93borges/alphavantage?branch=develop) [![CI](https://github.com/ricardo93borges/alphavantage/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/ricardo93borges/alphavantage/actions/workflows/main.yml) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) ![issues](https://img.shields.io/github/issues/ricardo93borges/alphavantage-wrapper-ts) ![forks](https://img.shields.io/github/forks/ricardo93borges/alphavantage-wrapper-ts) ![stars](https://img.shields.io/github/stars/ricardo93borges/alphavantage-wrapper-ts)
 ![npm](https://img.shields.io/npm/v/alphavantage-wrapper-ts) ![npm downloads](https://img.shields.io/npm/dw/alphavantage-wrapper-ts)
 
-Alpha Vantage API wrapper in TypeScript.
+[Alpha Vantage API](https://www.alphavantage.co/documentation/) wrapper in TypeScript.
 
 ## Table of Contents
 
@@ -21,6 +21,7 @@ Alpha Vantage API wrapper in TypeScript.
     - [Weekly Adjusted](#weekly-adjusted)
     - [Monthly](#monthly)
     - [Monthly Adjusted](#monthly-adjusted)
+    - [Quote Endpoint](#quote-endpoint)
   - [Fundamental data](#fundamental-data)
     - [Company Overview](#company-overview)
     - [Earnings](#earnings)
@@ -446,6 +447,38 @@ av.stockTimeSeries
       },
       ...
     }
+}
+```
+
+---
+
+### Quote Endpoint
+
+```js
+av.stockTimeSeries
+  .quote({ symbol: 'IBM' })
+  .then((data) => console.log(data));
+```
+
+**Parameters**
+
+1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
+2. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the quote data in JSON format; csv returns the quote data as a CSV (comma separated value) file.
+
+**Response**
+
+```js
+{
+  symbol: string;
+  open: string;
+  high: string;
+  low: string;
+  price: string;
+  volume: string;
+  latestTradingDay: string;
+  previousClose: string;
+  change: string;
+  changePercent: string;
 }
 ```
 
