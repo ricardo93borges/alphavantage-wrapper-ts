@@ -463,7 +463,7 @@ av.stockTimeSeries
 **Parameters**
 
 1. **symbol**: The name of the equity of your choice. For example: symbol=IBM
-2. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the intraday time series in JSON format; csv returns the time series as a CSV (comma separated value) file.
+2. **datatype**: (optional) By default, datatype=json. Strings json and csv are accepted with the following specifications: json returns the quote data in JSON format; csv returns the quote data as a CSV (comma separated value) file.
 
 **Response**
 
