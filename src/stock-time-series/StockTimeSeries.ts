@@ -30,6 +30,9 @@ import { WeeklyDTO } from './dto/weekly.dto';
 import { WeeklyResponse } from './dto/weekly-response.dto';
 import { MonthlyDTO } from './dto/monthly.dto';
 import { MonthlyResponse } from './dto/monthly-response.dto';
+import { QuoteDTO } from './dto/quote.dto';
+import { QuoteResponse } from './dto/quote-response.dto';
+import parseQuoteResponse from './utils/parse-quote-response';
 
 export class StockTimeSeries extends Category {
   constructor(api: AxiosInstance) {
@@ -223,6 +226,24 @@ export class StockTimeSeries extends Category {
         'fail to get monthly adjusted data',
         err,
       );
+    }
+  }
+
+  async quote(quoteDTO: QuoteDTO): Promise<QuoteResponse> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: { ...quoteDTO, function: Function.GLOBAL_QUOTE },
+      });
+
+      if (quoteDTO.datatype === DataType.CSV) {
+        return data;
+      }
+
+      return parseQuoteResponse(data);
+    } catch (err) {
+      if (err instanceof ParseResponseError) throw err;
+
+      throw new AlphaVantageRequestError('fail to get quote data', err);
     }
   }
 }
