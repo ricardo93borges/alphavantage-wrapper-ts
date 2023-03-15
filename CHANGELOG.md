@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- Change linter
+
 ## [2.2.0]
 
 ### Added

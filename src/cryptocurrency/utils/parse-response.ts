@@ -1,49 +1,49 @@
-import { ParseResponseError } from '../../errors';
+import { ParseResponseError } from '../../errors'
 
 export type ParseResponseMap = {
-  [key: string]: any;
-};
+  [key: string]: any
+}
 
 export type ParsedResponseMetadata = {
-  [key: string]: string;
-};
+  [key: string]: string
+}
 
 export type ParsedResponseTimeSeries = {
-  [key: string]: { [key: string]: string };
-};
+  [key: string]: { [key: string]: string }
+}
 
 export type ParsedResponse = {
-  metadata: ParsedResponseMetadata;
-  timeSeries: ParsedResponseTimeSeries;
-};
+  metadata: ParsedResponseMetadata
+  timeSeries: ParsedResponseTimeSeries
+}
 
 function parseResponse(
   map: ParseResponseMap,
-  response: { [key: string]: any },
+  response: { [key: string]: any }
 ): ParsedResponse {
   try {
-    let metadata: ParsedResponseMetadata = {};
-    let timeSeries: ParsedResponseTimeSeries = {};
+    const metadata: ParsedResponseMetadata = {}
+    const timeSeries: ParsedResponseTimeSeries = {}
 
     Object.keys(map.metadata).forEach((key) => {
-      metadata[key] = response['Meta Data'][map.metadata[key]];
-    });
+      metadata[key] = response['Meta Data'][map.metadata[key]]
+    })
 
-    const timeSeriesKeys = Object.keys(response[map.timeSeriesKey]);
+    const timeSeriesKeys = Object.keys(response[map.timeSeriesKey])
 
     for (let i = 0; i < timeSeriesKeys.length; i++) {
-      let date = timeSeriesKeys[i];
-      timeSeries[date] = {};
+      const date = timeSeriesKeys[i]
+      timeSeries[date] = {}
       Object.keys(map.timeSeries).forEach((key) => {
         timeSeries[date][key] =
-          response[map.timeSeriesKey][date][map.timeSeries[key]];
-      });
+          response[map.timeSeriesKey][date][map.timeSeries[key]]
+      })
     }
 
-    return { metadata, timeSeries };
+    return { metadata, timeSeries }
   } catch (err) {
-    throw new ParseResponseError('fail to parse response', err);
+    throw new ParseResponseError('fail to parse response', err)
   }
 }
 
-export default parseResponse;
+export default parseResponse
