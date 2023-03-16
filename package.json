@@ -9,7 +9,7 @@
     "test:unit": "jest --passWithNoTests --runInBand --no-cache --no-coverage test/unit",
     "test:e2e": "jest --passWithNoTests --runInBand --no-cache --no-coverage test/e2e",
     "test:watch": "npm test -- --watchAll",
-    "test:coverage": "npm test -- --coverage",
+    "test:coverage": "jest --passWithNoTests --runInBand --no-cache --coverage test/unit",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "clear": "rimraf dist",
