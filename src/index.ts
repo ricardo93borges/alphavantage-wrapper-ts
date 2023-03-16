@@ -1,3 +1,4 @@
+import 'module-alias/register'
 import { AlphaVantage, Config } from './alphavantage'
 import { Interval } from './enum/interval.enum'
 import { DataType } from './enum/datatype.enum'
