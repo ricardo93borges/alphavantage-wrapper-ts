@@ -1,17 +1,28 @@
 import { AxiosInstance } from 'axios'
-import { DataType } from '..'
-import { Category } from '../Category'
-import { Function } from '../enum/function.enum'
-import { AlphaVantageRequestError, ParseResponseError } from '../errors'
-import { DailyAdjustedResponse } from './dto/daily-adjusted-response.dto'
-import { DailyAdjustedDTO } from './dto/daily-adjusted.dto'
-import { IntradayResponse } from './dto/intraday-response.dto'
-import { IntradayDTO } from './dto/intraday.dto'
-import { SearchResponse } from './dto/search-response.dto'
-import { SearchDTO } from './dto/search.dto'
-import { WeeklyAdjustedDTO } from './dto/weekly-adjusted.dto'
-import { MonthlyAdjustedDTO } from './dto/monthly-adjusted.dto'
-import { MonthlyAdjustedResponse } from './dto/monthly-adjusted-response.dto'
+import { DataType, Function } from '@/enum'
+import { Category } from '@/Category'
+
+import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
+import {
+  MonthlyAdjustedResponse,
+  MonthlyAdjustedDTO,
+  WeeklyAdjustedDTO,
+  SearchDTO,
+  DailyAdjustedResponse,
+  DailyAdjustedDTO,
+  IntradayResponse,
+  IntradayDTO,
+  SearchResponse,
+  WeeklyAdjustedResponse,
+  DailyDTO,
+  DailyResponse,
+  WeeklyDTO,
+  WeeklyResponse,
+  MonthlyDTO,
+  MonthlyResponse,
+  QuoteDTO,
+  QuoteResponse
+} from './dto'
 import {
   getParseDailyAdjustedResponseMap,
   getParseDailyResponseMap,
@@ -19,27 +30,18 @@ import {
   getParseMonthlyAdjustedResponseMap,
   getParseMonthlyResponseMap,
   getParseWeeklyAdjustedResponseMap,
-  getParseWeeklyResponseMap
-} from './utils/parse-response-maps'
-import parseResponse from './utils/parse-response'
-import parseSearchResponse from './utils/parse-search-response'
-import { WeeklyAdjustedResponse } from './dto/weekly-adjusted-response.dto'
-import { DailyDTO } from './dto/daily.dto'
-import { DailyResponse } from './dto/daily-response.dto'
-import { WeeklyDTO } from './dto/weekly.dto'
-import { WeeklyResponse } from './dto/weekly-response.dto'
-import { MonthlyDTO } from './dto/monthly.dto'
-import { MonthlyResponse } from './dto/monthly-response.dto'
-import { QuoteDTO } from './dto/quote.dto'
-import { QuoteResponse } from './dto/quote-response.dto'
-import parseQuoteResponse from './utils/parse-quote-response'
+  getParseWeeklyResponseMap,
+  parseResponse,
+  parseSearchResponse,
+  parseQuoteResponse
+} from './utils'
 
 export class StockTimeSeries extends Category {
-  constructor (api: AxiosInstance) {
+  constructor(api: AxiosInstance) {
     super(api)
   }
 
-  async intraday (intradayDTO: IntradayDTO): Promise<IntradayResponse> {
+  async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...intradayDTO, function: Function.TIME_SERIES_INTRADAY }
@@ -60,7 +62,7 @@ export class StockTimeSeries extends Category {
     }
   }
 
-  async search (searchDTO: SearchDTO): Promise<SearchResponse[]> {
+  async search(searchDTO: SearchDTO): Promise<SearchResponse[]> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...searchDTO, function: Function.SYMBOL_SEARCH }
@@ -78,7 +80,7 @@ export class StockTimeSeries extends Category {
     }
   }
 
-  async daily (dailyDTO: DailyDTO): Promise<DailyResponse> {
+  async daily(dailyDTO: DailyDTO): Promise<DailyResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: {
@@ -99,7 +101,7 @@ export class StockTimeSeries extends Category {
     }
   }
 
-  async dailyAdjusted (
+  async dailyAdjusted(
     dailyAdjustedDTO: DailyAdjustedDTO
   ): Promise<DailyAdjustedResponse> {
     try {
@@ -121,14 +123,11 @@ export class StockTimeSeries extends Category {
     } catch (err) {
       if (err instanceof ParseResponseError) throw err
 
-      throw new AlphaVantageRequestError(
-        'fail to get daily adjusted data',
-        err
-      )
+      throw new AlphaVantageRequestError('fail to get daily adjusted data', err)
     }
   }
 
-  async weekly (weeklyDTO: WeeklyDTO): Promise<WeeklyResponse> {
+  async weekly(weeklyDTO: WeeklyDTO): Promise<WeeklyResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: {
@@ -148,7 +147,7 @@ export class StockTimeSeries extends Category {
     }
   }
 
-  async weeklyAdjusted (
+  async weeklyAdjusted(
     weeklyAdjustedDTO: WeeklyAdjustedDTO
   ): Promise<WeeklyAdjustedResponse> {
     try {
@@ -176,7 +175,7 @@ export class StockTimeSeries extends Category {
     }
   }
 
-  async monthly (monthlyDTO: MonthlyDTO): Promise<MonthlyResponse> {
+  async monthly(monthlyDTO: MonthlyDTO): Promise<MonthlyResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: {
@@ -200,7 +199,7 @@ export class StockTimeSeries extends Category {
     }
   }
 
-  async monthlyAdjusted (
+  async monthlyAdjusted(
     monthlyAdjustedDTO: MonthlyAdjustedDTO
   ): Promise<MonthlyAdjustedResponse> {
     try {
@@ -229,7 +228,7 @@ export class StockTimeSeries extends Category {
     }
   }
 
-  async quote (quoteDTO: QuoteDTO): Promise<QuoteResponse> {
+  async quote(quoteDTO: QuoteDTO): Promise<QuoteResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...quoteDTO, function: Function.GLOBAL_QUOTE }

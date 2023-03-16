@@ -1,23 +1,24 @@
 import { AxiosInstance } from 'axios'
-import { DataType } from '..'
-import { Category } from '../Category'
-import { Function } from '../enum/function.enum'
-import { AlphaVantageRequestError, ParseResponseError } from '../errors'
-import { DailyResponse } from './dto/daily-response.dto'
-import { DailyDTO } from './dto/daily.dto'
-import { IntradayResponse } from './dto/intraday-response.dto'
-import { IntradayDTO } from './dto/intraday.dto'
-import { MonthlyResponse } from './dto/monthly-response.dto'
-import { MonthlyDTO } from './dto/monthly.dto'
-import { WeeklyResponse } from './dto/weekly-response.dto'
-import { WeeklyDTO } from './dto/weekly.dto'
-import parseResponse from './utils/parse-response'
+import { Category } from '@/Category'
+import { Function, DataType } from '@/enum'
+import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
 import {
+  DailyResponse,
+  DailyDTO,
+  IntradayResponse,
+  IntradayDTO,
+  MonthlyResponse,
+  MonthlyDTO,
+  WeeklyResponse,
+  WeeklyDTO
+} from './dto/'
+import {
+  parseResponse,
   getParseDailyResponseMap,
   getParseIntradayResponseMap,
   getParseMonthlyResponseMap,
   getParseWeeklyResponseMap
-} from './utils/parse-response-maps'
+} from './utils/'
 
 export class Cryptocurrency extends Category {
   constructor(api: AxiosInstance) {

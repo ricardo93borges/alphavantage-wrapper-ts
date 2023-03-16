@@ -1,12 +1,12 @@
-import { ParseResponseError } from '../../errors';
-import { CompanyOverviewResponse } from '../dto/company-overview-response';
+import { ParseResponseError } from '@/errors'
+import { CompanyOverviewResponse } from '../dto/'
 
 export type CompanyOverviewAPIResponseDTO = {
-  [key: string]: string;
-};
+  [key: string]: string
+}
 
-function parseCompanyOverviewResponse(
-  response: CompanyOverviewAPIResponseDTO,
+export function parseCompanyOverviewResponse(
+  response: CompanyOverviewAPIResponseDTO
 ): CompanyOverviewResponse {
   try {
     return {
@@ -68,11 +68,9 @@ function parseCompanyOverviewResponse(
       dividendDate: response['DividendDate'],
       exDividendDate: response['ExDividendDate'],
       lastSplitFactor: response['LastSplitFactor'],
-      lastSplitDate: response['LastSplitDate'],
-    };
+      lastSplitDate: response['LastSplitDate']
+    }
   } catch (err) {
-    throw new ParseResponseError('fail to parse search response', err);
+    throw new ParseResponseError('fail to parse search response', err)
   }
 }
-
-export default parseCompanyOverviewResponse;

@@ -1,8 +1,7 @@
-import { ParseResponseError } from '../../errors';
-import { SearchAPIResponse } from '../dto/search-api-response.dto';
-import { SearchResponse } from '../dto/search-response.dto';
+import { ParseResponseError } from '@/errors'
+import { SearchAPIResponse, SearchResponse } from '../dto/'
 
-function parseSearchResponse(data: SearchAPIResponse): SearchResponse[] {
+export function parseSearchResponse(data: SearchAPIResponse): SearchResponse[] {
   try {
     return data['bestMatches'].map((match) => ({
       symbol: match['1. symbol'],
@@ -13,11 +12,9 @@ function parseSearchResponse(data: SearchAPIResponse): SearchResponse[] {
       marketClose: match['6. marketClose'],
       timezone: match['7. timezone'],
       currency: match['8. currency'],
-      matchScore: match['9. matchScore'],
-    }));
+      matchScore: match['9. matchScore']
+    }))
   } catch (err) {
-    throw new ParseResponseError('fail to parse search response', err);
+    throw new ParseResponseError('fail to parse search response', err)
   }
 }
-
-export default parseSearchResponse;

@@ -1,4 +1,4 @@
-import { Interval } from '../..'
+import { Interval } from '@/enum'
 
 export function getParseIntradayResponseMap(interval: Interval) {
   return {

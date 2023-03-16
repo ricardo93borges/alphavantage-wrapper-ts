@@ -1,9 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
-import { OutputSize } from '@/enum'
 import { Cryptocurrency } from '@/cryptocurrency/Cryptocurrency'
-import { DataType } from '@/enum/datatype.enum'
-import { Function } from '@/enum/function.enum'
-import { Interval } from '@/enum/interval.enum'
+import { DataType, Function, Interval, OutputSize } from '@/enum'
 import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
 import {
   givenDailyResponse,

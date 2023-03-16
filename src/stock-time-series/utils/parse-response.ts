@@ -1,4 +1,4 @@
-import { ParseResponseError } from '../../errors'
+import { ParseResponseError } from '@/errors'
 
 export type ParseResponseMap = {
   [key: string]: any
@@ -12,7 +12,7 @@ export type ParsedResponseTimeSeries = {
   [key: string]: { [key: string]: string }
 }
 
-function parseResponse(
+export function parseResponse(
   map: ParseResponseMap,
   response: { [key: string]: any }
 ) {
@@ -40,5 +40,3 @@ function parseResponse(
     throw new ParseResponseError('fail to parse response', err)
   }
 }
-
-export default parseResponse

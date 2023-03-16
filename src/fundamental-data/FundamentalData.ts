@@ -1,20 +1,21 @@
 import { AxiosInstance } from 'axios'
-import { Category } from '../Category'
-import { Function } from '../enum/function.enum'
-import { AlphaVantageRequestError, ParseResponseError } from '../errors'
-import { CompanyOverviewResponse } from './dto/company-overview-response'
-import { CompanyOverviewDTO } from './dto/company-overview.dto'
-import parseCompanyOverviewResponse from './utils/parse-company-overview-response'
-import { EarningsDTO } from './dto/earnings.dto'
-import { EarningsResponse } from './dto/earnings-response'
-import parseEarningsResponse from './utils/parse-earnings-response'
+import { Category } from '@/Category'
+import { Function } from '@/enum'
+import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
+import {
+  CompanyOverviewResponse,
+  CompanyOverviewDTO,
+  EarningsDTO,
+  EarningsResponse
+} from './dto/'
+import { parseCompanyOverviewResponse, parseEarningsResponse } from './utils/'
 
 export class FundamentalData extends Category {
-  constructor (api: AxiosInstance) {
+  constructor(api: AxiosInstance) {
     super(api)
   }
 
-  async companyOverview (
+  async companyOverview(
     companyOverviewDTO: CompanyOverviewDTO
   ): Promise<CompanyOverviewResponse> {
     try {
@@ -33,7 +34,7 @@ export class FundamentalData extends Category {
     }
   }
 
-  async earnings (earningsDTO: EarningsDTO): Promise<EarningsResponse> {
+  async earnings(earningsDTO: EarningsDTO): Promise<EarningsResponse> {
     try {
       const { data } = await this.api.get('/query', {
         params: { ...earningsDTO, function: Function.EARNINGS }
