@@ -1,10 +1,10 @@
 export type BuiltResponse = {
-  [key: string]: object;
-};
+  [key: string]: object
+}
 
 export type BuiltSearchResponse = {
-  bestMatches: object[];
-};
+  bestMatches: object[]
+}
 
 export function givenIntradayResponse(data?: BuiltResponse): BuiltResponse {
   const obj = Object.assign(
@@ -18,7 +18,7 @@ export function givenIntradayResponse(data?: BuiltResponse): BuiltResponse {
         '6. Last Refreshed': '2021-10-28 23:20:00',
         '7. Interval': '5min',
         '8. Output Size': 'Compact',
-        '9. Time Zone': 'UTC',
+        '9. Time Zone': 'UTC'
       },
       'Time Series Crypto (5min)': {
         '2021-10-28 23:20:00': {
@@ -26,14 +26,14 @@ export function givenIntradayResponse(data?: BuiltResponse): BuiltResponse {
           '2. high': '4279.85000',
           '3. low': '4272.61000',
           '4. close': '4279.47000',
-          '5. volume': 205,
-        },
-      },
+          '5. volume': 205
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenMonthlyResponse(data?: BuiltResponse): BuiltResponse {
@@ -46,7 +46,7 @@ export function givenMonthlyResponse(data?: BuiltResponse): BuiltResponse {
         '4. Market Code': 'CNY',
         '5. Market Name': 'Chinese Yuan',
         '6. Last Refreshed': '2021-10-29 00:00:00',
-        '7. Time Zone': 'UTC',
+        '7. Time Zone': 'UTC'
       },
       'Time Series (Digital Currency Monthly)': {
         '2021-10-29': {
@@ -59,14 +59,14 @@ export function givenMonthlyResponse(data?: BuiltResponse): BuiltResponse {
           '4a. close (CNY)': '27845.56195300',
           '4b. close (USD)': '4356.11000000',
           '5. volume': '13202580.62690000',
-          '6. market cap (USD)': '13202580.62690000',
-        },
-      },
+          '6. market cap (USD)': '13202580.62690000'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
@@ -79,7 +79,7 @@ export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
         '4. Market Code': 'CNY',
         '5. Market Name': 'Chinese Yuan',
         '6. Last Refreshed': '2021-10-29 00:00:00',
-        '7. Time Zone': 'UTC',
+        '7. Time Zone': 'UTC'
       },
       'Time Series (Digital Currency Weekly)': {
         '2021-10-29': {
@@ -92,14 +92,14 @@ export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
           '4a. close (CNY)': '392416.00977800',
           '4b. close (USD)': '61388.86000000',
           '5. volume': '205302.14371000',
-          '6. market cap (USD)': '205302.14371000',
-        },
-      },
+          '6. market cap (USD)': '205302.14371000'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
@@ -112,7 +112,7 @@ export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
         '4. Market Code': 'CNY',
         '5. Market Name': 'Chinese Yuan',
         '6. Last Refreshed': '2021-10-29 00:00:00',
-        '7. Time Zone': 'UTC',
+        '7. Time Zone': 'UTC'
       },
       'Time Series (Digital Currency Daily)': {
         '2021-10-29': {
@@ -125,12 +125,12 @@ export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
           '4a. close (CNY)': '392416.00977800',
           '4b. close (USD)': '61388.86000000',
           '5. volume': '5049.96165000',
-          '6. market cap (USD)': '5049.96165000',
-        },
-      },
+          '6. market cap (USD)': '5049.96165000'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }

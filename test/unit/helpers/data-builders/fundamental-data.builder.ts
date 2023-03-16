@@ -1,9 +1,9 @@
 export type BuiltResponse = {
-  [key: string]: string;
-};
+  [key: string]: string
+}
 
 export function givenCompanyOverviewResponse(
-  data?: BuiltResponse,
+  data?: BuiltResponse
 ): BuiltResponse {
   const obj = Object.assign(
     {
@@ -65,12 +65,12 @@ export function givenCompanyOverviewResponse(
       DividendDate: '2021-09-10',
       ExDividendDate: '2021-08-09',
       LastSplitFactor: '2:1',
-      LastSplitDate: '1999-05-27',
+      LastSplitDate: '1999-05-27'
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenEarningsResponse(data?: BuiltResponse): BuiltResponse {
@@ -80,12 +80,12 @@ export function givenEarningsResponse(data?: BuiltResponse): BuiltResponse {
       annualEarnings: [
         {
           fiscalDateEnding: '2022-09-30',
-          reportedEPS: '3.71',
+          reportedEPS: '3.71'
         },
         {
           fiscalDateEnding: '2021-12-31',
-          reportedEPS: '9.97',
-        },
+          reportedEPS: '9.97'
+        }
       ],
       quarterlyEarnings: [
         {
@@ -94,7 +94,7 @@ export function givenEarningsResponse(data?: BuiltResponse): BuiltResponse {
           reportedEPS: '2.31',
           estimatedEPS: '2.27',
           surprise: '0.04',
-          surprisePercentage: '1.7621',
+          surprisePercentage: '1.7621'
         },
         {
           fiscalDateEnding: '2022-03-31',
@@ -102,12 +102,12 @@ export function givenEarningsResponse(data?: BuiltResponse): BuiltResponse {
           reportedEPS: '1.4',
           estimatedEPS: '1.38',
           surprise: '0.02',
-          surprisePercentage: '1.4493',
-        },
-      ],
+          surprisePercentage: '1.4493'
+        }
+      ]
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }

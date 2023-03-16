@@ -1,10 +1,10 @@
 export type BuiltResponse = {
-  [key: string]: object;
-};
+  [key: string]: object
+}
 
 export type BuiltSearchResponse = {
-  bestMatches: object[];
-};
+  bestMatches: object[]
+}
 
 export function givenIntradayResponse(data?: BuiltResponse): BuiltResponse {
   const obj = Object.assign(
@@ -16,7 +16,7 @@ export function givenIntradayResponse(data?: BuiltResponse): BuiltResponse {
         '3. Last Refreshed': '2021-10-01 18:15:00',
         '4. Interval': '5min',
         '5. Output Size': 'Compact',
-        '6. Time Zone': 'US/Eastern',
+        '6. Time Zone': 'US/Eastern'
       },
       'Time Series (5min)': {
         '2021-10-01 18:15:00': {
@@ -24,18 +24,18 @@ export function givenIntradayResponse(data?: BuiltResponse): BuiltResponse {
           '2. high': '143.5500',
           '3. low': '143.5500',
           '4. close': '143.5500',
-          '5. volume': '100',
-        },
-      },
+          '5. volume': '100'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenSearchResponse(
-  data?: BuiltSearchResponse,
+  data?: BuiltSearchResponse
 ): BuiltSearchResponse {
   const obj = Object.assign(
     {
@@ -49,14 +49,14 @@ export function givenSearchResponse(
           '6. marketClose': '16:30',
           '7. timezone': 'UTC+01',
           '8. currency': 'GBX',
-          '9. matchScore': '0.7273',
-        },
-      ],
+          '9. matchScore': '0.7273'
+        }
+      ]
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
@@ -67,7 +67,7 @@ export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
         '2. Symbol': 'IBM',
         '3. Last Refreshed': '2022-10-07',
         '4. Output Size': 'Compact',
-        '5. Time Zone': 'US/Eastern',
+        '5. Time Zone': 'US/Eastern'
       },
       'Time Series (Daily)': {
         '2022-10-07': {
@@ -75,18 +75,18 @@ export function givenDailyResponse(data?: BuiltResponse): BuiltResponse {
           '2. high': '121.8016',
           '3. low': '118.0700',
           '4. close': '118.8200',
-          '5. volume': '4499672',
-        },
-      },
+          '5. volume': '4499672'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenDailyAdjustedResponse(
-  data?: BuiltResponse,
+  data?: BuiltResponse
 ): BuiltResponse {
   const obj = Object.assign(
     {
@@ -95,7 +95,7 @@ export function givenDailyAdjustedResponse(
         '2. Symbol': 'IBM',
         '3. Last Refreshed': '2021-10-15',
         '4. Output Size': 'Compact',
-        '5. Time Zone': 'US/Eastern',
+        '5. Time Zone': 'US/Eastern'
       },
       'Time Series (Daily)': {
         '2021-10-15': {
@@ -106,18 +106,18 @@ export function givenDailyAdjustedResponse(
           '5. adjusted close': '144.61',
           '6. volume': '3170857',
           '7. dividend amount': '0.0000',
-          '8. split coefficient': '1.0',
-        },
-      },
+          '8. split coefficient': '1.0'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenWeeklyAdjustedResponse(
-  data?: BuiltResponse,
+  data?: BuiltResponse
 ): BuiltResponse {
   const obj = Object.assign(
     {
@@ -125,7 +125,7 @@ export function givenWeeklyAdjustedResponse(
         '1. Information': 'Weekly Adjusted Prices and Volumes',
         '2. Symbol': 'IBM',
         '3. Last Refreshed': '2021-10-18',
-        '4. Time Zone': 'US/Eastern',
+        '4. Time Zone': 'US/Eastern'
       },
       'Weekly Adjusted Time Series': {
         '2021-10-18': {
@@ -135,14 +135,14 @@ export function givenWeeklyAdjustedResponse(
           '4. close': '142.3200',
           '5. adjusted close': '142.3200',
           '6. volume': '6077861',
-          '7. dividend amount': '0.0000',
-        },
-      },
+          '7. dividend amount': '0.0000'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
@@ -152,7 +152,7 @@ export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
         '1. Information': 'Weekly Prices (open, high, low, close) and Volumes',
         '2. Symbol': 'IBM',
         '3. Last Refreshed': '2022-10-07',
-        '4. Time Zone': 'US/Eastern',
+        '4. Time Zone': 'US/Eastern'
       },
       'Weekly Time Series': {
         '2022-10-07': {
@@ -160,18 +160,18 @@ export function givenWeeklyResponse(data?: BuiltResponse): BuiltResponse {
           '2. high': '126.4600',
           '3. low': '118.0700',
           '4. close': '118.8200',
-          '5. volume': '21614952',
-        },
-      },
+          '5. volume': '21614952'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenMonthlyAdjustedResponse(
-  data?: BuiltResponse,
+  data?: BuiltResponse
 ): BuiltResponse {
   const obj = Object.assign(
     {
@@ -179,7 +179,7 @@ export function givenMonthlyAdjustedResponse(
         '1. Information': 'Monthly Adjusted Prices and Volumes',
         '2. Symbol': 'IBM',
         '3. Last Refreshed': '2021-10-19',
-        '4. Time Zone': 'US/Eastern',
+        '4. Time Zone': 'US/Eastern'
       },
       'Monthly Adjusted Time Series': {
         '2021-10-19': {
@@ -189,14 +189,14 @@ export function givenMonthlyAdjustedResponse(
           '4. close': '141.9800',
           '5. adjusted close': '141.9800',
           '6. volume': '60532033',
-          '7. dividend amount': '0.0000',
-        },
-      },
+          '7. dividend amount': '0.0000'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
 export function givenMonthlyResponse(data?: BuiltResponse): BuiltResponse {
@@ -206,7 +206,7 @@ export function givenMonthlyResponse(data?: BuiltResponse): BuiltResponse {
         '1. Information': 'Monthly Prices (open, high, low, close) and Volumes',
         '2. Symbol': 'IBM',
         '3. Last Refreshed': '2022-10-07',
-        '4. Time Zone': 'US/Eastern',
+        '4. Time Zone': 'US/Eastern'
       },
       'Monthly Time Series': {
         '2022-10-07': {
@@ -214,36 +214,34 @@ export function givenMonthlyResponse(data?: BuiltResponse): BuiltResponse {
           '2. high': '126.4600',
           '3. low': '118.0700',
           '4. close': '118.8200',
-          '5. volume': '21614952',
-        },
-      },
+          '5. volume': '21614952'
+        }
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
 
-export function givenQuoteResponse(
-  data?: BuiltResponse,
-): BuiltResponse {
+export function givenQuoteResponse(data?: BuiltResponse): BuiltResponse {
   const obj = Object.assign(
     {
-      "Global Quote": {
-        "01. symbol": "IBM",
-        "02. open": "128.3900",
-        "03. high": "129.2200",
-        "04. low": "127.7100",
-        "05. price": "128.9300",
-        "06. volume": "3282432",
-        "07. latest trading day": "2023-03-02",
-        "08. previous close": "128.1900",
-        "09. change": "0.7400",
-        "10. change percent": "0.5773%"
-      },
+      'Global Quote': {
+        '01. symbol': 'IBM',
+        '02. open': '128.3900',
+        '03. high': '129.2200',
+        '04. low': '127.7100',
+        '05. price': '128.9300',
+        '06. volume': '3282432',
+        '07. latest trading day': '2023-03-02',
+        '08. previous close': '128.1900',
+        '09. change': '0.7400',
+        '10. change percent': '0.5773%'
+      }
     },
-    data,
-  );
+    data
+  )
 
-  return obj;
+  return obj
 }
