@@ -1,8 +1,5 @@
 import { ParseResponseError } from '@/errors'
-
-export type ParseResponseMap = {
-  [key: string]: any
-}
+import { CryptoResponseMap } from './parse-response-maps'
 
 export type ParsedResponseMetadata = {
   [key: string]: string
@@ -17,26 +14,32 @@ export type ParsedResponse = {
   timeSeries: ParsedResponseTimeSeries
 }
 
+type StockTimeSeriesResponse = {
+  [key: string]: {
+    [key: string]: any
+  }
+}
+
 export function parseResponse(
-  map: ParseResponseMap,
-  response: { [key: string]: any }
+  map: CryptoResponseMap,
+  response: StockTimeSeriesResponse
 ): ParsedResponse {
   try {
     const metadata: ParsedResponseMetadata = {}
     const timeSeries: ParsedResponseTimeSeries = {}
 
     Object.keys(map.metadata).forEach((key) => {
-      metadata[key] = response['Meta Data'][map.metadata[key]]
+      metadata[key] = response['Meta Data'][map.metadata[key]] as string
     })
 
     const timeSeriesKeys = Object.keys(response[map.timeSeriesKey])
 
-    for (let i = 0; i < timeSeriesKeys.length; i++) {
-      const date = timeSeriesKeys[i]
+    for (const date of timeSeriesKeys) {
       timeSeries[date] = {}
       Object.keys(map.timeSeries).forEach((key) => {
+        const mapTimeSeriesKey = map.timeSeries[key]
         timeSeries[date][key] =
-          response[map.timeSeriesKey][date][map.timeSeries[key]]
+          response[map.timeSeriesKey][date][mapTimeSeriesKey]
       })
     }
 

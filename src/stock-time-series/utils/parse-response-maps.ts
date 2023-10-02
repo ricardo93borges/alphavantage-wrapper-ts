@@ -1,6 +1,18 @@
 import { Interval } from '@/enum'
 
-export function getParseIntradayResponseMap(interval: Interval) {
+export type StockTimeSeriesResponseMap = {
+  metadata: {
+    [key: string]: string
+  }
+  timeSeriesKey: string
+  timeSeries: {
+    [key: string]: string
+  }
+}
+
+export function getParseIntradayResponseMap(
+  interval: Interval
+): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -21,7 +33,7 @@ export function getParseIntradayResponseMap(interval: Interval) {
   }
 }
 
-export function getParseDailyResponseMap() {
+export function getParseDailyResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -41,7 +53,7 @@ export function getParseDailyResponseMap() {
   }
 }
 
-export function getParseDailyAdjustedResponseMap() {
+export function getParseDailyAdjustedResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -64,7 +76,7 @@ export function getParseDailyAdjustedResponseMap() {
   }
 }
 
-export function getParseWeeklyAdjustedResponseMap() {
+export function getParseWeeklyAdjustedResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -85,7 +97,7 @@ export function getParseWeeklyAdjustedResponseMap() {
   }
 }
 
-export function getParseWeeklyResponseMap() {
+export function getParseWeeklyResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -104,7 +116,7 @@ export function getParseWeeklyResponseMap() {
   }
 }
 
-export function getParseMonthlyResponseMap() {
+export function getParseMonthlyResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -123,7 +135,7 @@ export function getParseMonthlyResponseMap() {
   }
 }
 
-export function getParseMonthlyAdjustedResponseMap() {
+export function getParseMonthlyAdjustedResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',

@@ -1,6 +1,18 @@
 import { Interval } from '@/enum'
 
-export function getParseIntradayResponseMap(interval: Interval) {
+export type CryptoResponseMap = {
+  metadata: {
+    [key: string]: string
+  }
+  timeSeriesKey: string
+  timeSeries: {
+    [key: string]: string
+  }
+}
+
+export function getParseIntradayResponseMap(
+  interval: Interval
+): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -24,7 +36,7 @@ export function getParseIntradayResponseMap(interval: Interval) {
   }
 }
 
-export function getParseMonthlyResponseMap(market: string) {
+export function getParseMonthlyResponseMap(market: string): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -51,7 +63,7 @@ export function getParseMonthlyResponseMap(market: string) {
   }
 }
 
-export function getParseWeeklyResponseMap(market: string) {
+export function getParseWeeklyResponseMap(market: string): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -78,7 +90,7 @@ export function getParseWeeklyResponseMap(market: string) {
   }
 }
 
-export function getParseDailyResponseMap(market: string) {
+export function getParseDailyResponseMap(market: string): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',

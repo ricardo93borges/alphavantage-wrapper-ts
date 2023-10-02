@@ -1,7 +1,13 @@
 import { ParseResponseError } from '@/errors'
 import { QuoteResponse } from '../dto/'
 
-export function parseQuoteResponse(data: any): QuoteResponse {
+type QuoteResponseData = {
+  [key: string]: {
+    [key: string]: string
+  }
+}
+
+export function parseQuoteResponse(data: QuoteResponseData): QuoteResponse {
   try {
     const globalQuote = data['Global Quote']
     return {

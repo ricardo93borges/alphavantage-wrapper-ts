@@ -8,14 +8,6 @@ export class CustomError extends Error {
   }
 }
 
-export class AlphaVantageRequestError extends CustomError {
-  constructor(message: string, details: any) {
-    super(message, details)
-  }
-}
+export class AlphaVantageRequestError extends CustomError {}
 
-export class ParseResponseError extends CustomError {
-  constructor(message: string, details: any) {
-    super(message, details)
-  }
-}
+export class ParseResponseError extends CustomError {}
