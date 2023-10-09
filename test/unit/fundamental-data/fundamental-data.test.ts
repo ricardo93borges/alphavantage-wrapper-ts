@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
-import { Function, ListingStatus } from '@/enum'
+import { Function, ListingState } from '@/enum'
 import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
 import { FundamentalData } from '@/fundamental-data/FundamentalData'
 import {
@@ -229,7 +229,7 @@ describe('StockTimeSeries', () => {
       api.get = jest.fn().mockResolvedValue({ data: '' })
       const listingStatusDTO = {
         date: '2014-07-10',
-        status: ListingStatus.DELISTED
+        status: ListingState.DELISTED
       }
       await fundamentalData.listingStatus(listingStatusDTO)
 

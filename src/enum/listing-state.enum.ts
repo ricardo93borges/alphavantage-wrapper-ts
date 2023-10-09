@@ -1,4 +1,4 @@
-export enum ListingStatus {
+export enum ListingState {
   ACTIVE = 'active',
   DELISTED = 'delisted'
 }
