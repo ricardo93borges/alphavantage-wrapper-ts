@@ -25,6 +25,7 @@
   - [Fundamental data](#fundamental-data)
     - [Company Overview](#company-overview)
     - [Earnings](#earnings)
+    - [Listing status](#listing-status)
   - [Cryptocurrencies](#cryptocurrencies)
     - [Intraday](#intraday-1)
     - [Monthly](#monthly-1)
@@ -73,7 +74,7 @@ async function intraday(): Promise<StockTimeSeries.IntradayResponse> {
 ```js
 av.stockTimeSeries
   .intraday({ symbol: 'IBM', interval: Interval.SIXTY_MIN })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -127,10 +128,10 @@ av.stockTimeSeries
 av.stockTimeSeries
   .search({
     keywords: 'microsoft',
-    datatype: DataType.JSON,
+    datatype: DataType.JSON
   })
   .then((data) => console.log(data))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err))
 ```
 
 **Parameters**
@@ -173,7 +174,7 @@ av.stockTimeSeries
 ### Daily
 
 ```js
-av.stockTimeSeries.daily({ symbol: 'IBM' }).then((data) => console.log(data));
+av.stockTimeSeries.daily({ symbol: 'IBM' }).then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -220,7 +221,7 @@ av.stockTimeSeries.daily({ symbol: 'IBM' }).then((data) => console.log(data));
 ```js
 av.stockTimeSeries
   .dailyAdjusted({ symbol: 'IBM' })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -271,7 +272,7 @@ av.stockTimeSeries
 ### Weekly
 
 ```js
-av.stockTimeSeries.weekly({ symbol: 'IBM' }).then((data) => console.log(data));
+av.stockTimeSeries.weekly({ symbol: 'IBM' }).then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -316,7 +317,7 @@ av.stockTimeSeries.weekly({ symbol: 'IBM' }).then((data) => console.log(data));
 ```js
 av.stockTimeSeries
   .weeklyAdjusted({ symbol: 'IBM' })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -363,7 +364,7 @@ av.stockTimeSeries
 ### Monthly
 
 ```js
-av.stockTimeSeries.monthly({ symbol: 'IBM' }).then((data) => console.log(data));
+av.stockTimeSeries.monthly({ symbol: 'IBM' }).then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -408,7 +409,7 @@ av.stockTimeSeries.monthly({ symbol: 'IBM' }).then((data) => console.log(data));
 ```js
 av.stockTimeSeries
   .monthlyAdjusted({ symbol: 'IBM' })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -455,9 +456,7 @@ av.stockTimeSeries
 ### Quote Endpoint
 
 ```js
-av.stockTimeSeries
-  .quote({ symbol: 'IBM' })
-  .then((data) => console.log(data));
+av.stockTimeSeries.quote({ symbol: 'IBM' }).then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -469,16 +468,16 @@ av.stockTimeSeries
 
 ```js
 {
-  symbol: string;
-  open: string;
-  high: string;
-  low: string;
-  price: string;
-  volume: string;
-  latestTradingDay: string;
-  previousClose: string;
-  change: string;
-  changePercent: string;
+  symbol: string
+  open: string
+  high: string
+  low: string
+  price: string
+  volume: string
+  latestTradingDay: string
+  previousClose: string
+  change: string
+  changePercent: string
 }
 ```
 
@@ -491,7 +490,7 @@ av.stockTimeSeries
 ```js
 av.fundamentalData
   .companyOverview({ symbol: 'IBM' })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -502,65 +501,65 @@ av.fundamentalData
 
 ```js
 {
-  symbol: string;
-  assetType: string;
-  name: string;
-  description: string;
-  CIK: string;
-  exchange: string;
-  currency: string;
-  country: string;
-  sector: string;
-  industry: string;
-  address: string;
-  fiscalYearEnd: string;
-  latestQuarter: string;
-  marketCapitalization: string;
-  EBITDA: string;
-  PERatio: string;
-  PEGRatio: string;
-  bookValue: string;
-  dividendPerShare: string;
-  dividendYield: string;
-  EPS: string;
-  revenuePerShareTTM: string;
-  profitMargin: string;
-  operatingMarginTTM: string;
-  returnOnAssetsTTM: string;
-  returnOnEquityTTM: string;
-  revenueTTM: string;
-  grossProfitTTM: string;
-  dilutedEPSTTM: string;
-  quarterlyEarningsGrowthYOY: string;
-  quarterlyRevenueGrowthYOY: string;
-  analystTargetPrice: string;
-  trailingPE: string;
-  forwardPE: string;
-  priceToSalesRatioTTM: string;
-  priceToBookRatio: string;
-  EVToRevenue: string;
-  EVToEBITDA: string;
-  beta: string;
-  fiftyTwoWeekHigh: string;
-  fiftyTwoWeekLow: string;
-  fiftyDayMovingAverage: string;
-  twoHundredDayMovingAverage: string;
-  sharesOutstanding: string;
-  sharesFloat: string;
-  sharesShort: string;
-  sharesShortPriorMonth: string;
-  shortRatio: string;
-  shortPercentOutstanding: string;
-  shortPercentFloat: string;
-  percentInsiders: string;
-  percentInstitutions: string;
-  forwardAnnualDividendRate: string;
-  forwardAnnualDividendYield: string;
-  payoutRatio: string;
-  dividendDate: string;
-  exDividendDate: string;
-  lastSplitFactor: string;
-  lastSplitDate: string;
+  symbol: string
+  assetType: string
+  name: string
+  description: string
+  CIK: string
+  exchange: string
+  currency: string
+  country: string
+  sector: string
+  industry: string
+  address: string
+  fiscalYearEnd: string
+  latestQuarter: string
+  marketCapitalization: string
+  EBITDA: string
+  PERatio: string
+  PEGRatio: string
+  bookValue: string
+  dividendPerShare: string
+  dividendYield: string
+  EPS: string
+  revenuePerShareTTM: string
+  profitMargin: string
+  operatingMarginTTM: string
+  returnOnAssetsTTM: string
+  returnOnEquityTTM: string
+  revenueTTM: string
+  grossProfitTTM: string
+  dilutedEPSTTM: string
+  quarterlyEarningsGrowthYOY: string
+  quarterlyRevenueGrowthYOY: string
+  analystTargetPrice: string
+  trailingPE: string
+  forwardPE: string
+  priceToSalesRatioTTM: string
+  priceToBookRatio: string
+  EVToRevenue: string
+  EVToEBITDA: string
+  beta: string
+  fiftyTwoWeekHigh: string
+  fiftyTwoWeekLow: string
+  fiftyDayMovingAverage: string
+  twoHundredDayMovingAverage: string
+  sharesOutstanding: string
+  sharesFloat: string
+  sharesShort: string
+  sharesShortPriorMonth: string
+  shortRatio: string
+  shortPercentOutstanding: string
+  shortPercentFloat: string
+  percentInsiders: string
+  percentInstitutions: string
+  forwardAnnualDividendRate: string
+  forwardAnnualDividendYield: string
+  payoutRatio: string
+  dividendDate: string
+  exDividendDate: string
+  lastSplitFactor: string
+  lastSplitDate: string
 }
 ```
 
@@ -569,9 +568,7 @@ av.fundamentalData
 ### Earnings
 
 ```js
-av.fundamentalData
-  .earnings({ symbol: 'IBM' })
-  .then((data) => console.log(data));
+av.fundamentalData.earnings({ symbol: 'IBM' }).then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -614,6 +611,29 @@ av.fundamentalData
 }
 ```
 
+### Listing status
+
+```js
+av.fundamentalData
+  .listingStatus({ state: ListingStatus.ACTIVE, date: '2014-07-10' })
+  .then((data) => console.log(data))
+```
+
+**Parameters**
+
+1. **state**: (Optional) By default, `state=active` and the API will return a list of actively traded stocks and ETFs. Set `state=delisted` to query a list of delisted assets.
+2. **date**: (Optional) If no date is set, the API endpoint will return a list of active or delisted symbols as of the latest trading day. If a date is set, the API endpoint will "travel back" in time and return a list of active or delisted symbols on that particular date in history. Any YYYY-MM-DD date later than 2010-01-01 is supported
+
+**Response**
+
+CSV
+
+```
+symbol,name,exchange,assetType,ipoDate,delistingDate,status
+A,Agilent Technologies Inc,NYSE,Stock,1999-11-18,null,Active
+...
+```
+
 ---
 
 ## Cryptocurrencies
@@ -623,7 +643,7 @@ av.fundamentalData
 ```js
 av.cryptocurrency
   .intraday({ symbol: 'ETH', market: 'USD', interval: Interval.SIXTY_MIN })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -671,7 +691,7 @@ av.cryptocurrency
 ```js
 av.cryptocurrency
   .monthly({ symbol: 'ETH', market: 'CNY' })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -728,7 +748,7 @@ av.cryptocurrency
 ```js
 av.cryptocurrency
   .weekly({ symbol: 'ETH', market: 'CNY' })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -785,7 +805,7 @@ av.cryptocurrency
 ```js
 av.cryptocurrency
   .daily({ symbol: 'ETH', market: 'CNY' })
-  .then((data) => console.log(data));
+  .then((data) => console.log(data))
 ```
 
 **Parameters**
@@ -842,7 +862,7 @@ av.cryptocurrency
 ```ts
 enum DataType {
   JSON = 'json',
-  CSV = 'csv',
+  CSV = 'csv'
 }
 ```
 
@@ -852,13 +872,13 @@ enum Interval {
   FIVE_MIN = '5min',
   FIFTEEN_MIN = '15min',
   THIRTY_MIN = '30min',
-  SIXTY_MIN = '60min',
+  SIXTY_MIN = '60min'
 }
 ```
 
 ```ts
 enum OutputSize {
   COMPACT = 'compact',
-  FULL = 'full',
+  FULL = 'full'
 }
 ```
