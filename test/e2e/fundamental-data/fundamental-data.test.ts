@@ -44,4 +44,20 @@ describe('FundamentalData', () => {
       expect(hasError).toBe(false)
     })
   })
+
+  describe('#listingStatus', () => {
+    it('should make a request to listing status endpoint', async () => {
+      const fundamentalData = new FundamentalData(api)
+
+      let hasError = false
+      try {
+        await fundamentalData.listingStatus()
+      } catch (err) {
+        console.error(err)
+        hasError = true
+      }
+
+      expect(hasError).toBe(false)
+    })
+  })
 })

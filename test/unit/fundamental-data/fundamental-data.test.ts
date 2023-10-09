@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
-import { Function } from '@/enum'
+import { Function, ListingStatus } from '@/enum'
 import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
 import { FundamentalData } from '@/fundamental-data/FundamentalData'
 import {
@@ -211,6 +211,54 @@ describe('StockTimeSeries', () => {
       } catch (err) {
         expect(err).toBeInstanceOf(AlphaVantageRequestError)
       }
+    })
+  })
+
+  describe('#listingStatus', () => {
+    it('should make a request to listing status endpoint', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: '' })
+
+      await fundamentalData.listingStatus()
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: { function: Function.LISTING_STATUS }
+      })
+    })
+
+    it('should make a request to listing status endpoint with optional parameters', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: '' })
+      const listingStatusDTO = {
+        date: '2014-07-10',
+        status: ListingStatus.DELISTED
+      }
+      await fundamentalData.listingStatus(listingStatusDTO)
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: { ...listingStatusDTO, function: Function.LISTING_STATUS }
+      })
+    })
+
+    it('should fail to request to listing status endpoint', async () => {
+      api.get = jest.fn().mockRejectedValue(new Error())
+
+      try {
+        await fundamentalData.listingStatus()
+        fail('should have thrown an error')
+      } catch (err) {
+        expect(err).toBeInstanceOf(AlphaVantageRequestError)
+      }
+    })
+
+    it('should return csv data', async () => {
+      const csvData =
+        'symbol,name,exchange,assetType,ipoDate,delistingDate,status\
+        A,Agilent Technologies Inc,NYSE,Stock,1999-11-18,null,Active'
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData })
+
+      const result = await fundamentalData.listingStatus({})
+
+      expect(result).toEqual(csvData)
     })
   })
 })
