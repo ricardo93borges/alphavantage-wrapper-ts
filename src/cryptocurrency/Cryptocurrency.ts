@@ -1,4 +1,3 @@
-import { AxiosInstance } from 'axios'
 import { Category } from '@/Category'
 import { Function, DataType } from '@/enum'
 import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
@@ -21,10 +20,6 @@ import {
 } from './utils/'
 
 export class Cryptocurrency extends Category {
-  constructor(api: AxiosInstance) {
-    super(api)
-  }
-
   async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponse> {
     try {
       const { data } = await this.api.get('/query', {

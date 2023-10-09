@@ -1,4 +1,3 @@
-import { AxiosInstance } from 'axios'
 import { DataType, Function } from '@/enum'
 import { Category } from '@/Category'
 
@@ -37,10 +36,6 @@ import {
 } from './utils'
 
 export class StockTimeSeries extends Category {
-  constructor(api: AxiosInstance) {
-    super(api)
-  }
-
   async intraday(intradayDTO: IntradayDTO): Promise<IntradayResponse> {
     try {
       const { data } = await this.api.get('/query', {

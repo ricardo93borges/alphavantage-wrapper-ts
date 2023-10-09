@@ -1,4 +1,3 @@
-import { AxiosInstance } from 'axios'
 import { Category } from '@/Category'
 import { Function } from '@/enum'
 import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
@@ -9,12 +8,9 @@ import {
   EarningsResponse
 } from './dto/'
 import { parseCompanyOverviewResponse, parseEarningsResponse } from './utils/'
+import { ListingStatusDTO } from './dto/listing-status.dto'
 
 export class FundamentalData extends Category {
-  constructor(api: AxiosInstance) {
-    super(api)
-  }
-
   async companyOverview(
     companyOverviewDTO: CompanyOverviewDTO
   ): Promise<CompanyOverviewResponse> {
@@ -45,6 +41,18 @@ export class FundamentalData extends Category {
       if (err instanceof ParseResponseError) throw err
 
       throw new AlphaVantageRequestError('fail to get earnings data', err)
+    }
+  }
+
+  async listingStatus(listingStatusDTO?: ListingStatusDTO): Promise<string> {
+    try {
+      const { data } = await this.api.get('/query', {
+        params: { ...listingStatusDTO, function: Function.LISTING_STATUS }
+      })
+
+      return data
+    } catch (err) {
+      throw new AlphaVantageRequestError('fail to get listing status', err)
     }
   }
 }
