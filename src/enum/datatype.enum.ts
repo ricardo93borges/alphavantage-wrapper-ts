@@ -1,4 +1,4 @@
 export enum DataType {
   JSON = 'json',
-  CSV = 'csv',
+  CSV = 'csv'
 }

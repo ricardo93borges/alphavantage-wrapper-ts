@@ -1,6 +1,18 @@
-import { Interval } from '../..';
+import { Interval } from '@/enum'
 
-export function getParseIntradayResponseMap(interval: Interval) {
+export type StockTimeSeriesResponseMap = {
+  metadata: {
+    [key: string]: string
+  }
+  timeSeriesKey: string
+  timeSeries: {
+    [key: string]: string
+  }
+}
+
+export function getParseIntradayResponseMap(
+  interval: Interval
+): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -8,7 +20,7 @@ export function getParseIntradayResponseMap(interval: Interval) {
       lastRefreshed: '3. Last Refreshed',
       interval: '4. Interval',
       outputSize: '5. Output Size',
-      timeZone: '6. Time Zone',
+      timeZone: '6. Time Zone'
     },
     timeSeriesKey: `Time Series (${interval})`,
     timeSeries: {
@@ -16,19 +28,19 @@ export function getParseIntradayResponseMap(interval: Interval) {
       high: '2. high',
       low: '3. low',
       close: '4. close',
-      volume: '5. volume',
-    },
-  };
+      volume: '5. volume'
+    }
+  }
 }
 
-export function getParseDailyResponseMap() {
+export function getParseDailyResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
       symbol: '2. Symbol',
       lastRefreshed: '3. Last Refreshed',
       outputSize: '4. Output Size',
-      timeZone: '5. Time Zone',
+      timeZone: '5. Time Zone'
     },
     timeSeriesKey: 'Time Series (Daily)',
     timeSeries: {
@@ -36,19 +48,19 @@ export function getParseDailyResponseMap() {
       high: '2. high',
       low: '3. low',
       close: '4. close',
-      volume: '5. volume',
-    },
-  };
+      volume: '5. volume'
+    }
+  }
 }
 
-export function getParseDailyAdjustedResponseMap() {
+export function getParseDailyAdjustedResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
       symbol: '2. Symbol',
       lastRefreshed: '3. Last Refreshed',
       outputSize: '4. Output Size',
-      timeZone: '5. Time Zone',
+      timeZone: '5. Time Zone'
     },
     timeSeriesKey: 'Time Series (Daily)',
     timeSeries: {
@@ -59,18 +71,18 @@ export function getParseDailyAdjustedResponseMap() {
       adjustedClose: '5. adjusted close',
       volume: '6. volume',
       dividendAmount: '7. dividend amount',
-      splitCoefficient: '8. split coefficient',
-    },
-  };
+      splitCoefficient: '8. split coefficient'
+    }
+  }
 }
 
-export function getParseWeeklyAdjustedResponseMap() {
+export function getParseWeeklyAdjustedResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
       symbol: '2. Symbol',
       lastRefreshed: '3. Last Refreshed',
-      timeZone: '4. Time Zone',
+      timeZone: '4. Time Zone'
     },
     timeSeriesKey: 'Weekly Adjusted Time Series',
     timeSeries: {
@@ -80,18 +92,18 @@ export function getParseWeeklyAdjustedResponseMap() {
       close: '4. close',
       adjustedClose: '5. adjusted close',
       volume: '6. volume',
-      dividendAmount: '7. dividend amount',
-    },
-  };
+      dividendAmount: '7. dividend amount'
+    }
+  }
 }
 
-export function getParseWeeklyResponseMap() {
+export function getParseWeeklyResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
       symbol: '2. Symbol',
       lastRefreshed: '3. Last Refreshed',
-      timeZone: '4. Time Zone',
+      timeZone: '4. Time Zone'
     },
     timeSeriesKey: 'Weekly Time Series',
     timeSeries: {
@@ -99,18 +111,18 @@ export function getParseWeeklyResponseMap() {
       high: '2. high',
       low: '3. low',
       close: '4. close',
-      volume: '5. volume',
-    },
-  };
+      volume: '5. volume'
+    }
+  }
 }
 
-export function getParseMonthlyResponseMap() {
+export function getParseMonthlyResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
       symbol: '2. Symbol',
       lastRefreshed: '3. Last Refreshed',
-      timeZone: '4. Time Zone',
+      timeZone: '4. Time Zone'
     },
     timeSeriesKey: 'Monthly Time Series',
     timeSeries: {
@@ -118,18 +130,18 @@ export function getParseMonthlyResponseMap() {
       high: '2. high',
       low: '3. low',
       close: '4. close',
-      volume: '5. volume',
-    },
-  };
+      volume: '5. volume'
+    }
+  }
 }
 
-export function getParseMonthlyAdjustedResponseMap() {
+export function getParseMonthlyAdjustedResponseMap(): StockTimeSeriesResponseMap {
   return {
     metadata: {
       information: '1. Information',
       symbol: '2. Symbol',
       lastRefreshed: '3. Last Refreshed',
-      timeZone: '4. Time Zone',
+      timeZone: '4. Time Zone'
     },
     timeSeriesKey: 'Monthly Adjusted Time Series',
     timeSeries: {
@@ -139,7 +151,7 @@ export function getParseMonthlyAdjustedResponseMap() {
       close: '4. close',
       adjustedClose: '5. adjusted close',
       volume: '6. volume',
-      dividendAmount: '7. dividend amount',
-    },
-  };
+      dividendAmount: '7. dividend amount'
+    }
+  }
 }

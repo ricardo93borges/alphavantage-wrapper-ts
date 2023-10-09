@@ -3,5 +3,5 @@ export enum Interval {
   FIVE_MIN = '5min',
   FIFTEEN_MIN = '15min',
   THIRTY_MIN = '30min',
-  SIXTY_MIN = '60min',
+  SIXTY_MIN = '60min'
 }

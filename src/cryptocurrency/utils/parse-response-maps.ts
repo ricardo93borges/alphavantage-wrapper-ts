@@ -1,6 +1,18 @@
-import { Interval } from '../..';
+import { Interval } from '@/enum'
 
-export function getParseIntradayResponseMap(interval: Interval) {
+export type CryptoResponseMap = {
+  metadata: {
+    [key: string]: string
+  }
+  timeSeriesKey: string
+  timeSeries: {
+    [key: string]: string
+  }
+}
+
+export function getParseIntradayResponseMap(
+  interval: Interval
+): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -11,7 +23,7 @@ export function getParseIntradayResponseMap(interval: Interval) {
       lastRefreshed: '6. Last Refreshed',
       interval: '7. Interval',
       outputSize: '8. Output Size',
-      timeZone: '9. Time Zone',
+      timeZone: '9. Time Zone'
     },
     timeSeriesKey: `Time Series Crypto (${interval})`,
     timeSeries: {
@@ -19,12 +31,12 @@ export function getParseIntradayResponseMap(interval: Interval) {
       high: '2. high',
       low: '3. low',
       close: '4. close',
-      volume: '5. volume',
-    },
-  };
+      volume: '5. volume'
+    }
+  }
 }
 
-export function getParseMonthlyResponseMap(market: string) {
+export function getParseMonthlyResponseMap(market: string): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -33,7 +45,7 @@ export function getParseMonthlyResponseMap(market: string) {
       marketCode: '4. Market Code',
       marketName: '5. Market Name',
       lastRefreshed: '6. Last Refreshed',
-      timeZone: '7. Time Zone',
+      timeZone: '7. Time Zone'
     },
     timeSeriesKey: 'Time Series (Digital Currency Monthly)',
     timeSeries: {
@@ -46,12 +58,12 @@ export function getParseMonthlyResponseMap(market: string) {
       closeMarket: `4a. close (${market})`,
       closeUSD: '4b. close (USD)',
       volume: '5. volume',
-      marketCap: '6. market cap (USD)',
-    },
-  };
+      marketCap: '6. market cap (USD)'
+    }
+  }
 }
 
-export function getParseWeeklyResponseMap(market: string) {
+export function getParseWeeklyResponseMap(market: string): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -60,7 +72,7 @@ export function getParseWeeklyResponseMap(market: string) {
       marketCode: '4. Market Code',
       marketName: '5. Market Name',
       lastRefreshed: '6. Last Refreshed',
-      timeZone: '7. Time Zone',
+      timeZone: '7. Time Zone'
     },
     timeSeriesKey: 'Time Series (Digital Currency Weekly)',
     timeSeries: {
@@ -73,12 +85,12 @@ export function getParseWeeklyResponseMap(market: string) {
       closeMarket: `4a. close (${market})`,
       closeUSD: '4b. close (USD)',
       volume: '5. volume',
-      marketCap: '6. market cap (USD)',
-    },
-  };
+      marketCap: '6. market cap (USD)'
+    }
+  }
 }
 
-export function getParseDailyResponseMap(market: string) {
+export function getParseDailyResponseMap(market: string): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -87,7 +99,7 @@ export function getParseDailyResponseMap(market: string) {
       marketCode: '4. Market Code',
       marketName: '5. Market Name',
       lastRefreshed: '6. Last Refreshed',
-      timeZone: '7. Time Zone',
+      timeZone: '7. Time Zone'
     },
     timeSeriesKey: 'Time Series (Digital Currency Daily)',
     timeSeries: {
@@ -100,7 +112,7 @@ export function getParseDailyResponseMap(market: string) {
       closeMarket: `4a. close (${market})`,
       closeUSD: '4b. close (USD)',
       volume: '5. volume',
-      marketCap: '6. market cap (USD)',
-    },
-  };
+      marketCap: '6. market cap (USD)'
+    }
+  }
 }

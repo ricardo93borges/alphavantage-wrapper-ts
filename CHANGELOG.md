@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- Change linter
+- Upgrade dependencies
+- Refactor parse response methods
+- Setup Husky
+
 ## [2.2.0]
 
 ### Added

@@ -1,54 +1,51 @@
-import axios, { AxiosInstance } from 'axios';
-import { Function } from '../../../src/enum/function.enum';
-import {
-  AlphaVantageRequestError,
-  ParseResponseError,
-} from '../../../src/errors';
-import { FundamentalData } from '../../../src/fundamental-data/FundamentalData';
+import axios, { AxiosInstance } from 'axios'
+import { Function, ListingState } from '@/enum'
+import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
+import { FundamentalData } from '@/fundamental-data/FundamentalData'
 import {
   givenCompanyOverviewResponse,
-  givenEarningsResponse,
-} from '../helpers/data-builders/fundamental-data.builder';
+  givenEarningsResponse
+} from '../helpers/data-builders/fundamental-data.builder'
 
 describe('StockTimeSeries', () => {
-  let fundamentalData: FundamentalData;
-  let api: AxiosInstance;
+  let fundamentalData: FundamentalData
+  let api: AxiosInstance
 
   beforeEach(() => {
     api = axios.create({
       baseURL: 'http://api.com',
-      params: { apikey: 'demo' },
-    });
+      params: { apikey: 'demo' }
+    })
 
-    fundamentalData = new FundamentalData(api);
-  });
+    fundamentalData = new FundamentalData(api)
+  })
 
   describe('#companyOverview', () => {
     it('should make a request to company overview endpoint', async () => {
       api.get = jest
         .fn()
-        .mockResolvedValue({ data: givenCompanyOverviewResponse() });
+        .mockResolvedValue({ data: givenCompanyOverviewResponse() })
 
       const companyOverviewDTO = {
-        symbol: 'IBM',
-      };
+        symbol: 'IBM'
+      }
 
-      await fundamentalData.companyOverview(companyOverviewDTO);
+      await fundamentalData.companyOverview(companyOverviewDTO)
 
       expect(api.get).toBeCalledWith('/query', {
         params: {
           ...companyOverviewDTO,
-          function: Function.OVERVIEW,
-        },
-      });
-    });
+          function: Function.OVERVIEW
+        }
+      })
+    })
 
     it('should return parsed company overview data', async () => {
       api.get = jest
         .fn()
-        .mockResolvedValue({ data: givenCompanyOverviewResponse() });
+        .mockResolvedValue({ data: givenCompanyOverviewResponse() })
 
-      const result = await fundamentalData.companyOverview({ symbol: 'IBM' });
+      const result = await fundamentalData.companyOverview({ symbol: 'IBM' })
 
       expect(result).toEqual({
         symbol: 'IBM',
@@ -109,65 +106,65 @@ describe('StockTimeSeries', () => {
         dividendDate: '2021-09-10',
         exDividendDate: '2021-08-09',
         lastSplitFactor: '2:1',
-        lastSplitDate: '1999-05-27',
-      });
-    });
+        lastSplitDate: '1999-05-27'
+      })
+    })
 
     it('should fail to parse company overview data', async () => {
-      api.get = jest.fn().mockResolvedValue({});
+      api.get = jest.fn().mockResolvedValue({})
 
       try {
         await fundamentalData.companyOverview({
-          symbol: 'IBM',
-        });
-        fail('should have thrown an error');
+          symbol: 'IBM'
+        })
+        fail('should have thrown an error')
       } catch (err) {
-        expect(err).toBeInstanceOf(ParseResponseError);
+        expect(err).toBeInstanceOf(ParseResponseError)
       }
-    });
+    })
 
     it('should throw AlphaVantageRequestError because it fail to request company overview data', async () => {
-      api.get = jest.fn().mockRejectedValue(new Error('some error'));
+      api.get = jest.fn().mockRejectedValue(new Error('some error'))
 
       try {
         await fundamentalData.companyOverview({
-          symbol: 'IBM',
-        });
-        fail('should have thrown an error');
+          symbol: 'IBM'
+        })
+        fail('should have thrown an error')
       } catch (err) {
-        expect(err).toBeInstanceOf(AlphaVantageRequestError);
+        expect(err).toBeInstanceOf(AlphaVantageRequestError)
       }
-    });
-  });
+    })
+  })
 
   describe('#earnings', () => {
     it('should make a request to earnings endpoint', async () => {
-      api.get = jest.fn().mockResolvedValue({ data: givenEarningsResponse() });
+      api.get = jest.fn().mockResolvedValue({ data: givenEarningsResponse() })
 
       const earningsDTO = {
-        symbol: 'IBM',
-      };
+        symbol: 'IBM'
+      }
 
-      await fundamentalData.earnings(earningsDTO);
+      await fundamentalData.earnings(earningsDTO)
 
       expect(api.get).toBeCalledWith('/query', {
         params: {
           ...earningsDTO,
-          function: Function.EARNINGS,
-        },
-      });
-    });
+          function: Function.EARNINGS
+        }
+      })
+    })
 
     it('should return parsed earnings data', async () => {
-      api.get = jest.fn().mockResolvedValue({ data: givenEarningsResponse() });
+      api.get = jest.fn().mockResolvedValue({ data: givenEarningsResponse() })
 
-      const result = await fundamentalData.earnings({ symbol: 'IBM' });
+      const result = await fundamentalData.earnings({ symbol: 'IBM' })
 
       expect(result).toEqual({
         symbol: 'IBM',
         annualEarnings: [
           { fiscalDateEnding: '2022-09-30', reportedEPS: '3.71' },
-          { fiscalDateEnding: '2021-12-31', reportedEPS: '9.97' },
+          { fiscalDateEnding: '2021-12-31', reportedEPS: '9.97' }
         ],
         quarterlyEarnings: [
           {
@@ -176,7 +173,7 @@ describe('StockTimeSeries', () => {
             reportedEPS: '2.31',
             estimatedEPS: '2.27',
             surprise: '0.04',
-            surprisePercentage: '1.7621',
+            surprisePercentage: '1.7621'
           },
           {
             fiscalDateEnding: '2022-03-31',
@@ -184,36 +181,84 @@ describe('StockTimeSeries', () => {
             reportedEPS: '1.4',
             estimatedEPS: '1.38',
             surprise: '0.02',
-            surprisePercentage: '1.4493',
-          },
-        ],
-      });
-    });
+            surprisePercentage: '1.4493'
+          }
+        ]
+      })
+    })
 
     it('should fail to parse earnings data', async () => {
-      api.get = jest.fn().mockResolvedValue({});
+      api.get = jest.fn().mockResolvedValue({})
 
       try {
         await fundamentalData.earnings({
-          symbol: 'IBM',
-        });
-        fail('should have thrown an error');
+          symbol: 'IBM'
+        })
+        fail('should have thrown an error')
       } catch (err) {
-        expect(err).toBeInstanceOf(ParseResponseError);
+        expect(err).toBeInstanceOf(ParseResponseError)
       }
-    });
+    })
 
     it('should throw AlphaVantageRequestError because it fail to request earnings data', async () => {
-      api.get = jest.fn().mockRejectedValue(new Error('some error'));
+      api.get = jest.fn().mockRejectedValue(new Error('some error'))
 
       try {
         await fundamentalData.earnings({
-          symbol: 'IBM',
-        });
-        fail('should have thrown an error');
+          symbol: 'IBM'
+        })
+        fail('should have thrown an error')
       } catch (err) {
-        expect(err).toBeInstanceOf(AlphaVantageRequestError);
+        expect(err).toBeInstanceOf(AlphaVantageRequestError)
       }
-    });
-  });
-});
+    })
+  })
+
+  describe('#listingStatus', () => {
+    it('should make a request to listing status endpoint', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: '' })
+
+      await fundamentalData.listingStatus()
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: { function: Function.LISTING_STATUS }
+      })
+    })
+
+    it('should make a request to listing status endpoint with optional parameters', async () => {
+      api.get = jest.fn().mockResolvedValue({ data: '' })
+      const listingStatusDTO = {
+        date: '2014-07-10',
+        status: ListingState.DELISTED
+      }
+      await fundamentalData.listingStatus(listingStatusDTO)
+
+      expect(api.get).toBeCalledWith('/query', {
+        params: { ...listingStatusDTO, function: Function.LISTING_STATUS }
+      })
+    })
+
+    it('should fail to request to listing status endpoint', async () => {
+      api.get = jest.fn().mockRejectedValue(new Error())
+
+      try {
+        await fundamentalData.listingStatus()
+        fail('should have thrown an error')
+      } catch (err) {
+        expect(err).toBeInstanceOf(AlphaVantageRequestError)
+      }
+    })
+
+    it('should return csv data', async () => {
+      const csvData =
+        'symbol,name,exchange,assetType,ipoDate,delistingDate,status\
+        A,Agilent Technologies Inc,NYSE,Stock,1999-11-18,null,Active'
+
+      api.get = jest.fn().mockResolvedValue({ data: csvData })
+
+      const result = await fundamentalData.listingStatus({})
+
+      expect(result).toEqual(csvData)
+    })
+  })
+})

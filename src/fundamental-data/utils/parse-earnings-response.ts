@@ -1,27 +1,23 @@
-import { ParseResponseError } from '../../errors';
-import {
-  AnnualEarnings,
-  EarningsResponse,
-  QuarterlyEarnings,
-} from '../dto/earnings-response';
+import { ParseResponseError } from '@/errors'
+import { AnnualEarnings, EarningsResponse, QuarterlyEarnings } from '../dto'
 
 export type EarningsAPIResponseDTO = {
-  [key: string]: { [key: string]: string }[];
-};
+  [key: string]: { [key: string]: string }[]
+}
 
 function parseAnnualEarnings(
-  annualEarnings: { [key: string]: string }[],
+  annualEarnings: { [key: string]: string }[]
 ): AnnualEarnings[] {
   return annualEarnings.map((value) => {
     return {
       fiscalDateEnding: value['fiscalDateEnding'],
-      reportedEPS: value['reportedEPS'],
-    };
-  });
+      reportedEPS: value['reportedEPS']
+    }
+  })
 }
 
 function parseQuarterlyEarnings(
-  quarterlyEarnings: { [key: string]: string }[],
+  quarterlyEarnings: { [key: string]: string }[]
 ): QuarterlyEarnings[] {
   return quarterlyEarnings.map((value) => {
     return {
@@ -30,23 +26,21 @@ function parseQuarterlyEarnings(
       reportedEPS: value['reportedEPS'],
       estimatedEPS: value['estimatedEPS'],
       surprise: value['surprise'],
-      surprisePercentage: value['surprisePercentage'],
-    };
-  });
+      surprisePercentage: value['surprisePercentage']
+    }
+  })
 }
 
-function parseEarningsResponse(
-  response: EarningsAPIResponseDTO,
+export function parseEarningsResponse(
+  response: EarningsAPIResponseDTO
 ): EarningsResponse {
   try {
     return {
       symbol: response['symbol'].toString(),
       annualEarnings: parseAnnualEarnings(response['annualEarnings']),
-      quarterlyEarnings: parseQuarterlyEarnings(response['quarterlyEarnings']),
-    };
+      quarterlyEarnings: parseQuarterlyEarnings(response['quarterlyEarnings'])
+    }
   } catch (err) {
-    throw new ParseResponseError('fail to parse earnings response', err);
+    throw new ParseResponseError('fail to parse earnings response', err)
   }
 }
-
-export default parseEarningsResponse;
