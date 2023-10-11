@@ -1,7 +1,7 @@
 # Alphavantage Wrapper TS
 
 [![Coverage Status](https://coveralls.io/repos/github/ricardo93borges/alphavantage/badge.svg?branch=develop)](https://coveralls.io/github/ricardo93borges/alphavantage?branch=develop) [![CI](https://github.com/ricardo93borges/alphavantage/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/ricardo93borges/alphavantage/actions/workflows/main.yml) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) ![issues](https://img.shields.io/github/issues/ricardo93borges/alphavantage-wrapper-ts) ![forks](https://img.shields.io/github/forks/ricardo93borges/alphavantage-wrapper-ts) ![stars](https://img.shields.io/github/stars/ricardo93borges/alphavantage-wrapper-ts)
-![npm](https://img.shields.io/npm/v/alphavantage-wrapper-ts) ![npm downloads](https://img.shields.io/npm/dw/alphavantage-wrapper-ts)
+![npm](https://img.shields.io/npm/v/alphavantage-wrapper-ts) ![npm downloads](https://img.shields.io/npm/dw/alphavantage-wrapper-ts) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 [Alpha Vantage API](https://www.alphavantage.co/documentation/) wrapper in TypeScript.
 
@@ -32,6 +32,7 @@
     - [Weekly](#weekly-1)
     - [Daily](#daily-1)
   - [Enums](#enums)
+  - [If found this useful somehow](#if-found-this-useful-somehow)
 
 ## Contributing
 
@@ -882,3 +883,9 @@ enum OutputSize {
   FULL = 'full'
 }
 ```
+
+---
+
+## If found this useful somehow
+
+<a href="https://www.buymeacoffee.com/ricardoborges" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
