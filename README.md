@@ -32,6 +32,7 @@
     - [Weekly](#weekly-1)
     - [Daily](#daily-1)
   - [Enums](#enums)
+  - [If found this useful somehow](#if-found-this-useful-somehow)
 
 ## Contributing
 
@@ -882,3 +883,9 @@ enum OutputSize {
   FULL = 'full'
 }
 ```
+
+---
+
+## If found this useful somehow
+
+<a href="https://www.buymeacoffee.com/ricardoborges" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
