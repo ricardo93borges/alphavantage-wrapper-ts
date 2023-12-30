@@ -1,7 +1,7 @@
-import { DataType, Function } from '@/enum'
-import { Category } from '@/Category'
+import { DataType, Function } from '../enum'
+import { Category } from '../Category'
 
-import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
+import { AlphaVantageRequestError, ParseResponseError } from '../errors'
 import {
   MonthlyAdjustedResponse,
   MonthlyAdjustedDTO,

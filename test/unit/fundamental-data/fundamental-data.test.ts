@@ -1,7 +1,10 @@
 import axios, { AxiosInstance } from 'axios'
-import { Function, ListingState } from '@/enum'
-import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
-import { FundamentalData } from '@/fundamental-data/FundamentalData'
+import { Function, ListingState } from '../../../src/enum'
+import {
+  AlphaVantageRequestError,
+  ParseResponseError
+} from '../../../src/errors'
+import { FundamentalData } from '../../../src/fundamental-data/FundamentalData'
 import {
   givenCompanyOverviewResponse,
   givenEarningsResponse

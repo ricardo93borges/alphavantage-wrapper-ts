@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { API_URL } from '@/config'
-import { FundamentalData } from '@/fundamental-data/FundamentalData'
+import { API_URL } from '../../../src/config'
+import { FundamentalData } from '../../../src/fundamental-data/FundamentalData'
 import { getApiKey } from '../../utils'
 
 describe('FundamentalData', () => {

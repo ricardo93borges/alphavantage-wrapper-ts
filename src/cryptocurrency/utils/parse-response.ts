@@ -1,4 +1,4 @@
-import { ParseResponseError } from '@/errors'
+import { ParseResponseError } from '../../errors'
 import { CryptoResponseMap } from './parse-response-maps'
 
 export type ParsedResponseMetadata = {

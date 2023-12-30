@@ -1,6 +1,6 @@
-import { Category } from '@/Category'
-import { Function, DataType } from '@/enum'
-import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
+import { Category } from '../Category'
+import { Function, DataType } from '../enum'
+import { AlphaVantageRequestError, ParseResponseError } from '../errors'
 import {
   DailyResponse,
   DailyDTO,

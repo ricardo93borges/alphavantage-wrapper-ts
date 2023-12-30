@@ -1,4 +1,4 @@
-import { Interval } from '@/enum'
+import { Interval } from '../../enum'
 
 export type CryptoResponseMap = {
   metadata: {
