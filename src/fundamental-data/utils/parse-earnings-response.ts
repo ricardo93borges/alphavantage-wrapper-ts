@@ -1,4 +1,4 @@
-import { ParseResponseError } from '@/errors'
+import { ParseResponseError } from '../../errors'
 import { AnnualEarnings, EarningsResponse, QuarterlyEarnings } from '../dto'
 
 export type EarningsAPIResponseDTO = {

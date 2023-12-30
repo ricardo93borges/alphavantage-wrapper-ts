@@ -1,4 +1,4 @@
-import { DataType } from '@/enum'
+import { DataType } from '../../enum'
 
 export type DailyDTO = {
   symbol: string

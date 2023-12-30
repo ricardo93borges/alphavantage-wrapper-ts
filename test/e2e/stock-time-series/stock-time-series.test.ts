@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { API_URL } from '@/config'
-import { Interval } from '@/enum'
-import { StockTimeSeries } from '@/stock-time-series/StockTimeSeries'
+import { API_URL } from '../../../src/config'
+import { Interval } from '../../../src/enum'
+import { StockTimeSeries } from '../../../src/stock-time-series/StockTimeSeries'
 import { getApiKey } from '../../utils'
 
 describe('StockTimeSeries', () => {

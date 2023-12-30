@@ -1,7 +1,10 @@
 import axios, { AxiosInstance } from 'axios'
-import { Cryptocurrency } from '@/cryptocurrency/Cryptocurrency'
-import { DataType, Function, Interval, OutputSize } from '@/enum'
-import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
+import { Cryptocurrency } from '../../../src/cryptocurrency/Cryptocurrency'
+import { DataType, Function, Interval, OutputSize } from '../../../src/enum'
+import {
+  AlphaVantageRequestError,
+  ParseResponseError
+} from '../../../src/errors'
 import {
   givenDailyResponse,
   givenIntradayResponse,

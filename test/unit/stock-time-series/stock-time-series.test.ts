@@ -1,7 +1,10 @@
 import axios, { AxiosInstance } from 'axios'
-import { OutputSize, DataType, Function, Interval } from '@/enum/'
-import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
-import { StockTimeSeries } from '@/stock-time-series/StockTimeSeries'
+import { OutputSize, DataType, Function, Interval } from '../../../src/enum/'
+import {
+  AlphaVantageRequestError,
+  ParseResponseError
+} from '../../../src/errors'
+import { StockTimeSeries } from '../../../src/stock-time-series/StockTimeSeries'
 import {
   givenDailyAdjustedResponse,
   givenDailyResponse,

@@ -1,4 +1,4 @@
-import { ParseResponseError } from '@/errors'
+import { ParseResponseError } from '../../errors'
 import { QuoteResponse } from '../dto/'
 
 type QuoteResponseData = {

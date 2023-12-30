@@ -1,4 +1,4 @@
-import { ListingState } from '@/enum'
+import { ListingState } from '../../enum'
 
 export type ListingStatusDTO = {
   date?: string

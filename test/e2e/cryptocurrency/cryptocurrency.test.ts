@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { API_URL } from '@/config'
-import { Cryptocurrency } from '@/cryptocurrency/Cryptocurrency'
-import { Interval } from '@/enum/'
+import { API_URL } from '../../../src/config'
+import { Cryptocurrency } from '../../../src/cryptocurrency/Cryptocurrency'
+import { Interval } from '../../../src/enum/'
 import { getApiKey } from '../../utils'
 
 describe('Cryptocurrency', () => {

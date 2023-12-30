@@ -1,4 +1,4 @@
-import { DataType, Interval, OutputSize } from '@/enum'
+import { DataType, Interval, OutputSize } from '../../enum'
 
 export type IntradayDTO = {
   symbol: string

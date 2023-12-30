@@ -1,4 +1,4 @@
-import { ParseResponseError } from '@/errors'
+import { ParseResponseError } from '../../errors'
 import { CompanyOverviewResponse } from '../dto/'
 
 export type CompanyOverviewAPIResponseDTO = {

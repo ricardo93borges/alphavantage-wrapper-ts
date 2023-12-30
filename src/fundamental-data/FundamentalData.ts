@@ -1,6 +1,6 @@
-import { Category } from '@/Category'
-import { Function } from '@/enum'
-import { AlphaVantageRequestError, ParseResponseError } from '@/errors'
+import { Category } from '../Category'
+import { Function } from '../enum'
+import { AlphaVantageRequestError, ParseResponseError } from '../errors'
 import {
   CompanyOverviewResponse,
   CompanyOverviewDTO,

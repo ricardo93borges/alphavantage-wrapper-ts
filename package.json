@@ -1,6 +1,6 @@
 {
   "name": "alphavantage-wrapper-ts",
-  "version": "3.0.0",
+  "version": "3.0.9",
   "description": "Alpha Vantage API wrapper",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -72,9 +72,6 @@
     "axios": "^1.5.1",
     "module-alias": "^2.2.3",
     "ts-node": "^10.9.1"
-  },
-  "_moduleAliases": {
-    "@": "dist"
   },
   "config": {
     "commitizen": {

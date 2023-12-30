@@ -1,4 +1,4 @@
-import { ParseResponseError } from '@/errors'
+import { ParseResponseError } from '../../errors'
 import { SearchAPIResponse, SearchResponse } from '../dto/'
 
 export function parseSearchResponse(data: SearchAPIResponse): SearchResponse[] {
