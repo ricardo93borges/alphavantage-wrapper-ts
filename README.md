@@ -716,28 +716,18 @@ av.cryptocurrency
   }
   timeSeries: {
       '<datetime>': {
-          openMarket: string;
-          openUSD: string;
-          highMarket: string;
-          highUSD: string;
-          lowMarket: string;
-          lowUSD: string;
-          closeMarket: string;
-          closeUSD: string;
-          volume: string;
-          marketCap: string;
+          open: string
+          high: string
+          low: string
+          close: string
+          volume: string
       },
       '<datetime>': {
-          openMarket: string;
-          openUSD: string;
-          highMarket: string;
-          highUSD: string;
-          lowMarket: string;
-          lowUSD: string;
-          closeMarket: string;
-          closeUSD: string;
-          volume: string;
-          marketCap: string;
+          open: string
+          high: string
+          low: string
+          close: string
+          volume: string
       },
       ...
     }
@@ -773,28 +763,18 @@ av.cryptocurrency
   }
   timeSeries: {
       '<datetime>': {
-          openMarket: string;
-          openUSD: string;
-          highMarket: string;
-          highUSD: string;
-          lowMarket: string;
-          lowUSD: string;
-          closeMarket: string;
-          closeUSD: string;
-          volume: string;
-          marketCap: string;
+          open: string
+          high: string
+          low: string
+          close: string
+          volume: string
       },
       '<datetime>': {
-          openMarket: string;
-          openUSD: string;
-          highMarket: string;
-          highUSD: string;
-          lowMarket: string;
-          lowUSD: string;
-          closeMarket: string;
-          closeUSD: string;
-          volume: string;
-          marketCap: string;
+          open: string
+          high: string
+          low: string
+          close: string
+          volume: string
       },
       ...
     }
@@ -830,28 +810,18 @@ av.cryptocurrency
   }
   timeSeries: {
       '<datetime>': {
-          openMarket: string;
-          openUSD: string;
-          highMarket: string;
-          highUSD: string;
-          lowMarket: string;
-          lowUSD: string;
-          closeMarket: string;
-          closeUSD: string;
-          volume: string;
-          marketCap: string;
+          open: string
+          high: string
+          low: string
+          close: string
+          volume: string
       },
       '<datetime>': {
-          openMarket: string;
-          openUSD: string;
-          highMarket: string;
-          highUSD: string;
-          lowMarket: string;
-          lowUSD: string;
-          closeMarket: string;
-          closeUSD: string;
-          volume: string;
-          marketCap: string;
+          open: string
+          high: string
+          low: string
+          close: string
+          volume: string
       },
       ...
     }
