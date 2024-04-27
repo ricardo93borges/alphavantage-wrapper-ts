@@ -155,16 +155,11 @@ describe('Cryptocurrency', () => {
       expect(result.metadata.digitalCurrencyCode).toEqual('ETH')
       expect(result.metadata.digitalCurrencyName).toEqual('Ethereum')
       expect(result.timeSeries['2021-10-29']).toEqual({
-        openMarket: '19180.86322600',
-        openUSD: '3000.62000000',
-        highMarket: '28161.27765000',
-        highUSD: '4405.50000000',
-        lowMarket: '18979.18616100',
-        lowUSD: '2969.07000000',
-        closeMarket: '27845.56195300',
-        closeUSD: '4356.11000000',
-        volume: '13202580.62690000',
-        marketCap: '13202580.62690000'
+        open: '388985.64590600',
+        high: '407257.46014900',
+        low: '369602.78600000',
+        close: '392416.00977800',
+        volume: '205302.14371000'
       })
     })
 
@@ -247,16 +242,11 @@ describe('Cryptocurrency', () => {
       expect(result.metadata.digitalCurrencyCode).toEqual('BTC')
       expect(result.metadata.digitalCurrencyName).toEqual('Bitcoin')
       expect(result.timeSeries['2021-10-29']).toEqual({
-        openMarket: '388985.64590600',
-        openUSD: '60852.22000000',
-        highMarket: '407257.46014900',
-        highUSD: '63710.63000000',
-        lowMarket: '369602.78600000',
-        lowUSD: '57820.00000000',
-        closeMarket: '392416.00977800',
-        closeUSD: '61388.86000000',
-        volume: '205302.14371000',
-        marketCap: '205302.14371000'
+        open: '388985.64590600',
+        high: '407257.46014900',
+        low: '369602.78600000',
+        close: '392416.00977800',
+        volume: '205302.14371000'
       })
     })
 
@@ -339,16 +329,11 @@ describe('Cryptocurrency', () => {
       expect(result.metadata.digitalCurrencyCode).toEqual('BTC')
       expect(result.metadata.digitalCurrencyName).toEqual('Bitcoin')
       expect(result.timeSeries['2021-10-29']).toEqual({
-        openMarket: '387219.32557000',
-        openUSD: '60575.90000000',
-        highMarket: '396961.83000000',
-        highUSD: '62100.00000000',
-        lowMarket: '384655.43796300',
-        lowUSD: '60174.81000000',
-        closeMarket: '392416.00977800',
-        closeUSD: '61388.86000000',
-        volume: '5049.96165000',
-        marketCap: '5049.96165000'
+        open: '388985.64590600',
+        high: '407257.46014900',
+        low: '369602.78600000',
+        close: '392416.00977800',
+        volume: '205302.14371000'
       })
     })
 

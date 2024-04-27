@@ -55,7 +55,7 @@ export class Cryptocurrency extends Category {
       }
 
       return parseResponse(
-        getParseMonthlyResponseMap(monthlyDTO.market),
+        getParseMonthlyResponseMap(),
         data
       ) as unknown as MonthlyResponse
     } catch (err) {
@@ -79,7 +79,7 @@ export class Cryptocurrency extends Category {
       }
 
       return parseResponse(
-        getParseWeeklyResponseMap(weeklyDTO.market),
+        getParseWeeklyResponseMap(),
         data
       ) as unknown as WeeklyResponse
     } catch (err) {
@@ -103,7 +103,7 @@ export class Cryptocurrency extends Category {
       }
 
       return parseResponse(
-        getParseDailyResponseMap(dailyDTO.market),
+        getParseDailyResponseMap(),
         data
       ) as unknown as DailyResponse
     } catch (err) {

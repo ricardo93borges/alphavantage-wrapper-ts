@@ -616,7 +616,7 @@ av.fundamentalData.earnings({ symbol: 'IBM' }).then((data) => console.log(data))
 
 ```js
 av.fundamentalData
-  .listingStatus({ state: ListingStatus.ACTIVE, date: '2014-07-10' })
+  .listingStatus({ state: ListingState.ACTIVE, date: '2014-07-10' })
   .then((data) => console.log(data))
 ```
 
