@@ -36,7 +36,7 @@ export function getParseIntradayResponseMap(
   }
 }
 
-export function getParseMonthlyResponseMap(market: string): CryptoResponseMap {
+export function getParseMonthlyResponseMap(): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -49,21 +49,16 @@ export function getParseMonthlyResponseMap(market: string): CryptoResponseMap {
     },
     timeSeriesKey: 'Time Series (Digital Currency Monthly)',
     timeSeries: {
-      openMarket: `1a. open (${market})`,
-      openUSD: '1b. open (USD)',
-      highMarket: `2a. high (${market})`,
-      highUSD: '2b. high (USD)',
-      lowMarket: `3a. low (${market})`,
-      lowUSD: '3b. low (USD)',
-      closeMarket: `4a. close (${market})`,
-      closeUSD: '4b. close (USD)',
-      volume: '5. volume',
-      marketCap: '6. market cap (USD)'
+      open: '1. open',
+      high: '2. high',
+      low: '3. low',
+      close: '4. close',
+      volume: '5. volume'
     }
   }
 }
 
-export function getParseWeeklyResponseMap(market: string): CryptoResponseMap {
+export function getParseWeeklyResponseMap(): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -76,21 +71,16 @@ export function getParseWeeklyResponseMap(market: string): CryptoResponseMap {
     },
     timeSeriesKey: 'Time Series (Digital Currency Weekly)',
     timeSeries: {
-      openMarket: `1a. open (${market})`,
-      openUSD: '1b. open (USD)',
-      highMarket: `2a. high (${market})`,
-      highUSD: '2b. high (USD)',
-      lowMarket: `3a. low (${market})`,
-      lowUSD: '3b. low (USD)',
-      closeMarket: `4a. close (${market})`,
-      closeUSD: '4b. close (USD)',
-      volume: '5. volume',
-      marketCap: '6. market cap (USD)'
+      open: '1. open',
+      high: '2. high',
+      low: '3. low',
+      close: '4. close',
+      volume: '5. volume'
     }
   }
 }
 
-export function getParseDailyResponseMap(market: string): CryptoResponseMap {
+export function getParseDailyResponseMap(): CryptoResponseMap {
   return {
     metadata: {
       information: '1. Information',
@@ -103,16 +93,11 @@ export function getParseDailyResponseMap(market: string): CryptoResponseMap {
     },
     timeSeriesKey: 'Time Series (Digital Currency Daily)',
     timeSeries: {
-      openMarket: `1a. open (${market})`,
-      openUSD: '1b. open (USD)',
-      highMarket: `2a. high (${market})`,
-      highUSD: '2b. high (USD)',
-      lowMarket: `3a. low (${market})`,
-      lowUSD: '3b. low (USD)',
-      closeMarket: `4a. close (${market})`,
-      closeUSD: '4b. close (USD)',
-      volume: '5. volume',
-      marketCap: '6. market cap (USD)'
+      open: '1. open',
+      high: '2. high',
+      low: '3. low',
+      close: '4. close',
+      volume: '5. volume'
     }
   }
 }
